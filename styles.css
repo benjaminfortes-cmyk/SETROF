@@ -597,28 +597,11 @@ textarea:focus-visible {
   background: var(--gray-light);
   min-height: 320px;
 }
-.why__photo-ph {
-  width: 100%; height: 100%;
-  min-height: 320px;
-  background:
-    repeating-linear-gradient(45deg, #e3e8f0 0 12px, #ecf0f6 12px 24px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: var(--gray-mid);
-  text-align: center;
-  padding: 20px;
-}
-.why__photo-ph i { font-size: 2.4rem; color: var(--blue); }
-.why__photo-ph span {
-  font-family: var(--ff-title);
-  font-size: .78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  max-width: 220px;
+.why__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Card azul central */
@@ -987,12 +970,13 @@ textarea:focus-visible {
 
 /* Galería de piscinas */
 .pools__gallery {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-auto-rows: 240px;
   gap: 14px;
   height: 100%;
-  min-height: 420px;
 }
 .pools__gallery-cell {
   border-radius: var(--r-lg);
@@ -1491,4 +1475,81 @@ textarea:focus-visible {
   .gallery__grid { grid-template-columns: 1fr; grid-auto-rows: 190px; }
   .about__icon-grid { grid-template-columns: repeat(2, 1fr); }
   .contact__form-wrap { padding: 24px 16px; }
+}
+
+
+/* ==========================================================
+   MODAL LIGHTBOX (PISCINAS)
+========================================================== */
+.pool-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(10, 37, 64, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(8px);
+}
+
+.pool-modal--open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.pool-modal__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 3rem;
+  color: var(--white);
+  line-height: 1;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+.pool-modal__close:hover { transform: scale(1.1); color: var(--blue-accent); }
+
+.pool-modal__content {
+  max-width: 900px;
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transform: translateY(30px);
+  transition: transform 0.4s ease;
+}
+.pool-modal--open .pool-modal__content {
+  transform: translateY(0);
+}
+
+.pool-modal__content img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: cover;
+  display: block;
+}
+
+.pool-modal__info {
+  padding: 28px 32px;
+  background: var(--white);
+}
+
+.pool-modal__info p {
+  font-family: var(--ff-title);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .pool-modal__content { max-width: 100%; }
+  .pool-modal__info { padding: 20px; }
+  .pool-modal__info p { font-size: .92rem; }
 }
