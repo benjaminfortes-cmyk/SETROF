@@ -1,17 +1,14 @@
-/*
-  SETROF SEGURIDAD - main.js
-  Animaciones (GSAP + ScrollTrigger + Lenis): intro cinematografico,
-  HUD del visor, lente de servicios, secuencia de piscinas y reveals.
-  Degradacion elegante: sin GSAP o con prefers-reduced-motion, el
-  contenido queda visible (ver la clase .anim-ready en el <head>).
-*/
+// /*
+//   
+// SETROF SEGURIDAD - Hecho por: Benjamín Fortes Carrasco
+//  
+// */
 
 (function () {
   'use strict';
 
   /* =========================================================
-     1) LÓGICA BASE — sin dependencia de GSAP
-     (funciona aunque el CDN falle o haya reduced-motion)
+   LÓGICA BASE 
   ========================================================= */
   const header = document.getElementById('header');
   const navToggle = document.getElementById('navToggle');
@@ -19,12 +16,12 @@
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let lenis = null; // se asigna más abajo si procede
 
-  /* ---- Header: compactado al hacer scroll ---- */
+  /* ---- Header ---- */
   const onScroll = () => header.classList.toggle('header--scrolled', window.scrollY > 60);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ---- Menú mobile ---- */
+  /* ---- MenU mobile ---- */
   navToggle.addEventListener('click', () => {
     const open = navMenu.classList.toggle('nav__menu--open');
     navToggle.setAttribute('aria-expanded', open);
@@ -49,7 +46,7 @@
   setActive();
   window.addEventListener('scroll', setActive, { passive: true });
 
-  /* ---- Formulario: abre WhatsApp (lógica intacta) ---- */
+  /* ---- Formulario abre WhatsApp  ---- */
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -74,7 +71,7 @@
     });
   }
 
-  /* ---- Lightbox para Piscinas (intacto + pausa de Lenis) ---- */
+  /* ---- box para Piscinas  ---- */
   const poolModal = document.getElementById('poolModal');
   const modalImg = document.getElementById('modalImg');
   const modalText = document.getElementById('modalText');
@@ -105,9 +102,8 @@
 
 
   /* =========================================================
-     2) GUARDA DE ANIMACIONES
-     Si no hay GSAP (CDN caído) o el usuario pide menos
-     movimiento: revelamos todo y salimos.
+         GUARDA DE ANIMACIONES
+  
   ========================================================= */
   const hasGSAP = !!(window.gsap && window.ScrollTrigger);
   if (prefersReduced || !hasGSAP) {
@@ -124,8 +120,8 @@
 
 
   /* =========================================================
-     3) LENIS — smooth scroll (solo desktop con rueda;
-     táctil usa scroll nativo para evitar lag en móvil)
+     3) solo dpccesktop con rueda
+     táctil 
   ========================================================= */
   if (typeof Lenis !== 'undefined') {
     lenis = new Lenis({
@@ -156,7 +152,7 @@
 
 
   /* =========================================================
-     3.5) HUD DEL VISOR — timestamp, estado por sección, helpers
+     3.5) EL VISOR 
   ========================================================= */
   const hudEl = document.getElementById('hud');
   const hudTime = document.getElementById('hudTime');
@@ -205,8 +201,7 @@
 
 
   /* =========================================================
-     4) HERO — entrada escalonada (timeline en pausa; se dispara
-     tras el intro, o de inmediato si el intro no se reproduce)
+     4) HERO  entrada escalonada 
   ========================================================= */
   const heroTextTl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out', duration: 0.9 } });
   heroTextTl
@@ -220,10 +215,10 @@
     opacity: 1, scale: 1, duration: quick ? 0.6 : 1.1, ease: 'power3.out'
   });
 
-  /* Usamos gsap.matchMedia para limitar efectos por viewport / puntero */
+  /* Usamos gsap.matchMedia para limitar efectos por viewport */
   const mm = gsap.matchMedia();
 
-  /* Parallax de scroll en el fondo del hero (tablet/desktop) */
+  /* Parallax de scroll en el fondo*/
   mm.add('(min-width: 769px)', () => {
     const stOpts = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
     gsap.to('.hero__blob--1',      { yPercent: 28,  ease: 'none', scrollTrigger: stOpts });
@@ -232,7 +227,7 @@
     gsap.to('.hero__text',         { yPercent: -8,  opacity: 0.55, ease: 'none', scrollTrigger: stOpts });
   });
 
-  /* Parallax de mouse — solo desktop con puntero fino */
+  /* Parallax de mouse*/
   mm.add('(min-width: 1025px) and (pointer: fine)', () => {
     const visual = document.querySelector('.hero__visual');
     const blob1 = document.querySelector('.hero__blob--1');
@@ -254,7 +249,7 @@
 
 
   /* =========================================================
-     5) REVEALS — tarjetas en stagger + elementos sueltos
+     5) REVEALS tarjetas en stagger 
   ========================================================= */
   const groupSelectors = [
     '.quick-services__grid .fade-in',
@@ -277,8 +272,7 @@
     });
   });
 
-  /* Resto de .fade-in. Los encabezados se "reenfocan" con el scroll
-     (blur atado al progreso = sensación de cámara/video). */
+  /* Los encabezados se "reenfocan */
   gsap.utils.toArray('.fade-in').forEach(el => {
     if (grouped.has(el)) return;
     if (el.classList.contains('section-header')) {
@@ -300,7 +294,7 @@
 
 
   /* =========================================================
-     6) CONTADORES de estadísticas (+10 / +500 / 100%)
+     6) CONTADORES de estadísticas 
   ========================================================= */
   gsap.utils.toArray('.why__stat-num').forEach(el => {
     const raw = el.textContent.trim();
@@ -322,7 +316,7 @@
 
 
   /* =========================================================
-     7) PISCINAS — parallax cinematográfico del encabezado
+     7) PISCINAS 
   ========================================================= */
   mm.add('(min-width: 769px)', () => {
     gsap.fromTo('.pools__hero',
@@ -336,9 +330,7 @@
 
 
   /* =========================================================
-     7.5) PISCINAS — secuencia "proceso de construcción"
-     Desktop: sección anclada (pin) + crossfade scrubbed paso a paso.
-     Móvil: pasos en flujo con revelado simple (sin pin, sin lag).
+     7.5) PISCINAS — secuencia "proceso de construcción
   ========================================================= */
   const poolSteps = gsap.utils.toArray('.pools__step');
   if (poolSteps.length) {
@@ -366,7 +358,7 @@
       if (stepDescEl && img) stepDescEl.textContent = img.getAttribute('data-description');
     };
 
-    /* --- DESKTOP / TABLET: pinned crossfade --- */
+    /* --- DESKTOP  --- */
     mm.add('(min-width: 769px)', () => {
       lastIdx = -1;
       const render = (p) => {
@@ -431,10 +423,7 @@
 
 
   /* =========================================================
-     7.6) SERVICIOS — lente de cámara que enfoca (pin + scrub)
-     Desktop/tablet: sección anclada; el lente rota y "bloquea
-     el foco" 5 veces, revelando un servicio nítido en cada foco.
-     Móvil: tarjetas apiladas con un "enfoque" simple al entrar.
+     7.6) SERVICIOS lente de cámara que enfoca 
   ========================================================= */
   const svcEls = gsap.utils.toArray('.svc-lens');
   if (svcEls.length) {
@@ -477,7 +466,7 @@
           }
         });
 
-        // Anillo de foco: abierto (grande) cuando f bajo; bloquea en 1 con micro-snap
+        // Anillo de foco
         let fscale = 1 + (1 - f) * 0.42;
         if (t > 0.38 && t < 0.52) fscale *= 1 + 0.05 * Math.sin((t - 0.38) / 0.14 * Math.PI);
         if (lensFocus) gsap.set(lensFocus, { scale: fscale, opacity: 0.3 + f * 0.7 });
@@ -518,7 +507,7 @@
       };
     });
 
-    /* --- MÓVIL: tarjetas con "enfoque" simple --- */
+    /* --- MÓVIL tarjetas con enfoque simple --- */
     mm.add('(max-width: 768px)', () => {
       const tws = svcEls.map(el => gsap.fromTo(el,
         { opacity: 0, scale: 0.94, filter: 'blur(10px)' },
@@ -533,7 +522,7 @@
 
 
   /* =========================================================
-     8) INTRO CINEMATOGRÁFICO + arranque del hero
+     8) INTRO CINE + arranque del hero
   ========================================================= */
   const introEl = document.getElementById('intro');
   const shouldPlayIntro = document.documentElement.classList.contains('intro-play') && !!introEl;
@@ -563,8 +552,7 @@
       const heroVisual = document.querySelector('.hero__visual');
       const heroCam = document.querySelector('.hero__camera');
 
-      /* Medir el destino del morph: dónde y a qué escala queda la
-         cámara real del hero (medido a escala final = 1). */
+      /* Medir el destino del morph */
       gsap.set(heroVisual, { scale: 1 });
       const ir = introCam.getBoundingClientRect();
       const hr = heroCam.getBoundingClientRect();
@@ -583,7 +571,7 @@
 
       const tl = gsap.timeline({ onComplete: endNow });
 
-      /* --- Entrada de la escena (fromTo: compatible con el pre-ocultado CSS) --- */
+      /* --- Entrada de la escena  --- */
       tl.fromTo('.intro__ring', { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.5, stagger: 0.16, ease: 'power2.out' })
         .fromTo('.intro__glow', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 1.5, ease: 'power2.out' }, 0.1)
         .fromTo(introCam,       { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 1.4, ease: 'power3.out' }, 0.3)
@@ -593,7 +581,7 @@
         .fromTo('.intro__skip', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.45')
         .to({}, { duration: 2.2 }); // sostener (escena centrada respira ~2s)
 
-      /* --- Salida: morph de la cámara hacia el hero + apertura --- */
+      /* --- Salida morph de la cámara hacia el hero  */
       tl.addLabel('exit')
         .to('.intro__brand', { opacity: 0, y: -36, duration: 0.6, ease: 'power2.in' }, 'exit')
         .to('.intro__rings', { opacity: 0, duration: 0.6 }, 'exit')
@@ -606,7 +594,7 @@
         .to(introCam,        { opacity: 0, duration: 0.45, ease: 'power2.out' }, 'exit+=1.1')
         .to('.intro',        { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 'exit+=1.15');
 
-      /* --- Saltar intro (click / scroll / tecla) --- */
+      /* --- Saltar intro  --- */
       const skip = () => { if (!done) tl.progress(1); };
       const onKey = (e) => {
         if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
@@ -636,7 +624,7 @@
   }
 
 
-  /* Refresca medidas tras cargar imágenes (evita triggers desfasados) */
+  /* Refresca medidas tras cargar imágenes */
   window.addEventListener('load', () => ScrollTrigger.refresh());
 
 })();
