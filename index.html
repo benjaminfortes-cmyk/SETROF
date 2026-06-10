@@ -5,6 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Gate de animaciones: decide ANTES del render para evitar parpadeos.
+       - .anim-ready: oculta-para-revelar (solo si se permite movimiento).
+       - .intro-play: muestra el intro cinematográfico (1 vez por sesión).
+       Sin JS o con reduced-motion no se añade ninguna: el contenido es visible
+       y el intro se omite. -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      try {
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.classList.add('anim-ready');
+          if (!sessionStorage.getItem('setrof_intro_played')) {
+            d.classList.add('intro-play');
+          }
+        }
+      } catch (e) { /* navegadores antiguos: no ocultamos nada */ }
+    })();
+  </script>
+
   <!-- SEO -->
   <title>SETROF SEGURIDAD | Sistemas Integrales de Seguridad — La Serena y Coquimbo</title>
   <meta name="description"
@@ -31,7 +50,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
 
   <!-- Font Awesome 6 -->
@@ -75,6 +94,48 @@
 <body>
 
   <!-- ================================================
+       INTRO CINEMATOGRÁFICO (1 vez por sesión)
+  ================================================ -->
+  <div class="intro" id="intro" role="presentation" aria-hidden="true">
+    <div class="intro__bg"></div>
+    <div class="intro__glow"></div>
+    <div class="intro__rings">
+      <span class="intro__ring"></span>
+      <span class="intro__ring"></span>
+      <span class="intro__ring"></span>
+    </div>
+    <img src="imagen%20camara%20sin%20fondo.png" alt="" class="intro__camera" id="introCamera">
+    <div class="intro__brand">
+      <h1 class="intro__name" aria-label="SETROF">
+        <span class="intro__char">S</span><span class="intro__char">E</span><span class="intro__char">T</span><span class="intro__char">R</span><span class="intro__char">O</span><span class="intro__char">F</span>
+      </h1>
+      <p class="intro__sub">SEGURIDAD</p>
+      <p class="intro__tag">Sistemas Integrales de Seguridad</p>
+    </div>
+    <button class="intro__skip" id="introSkip" type="button">Saltar intro</button>
+  </div>
+
+  <!-- ================================================
+       HUD DEL VISOR (superposición tipo lente)
+  ================================================ -->
+  <div class="hud" id="hud" aria-hidden="true">
+    <div class="hud__scan"></div>
+    <div class="hud__vignette"></div>
+    <span class="hud__corner hud__corner--tl"></span>
+    <span class="hud__corner hud__corner--tr"></span>
+    <span class="hud__corner hud__corner--bl"></span>
+    <span class="hud__corner hud__corner--br"></span>
+    <div class="hud__rec"><span class="hud__rec-dot"></span> REC</div>
+    <div class="hud__readout">
+      <span><i class="fa-solid fa-video"></i> CAM-01 SETROF</span>
+      <span class="hud__sep"></span>
+      <span id="hudTime">--:--:--</span>
+      <span class="hud__sep"></span>
+      <span id="hudStatus">SECTOR 01 · INICIO</span>
+    </div>
+  </div>
+
+  <!-- ================================================
        HEADER
   ================================================ -->
   <header class="header" id="header" role="banner">
@@ -115,10 +176,11 @@
       <div class="container hero__inner">
 
         <div class="hero__text">
-          <p class="hero__badge">
-            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-            La Serena / Coquimbo, Chile
-          </p>
+          <div class="hero__geo">
+            <span class="hero__geo-line"><span class="hero__geo-dot" aria-hidden="true"></span> Zona monitoreada</span>
+            <span class="hero__geo-coords" id="geoCoords" aria-hidden="true">LAT <b>-29.9027</b> · LON <b>-71.2519</b> · LA SERENA — COQUIMBO</span>
+            <span class="sr-only">Ubicación: La Serena y Coquimbo, Chile.</span>
+          </div>
           <h1 class="hero__title">
             Sistemas Integrales<br>
             de <span class="hero__title-accent">Seguridad</span>
@@ -185,33 +247,155 @@
         <div class="quick-services__grid">
 
           <div class="qs-card fade-in">
-            <div class="qs-card__icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1-1v-1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1a1 1 0 0 0 1 1"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg></div>
             <h3 class="qs-card__title">Sistemas de Alarma</h3>
             <p class="qs-card__text">Protección avanzada contra intrusiones y emergencias.</p>
           </div>
 
           <div class="qs-card fade-in">
-            <div class="qs-card__icon"><i class="fa-solid fa-video"></i></div>
+            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg></div>
             <h3 class="qs-card__title">Cámaras de Seguridad</h3>
             <p class="qs-card__text">Monitoreo 24/7 en alta definición.</p>
           </div>
 
           <div class="qs-card fade-in">
-            <div class="qs-card__icon"><i class="fa-solid fa-door-closed"></i></div>
+            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/></svg></div>
             <h3 class="qs-card__title">Automatización de Portones</h3>
             <p class="qs-card__text">Control de acceso seguro y eficiente.</p>
           </div>
 
           <div class="qs-card fade-in">
-            <div class="qs-card__icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/></svg></div>
             <h3 class="qs-card__title">Cerco Eléctrico</h3>
             <p class="qs-card__text">Disuasión y protección perimetral de alto nivel.</p>
           </div>
 
           <div class="qs-card fade-in">
-            <div class="qs-card__icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
             <h3 class="qs-card__title">Mantenimiento</h3>
             <p class="qs-card__text">Soporte técnico continuo para todos tus sistemas.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         SERVICIOS DETALLADOS — Lente de cámara
+    ================================================ -->
+    <section class="services" id="servicios" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label">Lo que hacemos</span>
+          <h2 class="section-title" id="services-heading">Nuestros Servicios</h2>
+          <p class="section-subtitle">Soluciones completas de seguridad adaptadas a cada proyecto</p>
+        </div>
+      </div>
+
+      <!-- Escena "lente de cámara": enfoca 5 veces, un servicio por foco -->
+      <div class="lens-scene" id="lensScene" aria-label="Nuestros servicios a través del lente">
+        <div class="lens-stage" id="lensStage">
+
+          <!-- Lente de cámara (decorativo, animado con el scroll) -->
+          <div class="lens" id="lens" aria-hidden="true">
+            <div class="lens__rec"><span class="lens__rec-dot"></span> REC</div>
+            <div class="lens__ring lens__ring--3"></div>
+            <div class="lens__ring lens__ring--2"></div>
+            <div class="lens__ring lens__ring--1"></div>
+            <div class="lens__barrel"></div>
+            <div class="lens__iris"></div>
+            <div class="lens__glass"></div>
+            <div class="lens__focus"></div>
+            <div class="lens__reticle"></div>
+            <div class="lens__glint"></div>
+            <div class="lens__label">SETROF · 4K</div>
+          </div>
+
+          <!-- Contenido REAL de los 5 servicios (permanece en el DOM para SEO y lectores) -->
+          <div class="svc-lens-wrap">
+
+            <article class="svc-lens" data-name="Sistemas CCTV">
+              <span class="svc-lens__num" aria-hidden="true">01</span>
+              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg></div>
+              <h3 class="svc-lens__title">Sistemas CCTV</h3>
+              <p class="svc-lens__sub">Cámaras de Seguridad</p>
+              <ul class="svc-lens__list">
+                <li>Instalación de cámaras IP y analógicas HD</li>
+                <li>Configuración de grabadores NVR/DVR</li>
+                <li>Monitoreo remoto desde smartphone o PC</li>
+                <li>Cobertura interior, exterior y perimetral</li>
+                <li>Proyectos en colegios, condominios y clínicas</li>
+              </ul>
+            </article>
+
+            <article class="svc-lens" data-name="Cercos Eléctricos">
+              <span class="svc-lens__num" aria-hidden="true">02</span>
+              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/></svg></div>
+              <h3 class="svc-lens__title">Cercos Eléctricos</h3>
+              <p class="svc-lens__sub">Protección Perimetral</p>
+              <ul class="svc-lens__list">
+                <li>Diseño e instalación de cercos perimetrales</li>
+                <li>Electrificadores de alta confiabilidad</li>
+                <li>Integración con alarmas y CCTV</li>
+                <li>Proyectos en condominios e industrias</li>
+                <li>Mantenimiento preventivo y correctivo</li>
+              </ul>
+            </article>
+
+            <article class="svc-lens" data-name="Sistemas de Alarma">
+              <span class="svc-lens__num" aria-hidden="true">03</span>
+              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1-1v-1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1a1 1 0 0 0 1 1"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg></div>
+              <h3 class="svc-lens__title">Sistemas de Alarma</h3>
+              <p class="svc-lens__sub">Detección y Alerta</p>
+              <ul class="svc-lens__list">
+                <li>Alarmas perimetrales e intrusión</li>
+                <li>Sensores de movimiento, apertura y vibración</li>
+                <li>Paneles de control y comunicadores GSM/IP</li>
+                <li>Integración con monitoreo central</li>
+                <li>Alertas en tiempo real al celular</li>
+              </ul>
+            </article>
+
+            <article class="svc-lens" data-name="Portones Automáticos">
+              <span class="svc-lens__num" aria-hidden="true">04</span>
+              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/></svg></div>
+              <h3 class="svc-lens__title">Portones Automáticos</h3>
+              <p class="svc-lens__sub">Control de Accesos</p>
+              <ul class="svc-lens__list">
+                <li>Automatización de portones correderos y batientes</li>
+                <li>Acceso por tarjeta, clave o biometría</li>
+                <li>Lectores de proximidad y teclados</li>
+                <li>Integración con CCTV y alarmas</li>
+              </ul>
+            </article>
+
+            <article class="svc-lens" data-name="Mantenimiento">
+              <span class="svc-lens__num" aria-hidden="true">05</span>
+              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+              <h3 class="svc-lens__title">Mantenimiento</h3>
+              <p class="svc-lens__sub">Soporte Técnico</p>
+              <ul class="svc-lens__list">
+                <li>Revisión periódica de todos los sistemas</li>
+                <li>Diagnóstico y reparación de fallas</li>
+                <li>Actualización de firmware y software</li>
+                <li>Respuesta rápida ante emergencias</li>
+                <li>Contratos de mantención disponibles</li>
+              </ul>
+            </article>
+
+          </div>
+
+          <!-- Readout + progreso (HUD del lente) -->
+          <div class="lens__readout" aria-hidden="true">
+            <span class="lens__readout-tag"><span class="lens__readout-dot"></span> Enfocando</span>
+            <span class="lens__readout-name" id="svcName">SERVICIO 01 · SISTEMAS CCTV</span>
+          </div>
+          <div class="lens__progress" aria-hidden="true" id="lensProgress">
+            <div class="lens__progress-item is-active"><span></span>01</div>
+            <div class="lens__progress-item"><span></span>02</div>
+            <div class="lens__progress-item"><span></span>03</div>
+            <div class="lens__progress-item"><span></span>04</div>
+            <div class="lens__progress-item"><span></span>05</div>
           </div>
 
         </div>
@@ -247,27 +431,27 @@
           <div class="about__visual-col fade-in" aria-hidden="true">
             <div class="about__icon-grid">
               <div class="about__icon-cell">
-                <i class="fa-solid fa-video"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg>
                 <span>CCTV</span>
               </div>
               <div class="about__icon-cell">
-                <i class="fa-solid fa-bolt"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/></svg>
                 <span>Cercos</span>
               </div>
               <div class="about__icon-cell">
-                <i class="fa-solid fa-bell"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1-1v-1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1a1 1 0 0 0 1 1"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg>
                 <span>Alarmas</span>
               </div>
               <div class="about__icon-cell">
-                <i class="fa-solid fa-water"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
                 <span>Piscinas</span>
               </div>
               <div class="about__icon-cell">
-                <i class="fa-solid fa-door-open"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/></svg>
                 <span>Accesos</span>
               </div>
               <div class="about__icon-cell">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                 <span>Mantención</span>
               </div>
             </div>
@@ -363,91 +547,6 @@
     </section>
 
     <!-- ================================================
-         SERVICIOS DETALLADOS
-    ================================================ -->
-    <section class="services" id="servicios" aria-labelledby="services-heading">
-      <div class="container">
-        <div class="section-header fade-in">
-          <span class="section-label">Lo que hacemos</span>
-          <h2 class="section-title" id="services-heading">Nuestros Servicios</h2>
-          <p class="section-subtitle">Soluciones completas de seguridad adaptadas a cada proyecto</p>
-        </div>
-        <div class="services__grid">
-
-          <article class="svc-card fade-in">
-            <span class="svc-card__num" aria-hidden="true">01</span>
-            <div class="svc-card__icon"><i class="fa-solid fa-video"></i></div>
-            <h3 class="svc-card__title">Sistemas CCTV</h3>
-            <p class="svc-card__sub">Cámaras de Seguridad</p>
-            <ul class="svc-card__list">
-              <li>Instalación de cámaras IP y analógicas HD</li>
-              <li>Configuración de grabadores NVR/DVR</li>
-              <li>Monitoreo remoto desde smartphone o PC</li>
-              <li>Cobertura interior, exterior y perimetral</li>
-              <li>Proyectos en colegios, condominios y clínicas</li>
-            </ul>
-          </article>
-
-          <article class="svc-card fade-in">
-            <span class="svc-card__num" aria-hidden="true">02</span>
-            <div class="svc-card__icon"><i class="fa-solid fa-bolt"></i></div>
-            <h3 class="svc-card__title">Cercos Eléctricos</h3>
-            <p class="svc-card__sub">Protección Perimetral</p>
-            <ul class="svc-card__list">
-              <li>Diseño e instalación de cercos perimetrales</li>
-              <li>Electrificadores de alta confiabilidad</li>
-              <li>Integración con alarmas y CCTV</li>
-              <li>Proyectos en condominios e industrias</li>
-              <li>Mantenimiento preventivo y correctivo</li>
-            </ul>
-          </article>
-
-          <article class="svc-card fade-in">
-            <span class="svc-card__num" aria-hidden="true">03</span>
-            <div class="svc-card__icon"><i class="fa-solid fa-bell"></i></div>
-            <h3 class="svc-card__title">Sistemas de Alarma</h3>
-            <p class="svc-card__sub">Detección y Alerta</p>
-            <ul class="svc-card__list">
-              <li>Alarmas perimetrales e intrusión</li>
-              <li>Sensores de movimiento, apertura y vibración</li>
-              <li>Paneles de control y comunicadores GSM/IP</li>
-              <li>Integración con monitoreo central</li>
-              <li>Alertas en tiempo real al celular</li>
-            </ul>
-          </article>
-
-          <article class="svc-card fade-in">
-            <span class="svc-card__num" aria-hidden="true">04</span>
-            <div class="svc-card__icon"><i class="fa-solid fa-door-open"></i></div>
-            <h3 class="svc-card__title">Portones Automáticos</h3>
-            <p class="svc-card__sub">Control de Accesos</p>
-            <ul class="svc-card__list">
-              <li>Automatización de portones correderos y batientes</li>
-              <li>Acceso por tarjeta, clave o biometría</li>
-              <li>Lectores de proximidad y teclados</li>
-              <li>Integración con CCTV y alarmas</li>
-            </ul>
-          </article>
-
-          <article class="svc-card fade-in">
-            <span class="svc-card__num" aria-hidden="true">05</span>
-            <div class="svc-card__icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-            <h3 class="svc-card__title">Mantenimiento</h3>
-            <p class="svc-card__sub">Soporte Técnico</p>
-            <ul class="svc-card__list">
-              <li>Revisión periódica de todos los sistemas</li>
-              <li>Diagnóstico y reparación de fallas</li>
-              <li>Actualización de firmware y software</li>
-              <li>Respuesta rápida ante emergencias</li>
-              <li>Contratos de mantención disponibles</li>
-            </ul>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================
          GALERÍA
     ================================================ -->
     <section class="gallery" id="galeria" aria-labelledby="gallery-heading">
@@ -495,77 +594,115 @@
             comunitarias y comerciales.
           </p>
         </div>
+      </div>
 
-        <div class="pools__grid">
+      <!-- Secuencia cinematográfica: proceso de construcción (pinned en desktop) -->
+      <div class="pools__process" id="poolsProcess" aria-label="Proceso de construcción de piscinas paso a paso">
+        <div class="pools__stage" id="poolsStage">
 
-          <div class="pools__features fade-in">
-            <article class="pool-feat">
-              <div class="pool-feat__icon"><i class="fa-solid fa-pen-ruler"></i></div>
-              <h3 class="pool-feat__title">Diseño personalizado</h3>
-              <p class="pool-feat__text">Cada proyecto se adapta a tu espacio, estilo y presupuesto. Asesoría integral
-                desde el plano hasta la entrega.</p>
-            </article>
-
-            <article class="pool-feat">
-              <div class="pool-feat__icon"><i class="fa-solid fa-trowel-bricks"></i></div>
-              <h3 class="pool-feat__title">Construcción en concreto armado</h3>
-              <p class="pool-feat__text">Estructuras de larga duración con encofrados profesionales y materiales de
-                primera calidad.</p>
-            </article>
-
-            <article class="pool-feat">
-              <div class="pool-feat__icon"><i class="fa-solid fa-gears"></i></div>
-              <h3 class="pool-feat__title">Equipamiento completo</h3>
-              <p class="pool-feat__text">Sistemas de filtrado, motores, iluminación LED y automatización para mantener
-                tu piscina impecable.</p>
-            </article>
-
-            <article class="pool-feat">
-              <div class="pool-feat__icon"><i class="fa-solid fa-water"></i></div>
-              <h3 class="pool-feat__title">Acabados premium</h3>
-              <p class="pool-feat__text">Revestimientos cerámicos, fibras de vidrio y bordes finos para un resultado
-                estético y duradero.</p>
-            </article>
-
-            <article class="pool-feat">
-              <div class="pool-feat__icon"><i class="fa-solid fa-shield-halved"></i></div>
-              <h3 class="pool-feat__title">Seguridad integrada</h3>
-              <p class="pool-feat__text">Alarmas de inmersión, cámaras y sistemas de protección perimetral para piscinas
-                residenciales y comunitarias.</p>
-            </article>
-
-            <article class="pool-feat">
-              <div class="pool-feat__icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-              <h3 class="pool-feat__title">Mantención post-obra</h3>
-              <p class="pool-feat__text">Servicio continuo de limpieza, control químico y revisión técnica para mantener
-                tu piscina en óptimas condiciones.</p>
-            </article>
+          <div class="pools__step" data-num="01" data-title="Excavación y preparación">
+            <img src="piscina 1.png" alt="Proceso piscina 1: Excavación"
+              data-description="Excavación y preparación del terreno: Iniciamos con el movimiento de tierras y nivelación precisa según el diseño.">
+            <div class="pools__step-cap"><span class="n">01</span><h3>Excavación y preparación</h3><p>Movimiento de tierras y nivelación precisa según el diseño.</p></div>
           </div>
 
-          <!-- Galería de piscinas (Proceso de construcción) -->
-          <div class="pools__gallery fade-in" aria-label="Galería de piscinas">
-            <div class="pools__gallery-cell">
-              <img src="piscina 1.png" alt="Proceso piscina 1: Excavación"
-                data-description="Excavación y preparación del terreno: Iniciamos con el movimiento de tierras y nivelación precisa según el diseño.">
-            </div>
-            <div class="pools__gallery-cell">
-              <img src="piscina 2.png" alt="Proceso piscina 2: Estructura"
-                data-description="Estructura y enfierradura: Colocación de mallas de acero y refuerzos estructurales para garantizar la máxima durabilidad.">
-            </div>
-            <div class="pools__gallery-cell">
-              <img src="piscina 3.png" alt="Proceso piscina 3: Encofrado"
-                data-description="Hormigonado y encofrado: Vaciado de concreto de alta resistencia para formar el vaso de la piscina.">
-            </div>
-            <div class="pools__gallery-cell">
-              <img src="pisicna 44.png" alt="Piscina Terminada"
-                data-description="Piscina Terminada: El resultado final de un proceso de construcción riguroso y profesional.">
-            </div>
-            <div class="pools__gallery-cell pools__gallery-cell--lg">
-              <img src="extra piscina.png" alt="Otro proyecto realizado"
-                data-description="Otro proyecto realizado: Ejemplo de una de nuestras piscinas entregadas con éxito en la región.">
-            </div>
+          <div class="pools__step" data-num="02" data-title="Estructura y enfierradura">
+            <img src="piscina 2.png" alt="Proceso piscina 2: Estructura"
+              data-description="Estructura y enfierradura: Colocación de mallas de acero y refuerzos estructurales para garantizar la máxima durabilidad.">
+            <div class="pools__step-cap"><span class="n">02</span><h3>Estructura y enfierradura</h3><p>Mallas de acero y refuerzos estructurales para máxima durabilidad.</p></div>
           </div>
 
+          <div class="pools__step" data-num="03" data-title="Hormigonado y encofrado">
+            <img src="piscina 3.png" alt="Proceso piscina 3: Encofrado"
+              data-description="Hormigonado y encofrado: Vaciado de concreto de alta resistencia para formar el vaso de la piscina.">
+            <div class="pools__step-cap"><span class="n">03</span><h3>Hormigonado y encofrado</h3><p>Vaciado de concreto de alta resistencia para formar el vaso.</p></div>
+          </div>
+
+          <div class="pools__step" data-num="04" data-title="Piscina terminada" data-tag="Proceso · Última fase">
+            <img src="pisicna 44.png" alt="Piscina terminada, última fase del proceso"
+              data-description="Piscina terminada: última fase del proceso. La misma piscina ya con agua, revestida y lista para disfrutar.">
+            <div class="pools__step-cap"><span class="n">04</span><h3>Piscina terminada</h3><p>Última fase: ya con agua, revestida y lista para disfrutar.</p></div>
+          </div>
+
+          <!-- Lectura del paso (desktop) -->
+          <div class="pools__readout" aria-hidden="true">
+            <span class="pools__readout-tag" id="poolStepTag">Proceso · En obra</span>
+            <span class="pools__readout-num"><span id="poolStepNum">01</span><small id="poolStepDenom"> / 04</small></span>
+            <h3 class="pools__readout-title pools__readout-fx" id="poolStepTitle">Excavación y preparación</h3>
+            <p class="pools__readout-desc pools__readout-fx" id="poolStepDesc">Movimiento de tierras y nivelación precisa según el diseño.</p>
+          </div>
+
+          <!-- Progreso de pasos (desktop) -->
+          <div class="pools__progress" aria-hidden="true" id="poolsProgress">
+            <div class="pools__progress-item is-active"><span></span>01 Excavación</div>
+            <div class="pools__progress-item"><span></span>02 Estructura</div>
+            <div class="pools__progress-item"><span></span>03 Hormigonado</div>
+            <div class="pools__progress-item"><span></span>04 Terminada</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Otro proyecto entregado (fuera de la secuencia del proceso) -->
+      <div class="container">
+        <div class="pools__other fade-in">
+          <div class="pools__other-media">
+            <img src="extra piscina.png" alt="Otro proyecto de piscina entregado en la región"
+              data-description="Otro proyecto entregado: una piscina distinta, terminada en otra obra de la región. Una muestra de la variedad de trabajos que realizamos.">
+            <span class="pools__other-seal" aria-hidden="true"><i class="fa-solid fa-circle-check"></i> Proyecto entregado</span>
+          </div>
+          <div class="pools__other-text">
+            <span class="section-label section-label--light">Más trabajos</span>
+            <h3 class="pools__other-title">Otro proyecto entregado</h3>
+            <p class="pools__other-desc">Una piscina distinta, terminada en otra obra de la región — una muestra de la variedad de proyectos que realizamos con el mismo estándar de calidad.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+
+        <div class="pools__features">
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg></div>
+            <h3 class="pool-feat__title">Diseño personalizado</h3>
+            <p class="pool-feat__text">Cada proyecto se adapta a tu espacio, estilo y presupuesto. Asesoría integral
+              desde el plano hasta la entrega.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v6"/><path d="M16 15v6"/><path d="M16 3v6"/><path d="M3 15h18"/><path d="M3 9h18"/><path d="M8 15v6"/><path d="M8 3v6"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg></div>
+            <h3 class="pool-feat__title">Construcción en concreto armado</h3>
+            <p class="pool-feat__text">Estructuras de larga duración con encofrados profesionales y materiales de
+              primera calidad.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <h3 class="pool-feat__title">Equipamiento completo</h3>
+            <p class="pool-feat__text">Sistemas de filtrado, motores, iluminación LED y automatización para mantener
+              tu piscina impecable.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></div>
+            <h3 class="pool-feat__title">Acabados premium</h3>
+            <p class="pool-feat__text">Revestimientos cerámicos, fibras de vidrio y bordes finos para un resultado
+              estético y duradero.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3 class="pool-feat__title">Seguridad integrada</h3>
+            <p class="pool-feat__text">Alarmas de inmersión, cámaras y sistemas de protección perimetral para piscinas
+              residenciales y comunitarias.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <h3 class="pool-feat__title">Mantención post-obra</h3>
+            <p class="pool-feat__text">Servicio continuo de limpieza, control químico y revisión técnica para mantener
+              tu piscina en óptimas condiciones.</p>
+          </article>
         </div>
 
         <div class="pools__cta fade-in">
@@ -767,102 +904,647 @@
   <!-- ================================================
        SCRIPTS
   ================================================ -->
+  <!-- Librerías de animación (CDN). Si alguna no carga, el sitio
+       degrada con elegancia: el contenido permanece visible. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
   <script>
-    /* ---- Header: clase al hacer scroll ---- */
-    const header = document.getElementById('header');
-    const onScroll = () => header.classList.toggle('header--scrolled', window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
+    (function () {
+      'use strict';
 
-    /* ---- Menú mobile ---- */
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    navToggle.addEventListener('click', () => {
-      const open = navMenu.classList.toggle('nav__menu--open');
-      navToggle.setAttribute('aria-expanded', open);
-      navToggle.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-    });
-    navMenu.querySelectorAll('.nav__link').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('nav__menu--open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        navToggle.querySelector('i').className = 'fa-solid fa-bars';
+      /* =========================================================
+         1) LÓGICA BASE — sin dependencia de GSAP
+         (funciona aunque el CDN falle o haya reduced-motion)
+      ========================================================= */
+      const header = document.getElementById('header');
+      const navToggle = document.getElementById('navToggle');
+      const navMenu = document.getElementById('navMenu');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let lenis = null; // se asigna más abajo si procede
+
+      /* ---- Header: compactado al hacer scroll ---- */
+      const onScroll = () => header.classList.toggle('header--scrolled', window.scrollY > 60);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      /* ---- Menú mobile ---- */
+      navToggle.addEventListener('click', () => {
+        const open = navMenu.classList.toggle('nav__menu--open');
+        navToggle.setAttribute('aria-expanded', open);
+        navToggle.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
       });
-    });
-
-    /* ---- Fade-in al scroll ---- */
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const delay = el.dataset.delay || 0;
-        setTimeout(() => el.classList.add('fade-in--visible'), delay);
-        io.unobserve(el);
+      navMenu.querySelectorAll('.nav__link').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('nav__menu--open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navToggle.querySelector('i').className = 'fa-solid fa-bars';
+        });
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.quick-services__grid .fade-in, .services__grid .fade-in, .sectors__grid .fade-in').forEach((el, i) => {
-      el.dataset.delay = (i % 3) * 80;
-    });
-    document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+      /* ---- Link activo en nav ---- */
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav__link:not(.nav__link--cta)');
+      const setActive = () => {
+        let current = '';
+        sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
+        navLinks.forEach(l => l.classList.toggle('nav__link--active', l.getAttribute('href') === `#${current}`));
+      };
+      setActive();
+      window.addEventListener('scroll', setActive, { passive: true });
 
-    /* ---- Link activo en nav ---- */
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav__link:not(.nav__link--cta)');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
-      navLinks.forEach(l => {
-        l.classList.toggle('nav__link--active', l.getAttribute('href') === `#${current}`);
+      /* ---- Formulario: abre WhatsApp (lógica intacta) ---- */
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const nombre = document.getElementById('nombre').value.trim();
+          const telefono = document.getElementById('telefono').value.trim();
+          const servicio = document.getElementById('servicio').value;
+          const mensaje = document.getElementById('mensaje').value.trim();
+          if (!nombre || !telefono || !servicio) {
+            alert('Por favor complete los campos obligatorios (*)');
+            return;
+          }
+          const servicioMap = {
+            cctv: 'Sistemas CCTV / Cámaras', cerco: 'Cercos Eléctricos',
+            alarma: 'Sistemas de Alarma',
+            piscina: 'Construcción de Piscinas',
+            porton: 'Portones Automáticos / Accesos', mantenimiento: 'Mantenimiento y Soporte',
+            integral: 'Proyecto Integral'
+          };
+          const texto = `Hola SETROF SEGURIDAD, me comunico desde el sitio web.\n\n*Nombre:* ${nombre}\n*Teléfono:* ${telefono}\n*Servicio:* ${servicioMap[servicio]}\n*Mensaje:* ${mensaje || '(sin mensaje adicional)'}`;
+          window.open(`https://wa.me/56974054542?text=${encodeURIComponent(texto)}`, '_blank', 'noopener,noreferrer');
+        });
+      }
+
+      /* ---- Lightbox para Piscinas (intacto + pausa de Lenis) ---- */
+      const poolModal = document.getElementById('poolModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalText = document.getElementById('modalText');
+      const closeModal = document.querySelector('.pool-modal__close');
+
+      document.querySelectorAll('img[data-description]').forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+          modalImg.src = img.src;
+          modalText.textContent = img.getAttribute('data-description');
+          poolModal.classList.add('pool-modal--open');
+          document.body.style.overflow = 'hidden';
+          if (lenis) lenis.stop();
+        });
       });
-    }, { passive: true });
 
-    /* ---- Formulario: abre WhatsApp ---- */
-    document.getElementById('contactForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const nombre = document.getElementById('nombre').value.trim();
-      const telefono = document.getElementById('telefono').value.trim();
-      const servicio = document.getElementById('servicio').value;
-      const mensaje = document.getElementById('mensaje').value.trim();
-      if (!nombre || !telefono || !servicio) {
-        alert('Por favor complete los campos obligatorios (*)');
+      const closePoolModal = () => {
+        poolModal.classList.remove('pool-modal--open');
+        document.body.style.overflow = '';
+        if (lenis) lenis.start();
+      };
+
+      closeModal.addEventListener('click', closePoolModal);
+      poolModal.addEventListener('click', (e) => { if (e.target === poolModal) closePoolModal(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && poolModal.classList.contains('pool-modal--open')) closePoolModal();
+      });
+
+
+      /* =========================================================
+         2) GUARDA DE ANIMACIONES
+         Si no hay GSAP (CDN caído) o el usuario pide menos
+         movimiento: revelamos todo y salimos.
+      ========================================================= */
+      const hasGSAP = !!(window.gsap && window.ScrollTrigger);
+      if (prefersReduced || !hasGSAP) {
+        document.documentElement.classList.remove('anim-ready', 'intro-play'); // todo visible
+        document.body.style.overflow = '';
+        const introFallback = document.getElementById('intro');
+        if (introFallback) introFallback.style.display = 'none';
+        const hudFallback = document.getElementById('hud');
+        if (hudFallback) hudFallback.classList.add('is-on'); // visor estático
         return;
       }
-      const servicioMap = {
-        cctv: 'Sistemas CCTV / Cámaras', cerco: 'Cercos Eléctricos',
-        alarma: 'Sistemas de Alarma',
-        piscina: 'Construcción de Piscinas',
-        porton: 'Portones Automáticos / Accesos', mantenimiento: 'Mantenimiento y Soporte',
-        integral: 'Proyecto Integral'
+
+      gsap.registerPlugin(ScrollTrigger);
+
+
+      /* =========================================================
+         3) LENIS — smooth scroll (solo desktop con rueda;
+         táctil usa scroll nativo para evitar lag en móvil)
+      ========================================================= */
+      if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          smoothTouch: false,
+          touchMultiplier: 1.6
+        });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+        // Evita conflicto con el smooth nativo de CSS
+        document.documentElement.style.scrollBehavior = 'auto';
+
+        // Anclas internas -> scroll suave con offset del header fijo
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+          const href = a.getAttribute('href');
+          if (!href || href.length < 2) return;
+          a.addEventListener('click', (e) => {
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            lenis.scrollTo(target, { offset: -(header.offsetHeight) });
+          });
+        });
+      }
+
+
+      /* =========================================================
+         3.5) HUD DEL VISOR — timestamp, estado por sección, helpers
+      ========================================================= */
+      const hudEl = document.getElementById('hud');
+      const hudTime = document.getElementById('hudTime');
+      const hudStatus = document.getElementById('hudStatus');
+      const revealHUD = () => { if (hudEl) hudEl.classList.add('is-on'); };
+      const hudFocus = (on) => { if (hudEl) hudEl.classList.toggle('hud--focus', on); };
+
+      if (hudTime) {
+        const pad = (n) => String(n).padStart(2, '0');
+        const tick = () => {
+          const d = new Date();
+          hudTime.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+        };
+        tick();
+        setInterval(tick, 1000);
+      }
+
+      const hudLabels = {
+        inicio: 'SECTOR 01 · INICIO', nosotros: 'SECTOR 02 · NOSOTROS',
+        servicios: 'SECTOR 03 · SERVICIOS', sectores: 'SECTOR 04 · SECTORES',
+        'por-que': 'SECTOR 05 · CONFIANZA', piscinas: 'SECTOR 06 · PISCINAS',
+        galeria: 'SECTOR 07 · GALERÍA', contacto: 'SECTOR 08 · CONTACTO'
       };
-      const texto = `Hola SETROF SEGURIDAD, me comunico desde el sitio web.\n\n*Nombre:* ${nombre}\n*Teléfono:* ${telefono}\n*Servicio:* ${servicioMap[servicio]}\n*Mensaje:* ${mensaje || '(sin mensaje adicional)'}`;
-      window.open(`https://wa.me/56974054542?text=${encodeURIComponent(texto)}`, '_blank', 'noopener,noreferrer');
-    });
-
-    /* ---- Lightbox para Piscinas ---- */
-    const poolModal = document.getElementById('poolModal');
-    const modalImg = document.getElementById('modalImg');
-    const modalText = document.getElementById('modalText');
-    const closeModal = document.querySelector('.pool-modal__close');
-
-    document.querySelectorAll('.pools__gallery img').forEach(img => {
-      img.style.cursor = 'zoom-in';
-      img.addEventListener('click', () => {
-        modalImg.src = img.src;
-        modalText.textContent = img.getAttribute('data-description');
-        poolModal.classList.add('pool-modal--open');
-        document.body.style.overflow = 'hidden'; // Bloquear scroll
+      sections.forEach((sec) => {
+        const setLbl = () => { if (hudStatus && hudLabels[sec.id]) hudStatus.textContent = hudLabels[sec.id]; };
+        ScrollTrigger.create({ trigger: sec, start: 'top 55%', end: 'bottom 55%', onEnter: setLbl, onEnterBack: setLbl });
       });
-    });
 
-    const closePoolModal = () => {
-      poolModal.classList.remove('pool-modal--open');
-      document.body.style.overflow = '';
-    };
+      /* Typewriter de coordenadas GPS del hero */
+      const geoEl = document.getElementById('geoCoords');
+      const typeGeo = () => {
+        if (!geoEl || geoEl.dataset.typed) return;
+        geoEl.dataset.typed = '1';
+        const fullHTML = geoEl.innerHTML;
+        const plain = geoEl.textContent;
+        geoEl.textContent = '';
+        let i = 0;
+        const step = () => {
+          geoEl.textContent = plain.slice(0, i);
+          i++;
+          if (i <= plain.length) setTimeout(step, 22);
+          else geoEl.innerHTML = fullHTML; // restaura el resaltado <b>
+        };
+        step();
+      };
 
-    closeModal.addEventListener('click', closePoolModal);
-    poolModal.addEventListener('click', (e) => {
-      if (e.target === poolModal) closePoolModal();
-    });
+
+      /* =========================================================
+         4) HERO — entrada escalonada (timeline en pausa; se dispara
+         tras el intro, o de inmediato si el intro no se reproduce)
+      ========================================================= */
+      const heroTextTl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out', duration: 0.9 } });
+      heroTextTl
+        .to('.hero__geo',      { opacity: 1, y: 0 })
+        .to('.hero__title',    { opacity: 1, y: 0 }, '-=0.62')
+        .to('.hero__subtitle', { opacity: 1, y: 0 }, '-=0.64')
+        .to('.hero__ctas',     { opacity: 1, y: 0 }, '-=0.66')
+        .to('.hero__trust',    { opacity: 1, y: 0 }, '-=0.66');
+
+      const revealHeroVisual = (quick) => gsap.to('.hero__visual', {
+        opacity: 1, scale: 1, duration: quick ? 0.6 : 1.1, ease: 'power3.out'
+      });
+
+      /* Usamos gsap.matchMedia para limitar efectos por viewport / puntero */
+      const mm = gsap.matchMedia();
+
+      /* Parallax de scroll en el fondo del hero (tablet/desktop) */
+      mm.add('(min-width: 769px)', () => {
+        const stOpts = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
+        gsap.to('.hero__blob--1',      { yPercent: 28,  ease: 'none', scrollTrigger: stOpts });
+        gsap.to('.hero__blob--2',      { yPercent: -22, ease: 'none', scrollTrigger: stOpts });
+        gsap.to('.hero__grid-pattern', { yPercent: 14,  ease: 'none', scrollTrigger: stOpts });
+        gsap.to('.hero__text',         { yPercent: -8,  opacity: 0.55, ease: 'none', scrollTrigger: stOpts });
+      });
+
+      /* Parallax de mouse — solo desktop con puntero fino */
+      mm.add('(min-width: 1025px) and (pointer: fine)', () => {
+        const visual = document.querySelector('.hero__visual');
+        const blob1 = document.querySelector('.hero__blob--1');
+        const blob2 = document.querySelector('.hero__blob--2');
+        const vx = gsap.quickTo(visual, 'x', { duration: 0.7, ease: 'power3.out' });
+        const vy = gsap.quickTo(visual, 'y', { duration: 0.7, ease: 'power3.out' });
+        const b1x = gsap.quickTo(blob1, 'xPercent', { duration: 1.0, ease: 'power3.out' });
+        const b2x = gsap.quickTo(blob2, 'xPercent', { duration: 1.0, ease: 'power3.out' });
+
+        const onMove = (e) => {
+          const cx = (e.clientX / window.innerWidth) - 0.5;
+          const cy = (e.clientY / window.innerHeight) - 0.5;
+          vx(cx * 30); vy(cy * 22);
+          b1x(cx * -6); b2x(cx * 6);
+        };
+        window.addEventListener('mousemove', onMove, { passive: true });
+        return () => window.removeEventListener('mousemove', onMove);
+      });
+
+
+      /* =========================================================
+         5) REVEALS — tarjetas en stagger + elementos sueltos
+      ========================================================= */
+      const groupSelectors = [
+        '.quick-services__grid .fade-in',
+        '.sectors__grid .fade-in',
+        '.services__grid .fade-in',
+        '.gallery__grid .fade-in',
+        '.pools__features .fade-in'
+      ];
+
+      const grouped = new Set();
+      groupSelectors.forEach(sel => {
+        const items = gsap.utils.toArray(sel);
+        items.forEach(el => grouped.add(el));
+        ScrollTrigger.batch(items, {
+          start: 'top 86%',
+          onEnter: (batch) => gsap.to(batch, {
+            opacity: 1, y: 0, scale: 1,
+            duration: 0.7, ease: 'power3.out', stagger: 0.09, overwrite: 'auto'
+          })
+        });
+      });
+
+      /* Resto de .fade-in. Los encabezados se "reenfocan" con el scroll
+         (blur atado al progreso = sensación de cámara/video). */
+      gsap.utils.toArray('.fade-in').forEach(el => {
+        if (grouped.has(el)) return;
+        if (el.classList.contains('section-header')) {
+          gsap.fromTo(el,
+            { opacity: 0, y: 50, filter: 'blur(12px)' },
+            {
+              opacity: 1, y: 0, filter: 'blur(0px)', ease: 'none',
+              scrollTrigger: { trigger: el, start: 'top 92%', end: 'top 56%', scrub: true }
+            }
+          );
+        } else {
+          gsap.to(el, {
+            opacity: 1, y: 0,
+            duration: 0.85, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%' }
+          });
+        }
+      });
+
+
+      /* =========================================================
+         6) CONTADORES de estadísticas (+10 / +500 / 100%)
+      ========================================================= */
+      gsap.utils.toArray('.why__stat-num').forEach(el => {
+        const raw = el.textContent.trim();
+        const match = raw.match(/^(\D*)(\d+)(\D*)$/);
+        if (!match) return;
+        const prefix = match[1], end = parseInt(match[2], 10), suffix = match[3];
+        const counter = { v: 0 };
+        el.textContent = prefix + '0' + suffix; // estado inicial (oculto aún)
+        ScrollTrigger.create({
+          trigger: '.why__stats',
+          start: 'top 80%',
+          once: true,
+          onEnter: () => gsap.to(counter, {
+            v: end, duration: 1.6, ease: 'power2.out',
+            onUpdate: () => { el.textContent = prefix + Math.round(counter.v) + suffix; }
+          })
+        });
+      });
+
+
+      /* =========================================================
+         7) PISCINAS — parallax cinematográfico del encabezado
+      ========================================================= */
+      mm.add('(min-width: 769px)', () => {
+        gsap.fromTo('.pools__hero',
+          { yPercent: 6 },
+          {
+            yPercent: -6, ease: 'none',
+            scrollTrigger: { trigger: '.pools', start: 'top bottom', end: 'top top', scrub: true }
+          }
+        );
+      });
+
+
+      /* =========================================================
+         7.5) PISCINAS — secuencia "proceso de construcción"
+         Desktop: sección anclada (pin) + crossfade scrubbed paso a paso.
+         Móvil: pasos en flujo con revelado simple (sin pin, sin lag).
+      ========================================================= */
+      const poolSteps = gsap.utils.toArray('.pools__step');
+      if (poolSteps.length) {
+        const poolImgs = poolSteps.map(s => s.querySelector('img'));
+        const stepNumEl = document.getElementById('poolStepNum');
+        const stepDenomEl = document.getElementById('poolStepDenom');
+        const stepTitleEl = document.getElementById('poolStepTitle');
+        const stepDescEl = document.getElementById('poolStepDesc');
+        const stepTagEl = document.getElementById('poolStepTag');
+        const progressItems = gsap.utils.toArray('#poolsProgress .pools__progress-item');
+        const N = poolSteps.length;
+        let lastIdx = -1;
+
+        const setPoolStep = (idx) => {
+          poolSteps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+          progressItems.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+          const active = poolSteps[idx];
+          if (!active) return;
+          const isOther = active.getAttribute('data-variant') === 'otro';
+          if (stepNumEl) stepNumEl.textContent = active.getAttribute('data-num');
+          if (stepDenomEl) stepDenomEl.textContent = isOther ? ' · OTRO' : ' / 04';
+          if (stepTitleEl) stepTitleEl.textContent = active.getAttribute('data-title');
+          if (stepTagEl) stepTagEl.textContent = active.getAttribute('data-tag') || 'Proceso · En obra';
+          const img = active.querySelector('img');
+          if (stepDescEl && img) stepDescEl.textContent = img.getAttribute('data-description');
+        };
+
+        /* --- DESKTOP / TABLET: pinned crossfade --- */
+        mm.add('(min-width: 769px)', () => {
+          lastIdx = -1;
+          const render = (p) => {
+            const pos = p * (N - 1);
+            const k = Math.min(N - 2, Math.floor(pos));
+            const blend = Math.min(1, Math.max(0, pos - k));
+            poolSteps.forEach((s, i) => {
+              let o = 0, sc = 1.06;
+              if (i === k) { o = 1 - blend; sc = 1 + 0.06 * blend; }
+              else if (i === k + 1) { o = blend; sc = 1.08 - 0.08 * blend; }
+              gsap.set(s, { opacity: o });
+              gsap.set(poolImgs[i], { scale: sc });
+            });
+            const idx = Math.round(pos);
+            if (idx !== lastIdx) {
+              lastIdx = idx;
+              setPoolStep(idx);
+              gsap.fromTo('.pools__readout-fx',
+                { opacity: 0, y: 18 },
+                { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', overwrite: true });
+            }
+          };
+
+          const st = ScrollTrigger.create({
+            trigger: '#poolsProcess',
+            start: 'top top',
+            end: '+=' + (N * 80) + '%',
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            refreshPriority: 1, // pin posterior: recalcula después del lente
+            onUpdate: (self) => render(self.progress),
+            onRefresh: (self) => render(self.progress),
+            onEnter: () => hudFocus(true),
+            onEnterBack: () => hudFocus(true),
+            onLeave: () => hudFocus(false),
+            onLeaveBack: () => hudFocus(false)
+          });
+          render(0);
+
+          return () => {
+            st.kill();
+            hudFocus(false);
+            gsap.set(poolSteps, { clearProps: 'opacity' });
+            gsap.set(poolImgs, { clearProps: 'transform' });
+            poolSteps.forEach(s => s.classList.remove('is-active'));
+          };
+        });
+
+        /* --- MÓVIL: pasos apilados, revelado simple --- */
+        mm.add('(max-width: 768px)', () => {
+          const tweens = poolSteps.map(step => gsap.fromTo(step,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+              scrollTrigger: { trigger: step, start: 'top 85%' }
+            }
+          ));
+          return () => { tweens.forEach(t => t.scrollTrigger && t.scrollTrigger.kill()); gsap.set(poolSteps, { clearProps: 'opacity,transform' }); };
+        });
+      }
+
+
+      /* =========================================================
+         7.6) SERVICIOS — lente de cámara que enfoca (pin + scrub)
+         Desktop/tablet: sección anclada; el lente rota y "bloquea
+         el foco" 5 veces, revelando un servicio nítido en cada foco.
+         Móvil: tarjetas apiladas con un "enfoque" simple al entrar.
+      ========================================================= */
+      const svcEls = gsap.utils.toArray('.svc-lens');
+      if (svcEls.length) {
+        const svcNameEl = document.getElementById('svcName');
+        const lensProgItems = gsap.utils.toArray('#lensProgress .lens__progress-item');
+        const lensFocus = document.querySelector('.lens__focus');
+        const lensGlint = document.querySelector('.lens__glint');
+        const ring1 = document.querySelector('.lens__ring--1');
+        const ring2 = document.querySelector('.lens__ring--2');
+        const iris = document.querySelector('.lens__iris');
+        const NS = svcEls.length;
+        let lastS = -1;
+
+        const setSvc = (idx) => {
+          svcEls.forEach((el, i) => el.classList.toggle('is-active', i === idx));
+          lensProgItems.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+          const name = svcEls[idx] ? svcEls[idx].getAttribute('data-name') : '';
+          if (svcNameEl) svcNameEl.textContent = 'SERVICIO 0' + (idx + 1) + ' · ' + name.toUpperCase();
+          if (hudEl) { hudEl.classList.add('hud--snap'); setTimeout(() => hudEl.classList.remove('hud--snap'), 240); }
+        };
+
+        /* --- DESKTOP / TABLET --- */
+        mm.add('(min-width: 769px)', () => {
+          lastS = -1;
+          const render = (p) => {
+            const seg = Math.min(NS - 1, Math.floor(p * NS));
+            const t = Math.min(1, Math.max(0, p * NS - seg));
+            // Curva de foco: 0 = abierto/borroso, 1 = bloqueado/nítido
+            let f;
+            if (t < 0.4) f = t / 0.4;
+            else if (t < 0.72) f = 1;
+            else f = (seg === NS - 1) ? 1 : 1 - (t - 0.72) / 0.28; // el último servicio queda fijado
+            f = Math.min(1, Math.max(0, f));
+
+            svcEls.forEach((el, i) => {
+              if (i === seg) {
+                gsap.set(el, { opacity: f, filter: 'blur(' + ((1 - f) * 14).toFixed(2) + 'px)', y: (1 - f) * 22 });
+              } else {
+                gsap.set(el, { opacity: 0, filter: 'blur(0px)', y: 0 });
+              }
+            });
+
+            // Anillo de foco: abierto (grande) cuando f bajo; bloquea en 1 con micro-snap
+            let fscale = 1 + (1 - f) * 0.42;
+            if (t > 0.38 && t < 0.52) fscale *= 1 + 0.05 * Math.sin((t - 0.38) / 0.14 * Math.PI);
+            if (lensFocus) gsap.set(lensFocus, { scale: fscale, opacity: 0.3 + f * 0.7 });
+
+            // Destello al bloquear el foco
+            let glintO = 0;
+            if (t > 0.34 && t < 0.54) glintO = Math.sin((t - 0.34) / 0.2 * Math.PI) * 0.85;
+            if (lensGlint) gsap.set(lensGlint, { opacity: glintO });
+
+            // Rotación de anillos atada al progreso
+            if (ring1) gsap.set(ring1, { rotation: p * 540 });
+            if (ring2) gsap.set(ring2, { rotation: -p * 320 });
+            if (iris) gsap.set(iris, { rotation: p * 300, scale: 0.96 + f * 0.04 });
+
+            if (seg !== lastS) { lastS = seg; setSvc(seg); }
+          };
+
+          const st = ScrollTrigger.create({
+            trigger: '#lensScene',
+            start: 'top top',
+            end: '+=' + (NS * 82) + '%',
+            pin: true, scrub: 1, anticipatePin: 1,
+            refreshPriority: 2, // está más arriba: recalcula antes que el pin de piscinas
+            onUpdate: (self) => render(self.progress),
+            onRefresh: (self) => render(self.progress),
+            onEnter: () => hudFocus(true),
+            onEnterBack: () => hudFocus(true),
+            onLeave: () => hudFocus(false),
+            onLeaveBack: () => hudFocus(false)
+          });
+          render(0);
+
+          return () => {
+            st.kill(); hudFocus(false);
+            gsap.set(svcEls, { clearProps: 'opacity,filter,transform' });
+            [lensFocus, lensGlint, ring1, ring2, iris].forEach(el => el && gsap.set(el, { clearProps: 'transform,opacity' }));
+            svcEls.forEach(e => e.classList.remove('is-active'));
+          };
+        });
+
+        /* --- MÓVIL: tarjetas con "enfoque" simple --- */
+        mm.add('(max-width: 768px)', () => {
+          const tws = svcEls.map(el => gsap.fromTo(el,
+            { opacity: 0, scale: 0.94, filter: 'blur(10px)' },
+            {
+              opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out',
+              scrollTrigger: { trigger: el, start: 'top 86%' }
+            }
+          ));
+          return () => { tws.forEach(t => t.scrollTrigger && t.scrollTrigger.kill()); gsap.set(svcEls, { clearProps: 'opacity,transform,filter' }); };
+        });
+      }
+
+
+      /* =========================================================
+         8) INTRO CINEMATOGRÁFICO + arranque del hero
+      ========================================================= */
+      const introEl = document.getElementById('intro');
+      const shouldPlayIntro = document.documentElement.classList.contains('intro-play') && !!introEl;
+
+      const startHeroDirect = () => {
+        revealHeroVisual(false);
+        heroTextTl.play(0);
+        revealHUD();
+        typeGeo();
+      };
+
+      const finishIntro = () => {
+        try { sessionStorage.setItem('setrof_intro_played', '1'); } catch (e) {}
+        document.documentElement.classList.remove('intro-play');
+        document.body.style.overflow = '';
+        if (introEl) introEl.style.display = 'none';
+        if (lenis) lenis.start();
+        ScrollTrigger.refresh();
+      };
+
+      const runIntro = () => {
+        try {
+          window.scrollTo(0, 0);
+          if (lenis) lenis.stop();
+
+          const introCam = document.getElementById('introCamera');
+          const heroVisual = document.querySelector('.hero__visual');
+          const heroCam = document.querySelector('.hero__camera');
+
+          /* Medir el destino del morph: dónde y a qué escala queda la
+             cámara real del hero (medido a escala final = 1). */
+          gsap.set(heroVisual, { scale: 1 });
+          const ir = introCam.getBoundingClientRect();
+          const hr = heroCam.getBoundingClientRect();
+          const scaleTarget = (ir.width ? hr.width / ir.width : 1) || 1;
+          const dx = (hr.left + hr.width / 2) - (ir.left + ir.width / 2);
+          const dy = (hr.top + hr.height / 2) - (ir.top + ir.height / 2);
+
+          let done = false;
+          const endNow = () => {
+            if (done) return; done = true;
+            removeSkip();
+            finishIntro();
+            heroTextTl.play(0); // el visual ya quedó revelado por el morph
+            typeGeo();
+          };
+
+          const tl = gsap.timeline({ onComplete: endNow });
+
+          /* --- Entrada de la escena (fromTo: compatible con el pre-ocultado CSS) --- */
+          tl.fromTo('.intro__ring', { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.5, stagger: 0.16, ease: 'power2.out' })
+            .fromTo('.intro__glow', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 1.5, ease: 'power2.out' }, 0.1)
+            .fromTo(introCam,       { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 1.4, ease: 'power3.out' }, 0.3)
+            .fromTo('.intro__char', { yPercent: 120, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.085, ease: 'power4.out' }, 0.65)
+            .fromTo('.intro__sub',  { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.85 }, '-=0.45')
+            .fromTo('.intro__tag',  { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.85 }, '-=0.55')
+            .fromTo('.intro__skip', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.45')
+            .to({}, { duration: 2.2 }); // sostener (escena centrada respira ~2s)
+
+          /* --- Salida: morph de la cámara hacia el hero + apertura --- */
+          tl.addLabel('exit')
+            .to('.intro__brand', { opacity: 0, y: -36, duration: 0.6, ease: 'power2.in' }, 'exit')
+            .to('.intro__rings', { opacity: 0, duration: 0.6 }, 'exit')
+            .to('.intro__glow',  { opacity: 0, duration: 0.6 }, 'exit')
+            .to('.intro__skip',  { opacity: 0, duration: 0.3 }, 'exit')
+            .to(introCam,        { x: dx, y: dy, scale: scaleTarget, duration: 1.3, ease: 'power3.inOut' }, 'exit+=0.15')
+            .to('.intro__bg',    { opacity: 0, duration: 0.8 }, 'exit+=0.5')
+            .to(heroVisual,      { opacity: 1, duration: 0.6, ease: 'power2.out' }, 'exit+=0.95')
+            .call(revealHUD, null, 'exit+=0.95') // brackets del visor aparecen al revelar el hero
+            .to(introCam,        { opacity: 0, duration: 0.45, ease: 'power2.out' }, 'exit+=1.1')
+            .to('.intro',        { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 'exit+=1.15');
+
+          /* --- Saltar intro (click / scroll / tecla) --- */
+          const skip = () => { if (!done) tl.progress(1); };
+          const onKey = (e) => {
+            if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
+          };
+          function removeSkip() {
+            window.removeEventListener('wheel', skip);
+            window.removeEventListener('touchstart', skip);
+            introEl.removeEventListener('click', skip);
+            window.removeEventListener('keydown', onKey);
+          }
+          window.addEventListener('wheel', skip, { passive: true, once: true });
+          window.addEventListener('touchstart', skip, { passive: true, once: true });
+          introEl.addEventListener('click', skip);
+          window.addEventListener('keydown', onKey);
+
+        } catch (err) {
+          finishIntro();
+          startHeroDirect();
+        }
+      };
+
+      if (shouldPlayIntro) {
+        runIntro();
+      } else {
+        if (introEl) introEl.style.display = 'none';
+        startHeroDirect();
+      }
+
+
+      /* Refresca medidas tras cargar imágenes (evita triggers desfasados) */
+      window.addEventListener('load', () => ScrollTrigger.refresh());
+
+    })();
   </script>
 
 </body>
