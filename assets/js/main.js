@@ -606,15 +606,25 @@
       const onKey = (e) => {
         if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
       };
+      /* En pantallas táctiles cualquier roce disparaba touchstart y saltaba
+         el intro al instante (y quedaba marcado como visto en la sesión).
+         En táctil solo el botón "Saltar intro" lo omite. */
+      const isTouch = window.matchMedia('(pointer: coarse)').matches;
+      const skipBtn = document.getElementById('introSkip');
       function removeSkip() {
         window.removeEventListener('wheel', skip);
         window.removeEventListener('touchstart', skip);
         introEl.removeEventListener('click', skip);
+        if (skipBtn) skipBtn.removeEventListener('click', skip);
         window.removeEventListener('keydown', onKey);
       }
-      window.addEventListener('wheel', skip, { passive: true, once: true });
-      window.addEventListener('touchstart', skip, { passive: true, once: true });
-      introEl.addEventListener('click', skip);
+      if (!isTouch) {
+        window.addEventListener('wheel', skip, { passive: true, once: true });
+        window.addEventListener('touchstart', skip, { passive: true, once: true });
+        introEl.addEventListener('click', skip);
+      } else if (skipBtn) {
+        skipBtn.addEventListener('click', skip);
+      }
       window.addEventListener('keydown', onKey);
 
     } catch (err) {
