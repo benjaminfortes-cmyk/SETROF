@@ -1140,12 +1140,12 @@ html.intro-play .intro__skip { opacity: 0; }
   .nav__logo-img { height: 46px; }
 
   .hero { padding: calc(var(--hh) + 48px) 0 80px; }
-  .hero__visual { min-height: 400px; }
-  .hero__ring--lg { width: 380px; height: 380px; }
-  .hero__ring--md { width: 300px; height: 300px; }
-  .hero__ring--sm { width: 230px; height: 230px; }
-  .hero__glow     { width: 220px; height: 220px; }
-  .hero__camera   { max-width: 310px; }
+  .hero__visual { min-height: 480px; }
+  .hero__ring--lg { width: 460px; height: 460px; }
+  .hero__ring--md { width: 370px; height: 370px; }
+  .hero__ring--sm { width: 290px; height: 290px; }
+  .hero__glow     { width: 280px; height: 280px; }
+  .hero__camera   { max-width: min(88vw, 430px); }
   .hero__ctas { flex-direction: column; width: 100%; }
   .hero__ctas .btn { width: 100%; justify-content: center; }
   .hero__tag { font-size: .68rem; padding: 9px 13px; }
