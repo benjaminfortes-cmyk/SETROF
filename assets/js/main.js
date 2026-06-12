@@ -16,6 +16,10 @@
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let lenis = null; // se asigna más abajo si procede
 
+  /* ---- Año del copyright ---- */
+  const copyYear = document.getElementById('copyYear');
+  if (copyYear) copyYear.textContent = new Date().getFullYear();
+
   /* ---- Header ---- */
   const onScroll = () => header.classList.toggle('header--scrolled', window.scrollY > 60);
   onScroll();

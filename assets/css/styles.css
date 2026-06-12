@@ -1339,19 +1339,6 @@ html.intro-play .intro__skip { opacity: 0; }
   background: var(--glass);
   backdrop-filter: blur(8px);
 }
-.hero__geo-line {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--ff-title);
-  font-size: .68rem; font-weight: 700;
-  letter-spacing: .22em; text-transform: uppercase;
-  color: var(--blue-accent);
-}
-.hero__geo-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #4ade80; box-shadow: 0 0 10px rgba(74, 222, 128, .9);
-  animation: geoPing 1.6s ease-in-out infinite;
-}
-@keyframes geoPing { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.8); } }
 .hero__geo-coords {
   font-family: var(--ff-title);
   font-size: .72rem; font-weight: 600;
