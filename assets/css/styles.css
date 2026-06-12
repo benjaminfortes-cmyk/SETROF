@@ -1,7 +1,12 @@
 /* ==========================================================
    SETROF SEGURIDAD — styles.css  ·  REDISEÑO "TECH PREMIUM"
+   HECHO POR: BENJAMIN FORTES CARRASCO — SETROF
    Base oscura cinematográfica · glassmorphism · acentos azules
    Tipografía: Fraunces (display) · Manrope (UI) · Inter (cuerpo)
+
+      ___    ____
+     | _ |==| () |==[ S E T R O F · VIGILANDO 24/7 ]
+     |___|  |____|
 ========================================================== */
 
 /* ---- Custom Properties ---- */
@@ -1087,6 +1092,7 @@ html.intro-play .intro__skip { opacity: 0; }
 
   .hero__inner { grid-template-columns: 1fr; gap: 36px; text-align: center; }
   .hero__text { display: flex; flex-direction: column; align-items: center; }
+  .hero__geo { justify-content: center; }
   .hero__trust, .hero__ctas { justify-content: center; }
   .hero__visual { min-height: 460px; }
   .hero__ring--lg { width: 500px; height: 500px; }
@@ -1324,30 +1330,40 @@ html.intro-play .intro__skip { opacity: 0; }
 
 
 /* ==========================================================
-   HERO — readout de ubicación tipo GPS de cámara
+   HERO — kicker de ubicación (Región de Coquimbo)
    (reemplaza la antigua pastilla .hero__badge)
 ========================================================== */
 .hero__geo {
+  position: absolute;
+  top: 2%; left: 0; right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+@media (max-width: 560px) {
+  .hero__geo-coords { font-size: .62rem; letter-spacing: .1em; }
+}
+.hero__geo-pin {
   display: inline-flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 28px;
-  padding: 12px 18px;
-  border: 1px solid var(--border);
-  border-left: 2px solid var(--blue-light);
-  border-radius: 10px;
-  background: var(--glass);
-  backdrop-filter: blur(8px);
+  flex-shrink: 0;
+  color: var(--blue-light);
+  font-size: .78rem;
 }
 .hero__geo-coords {
   font-family: var(--ff-title);
-  font-size: .72rem; font-weight: 600;
-  letter-spacing: .08em;
+  font-size: .74rem; font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
   color: var(--text-dim);
-  font-variant-numeric: tabular-nums;
   min-height: 1em;
 }
-.hero__geo-coords b { color: var(--text-soft); font-weight: 700; }
+.hero__geo-coords b {
+  font-weight: 700;
+  color: var(--text-soft);
+}
 
 
 /* ==========================================================

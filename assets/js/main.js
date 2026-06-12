@@ -1,8 +1,11 @@
-// /*
-//   
-// SETROF SEGURIDAD - Hecho por: Benjamín Fortes Carrasco
-//  
-// */
+/* =========================================================================
+   SETROF SEGURIDAD — main.js
+   HECHO POR: BENJAMIN FORTES CARRASCO — SETROF
+
+      ___    ____
+     | _ |==| () |==[ S E T R O F · VIGILANDO 24/7 ]
+     |___|  |____|
+========================================================================= */
 
 (function () {
   'use strict';
