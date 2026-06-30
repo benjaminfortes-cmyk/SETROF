@@ -116,7 +116,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=3">
+  <link rel="stylesheet" href="assets/css/styles.css?v=23">
 
   <!-- Schema.org LocalBusiness -->
   <script type="application/ld+json">
@@ -209,8 +209,11 @@
         <li><a href="#por-que" class="nav__link">¿Por qué elegirnos?</a></li>
         <li><a href="#piscinas" class="nav__link">Piscinas</a></li>
         <li><a href="#galeria" class="nav__link">Galería</a></li>
-        <li><a href="#contacto" class="nav__link nav__link--cta">Cotizar ahora</a></li>
       </ul>
+
+      <a href="#contacto" class="nav__search" aria-label="Ir a cotización" title="Cotizar">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      </a>
 
       <button class="nav__toggle" id="navToggle" aria-label="Abrir menú de navegación" aria-expanded="false"
         aria-controls="navMenu">
@@ -233,121 +236,102 @@
 
       <div class="container hero__inner">
 
-        <div class="hero__text">
-          <span class="sr-only">Ubicación: La Serena y Coquimbo, Región de Coquimbo, Chile.</span>
-          <h1 class="hero__title">
-            Sistemas Integrales<br>
-            de <span class="hero__title-accent">Seguridad</span>
-          </h1>
-          <p class="hero__subtitle">
-            Protegemos lo que más importa. Diseño, instalación y mantenimiento de soluciones confiables para hogares,
-            comercios e industrias.
-          </p>
-          <div class="hero__ctas">
-            <a href="#contacto" class="btn btn--primary">
-              <i class="fa-solid fa-file-invoice" aria-hidden="true"></i>
-              Solicitar cotización
-            </a>
-            <a href="https://wa.me/56974054542" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp"
-              aria-label="Contactar por WhatsApp">
-              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-              WhatsApp directo
-            </a>
-          </div>
-
-          <!-- Trust strip -->
-          <ul class="hero__trust" role="list">
-            <li><i class="fa-solid fa-shield-halved"></i> +10 años de experiencia</li>
-            <li><i class="fa-solid fa-circle-check"></i> Instalación certificada</li>
-            <li><i class="fa-solid fa-headset"></i> Soporte 24/7</li>
-          </ul>
+        <!-- Encabezado centrado -->
+        <div class="hero__head">
+          <span class="sr-only">SETROF — Sistemas integrales de seguridad en La Serena y Coquimbo, Región de Coquimbo, Chile.</span>
+          <h1 class="hero__title">SET<span class="hero__title-accent">ROF</span></h1>
+          <p class="hero__subtitle">Sistemas Integrales de Seguridad</p>
+          <span class="hero__rule" aria-hidden="true"></span>
         </div>
 
-        <div class="hero__visual" aria-hidden="true">
-          <!-- Anillos decorativos -->
-          <div class="hero__ring hero__ring--lg"></div>
-          <div class="hero__ring hero__ring--md"></div>
-          <div class="hero__ring hero__ring--sm"></div>
+        <!-- Escena: órbita de servicios alrededor del NVR (sol) -->
+        <div class="hero__visual hero__stage" id="heroStage">
 
-          <!-- Glow detrás de la cámara -->
-          <div class="hero__glow"></div>
+          <!-- Órbita elíptica + planeta borroso (próximo servicio) -->
+          <div class="hero__orbit" aria-hidden="true"></div>
+          <img src="assets/img/alarma-sf.png" alt="" class="hero__svc-ghost" id="svcGhost" aria-hidden="true">
 
-          <!-- Pulso radar + indicador de grabación -->
-          <div class="hero__pulse"></div>
-          <div class="hero__rec">
-            <span class="hero__rec-dot"></span>
-            REC
+          <!-- Flecha izquierda -->
+          <button class="hero__arrow hero__arrow--left" id="svcPrev" aria-label="Servicio anterior">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+
+          <!-- Servicio izquierdo (gira) -->
+          <a href="#servicios" class="hero__svc-slot hero__svc-slot--left" aria-label="Ver servicios">
+            <img src="assets/img/camara.webp" alt="Servicio SETROF" class="hero__camera">
+          </a>
+
+          <!-- Monitor de vigilancia · video-wall en vivo (centro) -->
+          <div class="hero__monitor">
+            <span class="hero__glow" aria-hidden="true"></span>
+            <div class="hero__monitor-screen">
+            <div class="hero__monitor-top">
+              <span class="hero__monitor-name"><i class="fa-solid fa-video"></i> SETROF · NVR</span>
+              <span class="hero__monitor-net"><i></i> ONLINE</span>
+              <span class="hero__rec"><span class="hero__rec-dot"></span> REC</span>
+            </div>
+            <div class="hero__feeds">
+              <figure class="hero__feed">
+                <img src="assets/img/porque-elegirnos.webp" alt="" loading="lazy">
+                <span class="hero__feed-cam">CAM 01</span>
+                <span class="hero__feed-live"><i></i> LIVE</span>
+              </figure>
+              <figure class="hero__feed">
+                <img src="assets/img/proyecto-3.webp" alt="" loading="lazy">
+                <span class="hero__feed-cam">CAM 02</span>
+                <span class="hero__feed-live"><i></i> LIVE</span>
+              </figure>
+              <figure class="hero__feed">
+                <img src="assets/img/proyecto-5.webp" alt="" loading="lazy">
+                <span class="hero__feed-cam">CAM 03</span>
+                <span class="hero__feed-live"><i></i> LIVE</span>
+              </figure>
+              <figure class="hero__feed">
+                <img src="assets/img/proyecto-1.webp" alt="" loading="lazy">
+                <span class="hero__feed-cam">CAM 04</span>
+                <span class="hero__feed-live"><i></i> LIVE</span>
+              </figure>
+            </div>
+            <div class="hero__monitor-foot">
+              <span class="hero__monitor-loc"><i class="fa-solid fa-shield-halved"></i> Protección integral 24/7</span>
+              <span class="hero__monitor-ts" id="heroClock">--:--:--</span>
+            </div>
+            </div><!-- /screen -->
+            <div class="hero__monitor-chin" aria-hidden="true">
+              <span class="hero__monitor-brand">SETROF</span>
+              <span class="hero__monitor-power"></span>
+            </div>
           </div>
 
-          <!-- Ubicación sobre la cámara -->
-          <div class="hero__geo">
-            <span class="hero__geo-pin">
-              <i class="fa-solid fa-location-dot"></i>
-            </span>
-            <span class="hero__geo-coords" id="geoCoords"><b>Región de Coquimbo</b> · La Serena — Coquimbo · Chile</span>
-          </div>
+          <!-- Servicio derecho (gira) -->
+          <a href="#servicios" class="hero__svc-slot hero__svc-slot--right" aria-label="Ver servicios">
+            <img src="assets/img/cerco-sf.png" alt="Servicio SETROF">
+          </a>
 
-          <!-- Cámara -->
-          <img src="assets/img/camara.webp" alt="Cámara de seguridad SETROF" class="hero__camera">
+          <!-- Flecha derecha -->
+          <button class="hero__arrow hero__arrow--right" id="svcNext" aria-label="Servicio siguiente">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
 
-          <!-- Tags flotantes -->
-          <div class="hero__tag hero__tag--1">
-            <i class="fa-solid fa-circle-dot"></i>
-            <span>HD 24/7</span>
-          </div>
-          <div class="hero__tag hero__tag--2">
-            <i class="fa-solid fa-wifi"></i>
-            <span>IP / Wi-Fi</span>
-          </div>
-          <div class="hero__tag hero__tag--3">
-            <i class="fa-solid fa-mobile-screen"></i>
-            <span>App móvil</span>
-          </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="hero__actions">
+          <a href="https://wa.me/56974054542" target="_blank" rel="noopener noreferrer"
+            class="btn btn--whatsapp btn--brand" aria-label="WhatsApp directo">
+            <span class="btn__ic"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span>
+            <span class="btn__tx">WhatsApp directo</span>
+          </a>
+          <a href="#contacto" class="btn btn--primary btn--brand">
+            <span class="btn__ic"><i class="fa-solid fa-file-invoice" aria-hidden="true"></i></span>
+            <span class="btn__tx">Cotizar con nosotros</span>
+          </a>
         </div>
 
       </div>
     </section>
 
-    <!-- ================================================
-         SERVICIOS — GRID DE TARJETAS RÁPIDAS
-    ================================================ -->
-    <section class="quick-services" aria-label="Resumen de servicios">
-      <div class="container">
-        <div class="quick-services__grid">
-
-          <div class="qs-card fade-in">
-            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1-1v-1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1a1 1 0 0 0 1 1"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg></div>
-            <h3 class="qs-card__title">Sistemas de Alarma</h3>
-            <p class="qs-card__text">Protección avanzada contra intrusiones y emergencias.</p>
-          </div>
-
-          <div class="qs-card fade-in">
-            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg></div>
-            <h3 class="qs-card__title">Cámaras de Seguridad</h3>
-            <p class="qs-card__text">Monitoreo 24/7 en alta definición.</p>
-          </div>
-
-          <div class="qs-card fade-in">
-            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/></svg></div>
-            <h3 class="qs-card__title">Automatización de Portones</h3>
-            <p class="qs-card__text">Control de acceso seguro y eficiente.</p>
-          </div>
-
-          <div class="qs-card fade-in">
-            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/></svg></div>
-            <h3 class="qs-card__title">Cerco Eléctrico</h3>
-            <p class="qs-card__text">Disuasión y protección perimetral de alto nivel.</p>
-          </div>
-
-          <div class="qs-card fade-in">
-            <div class="qs-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-            <h3 class="qs-card__title">Mantenimiento</h3>
-            <p class="qs-card__text">Soporte técnico continuo para todos tus sistemas.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
+    <!-- (Las tarjetas rápidas de servicios se movieron al hero) -->
 
     <!-- ================================================
          SERVICIOS DETALLADOS — Lente de cámara
@@ -385,7 +369,7 @@
 
             <article class="svc-lens" data-name="Sistemas CCTV">
               <span class="svc-lens__num" aria-hidden="true">01</span>
-              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg></div>
+              <div class="svc-lens__icon"><img src="assets/img/camara.webp" alt="" loading="lazy"></div>
               <h3 class="svc-lens__title">Sistemas CCTV</h3>
               <p class="svc-lens__sub">Cámaras de Seguridad</p>
               <ul class="svc-lens__list">
@@ -399,7 +383,7 @@
 
             <article class="svc-lens" data-name="Cercos Eléctricos">
               <span class="svc-lens__num" aria-hidden="true">02</span>
-              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/></svg></div>
+              <div class="svc-lens__icon"><img src="assets/img/cerco-sf.png" alt="" loading="lazy"></div>
               <h3 class="svc-lens__title">Cercos Eléctricos</h3>
               <p class="svc-lens__sub">Protección Perimetral</p>
               <ul class="svc-lens__list">
@@ -413,7 +397,7 @@
 
             <article class="svc-lens" data-name="Sistemas de Alarma">
               <span class="svc-lens__num" aria-hidden="true">03</span>
-              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1-1v-1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1a1 1 0 0 0 1 1"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg></div>
+              <div class="svc-lens__icon"><img src="assets/img/alarma-sf.png" alt="" loading="lazy"></div>
               <h3 class="svc-lens__title">Sistemas de Alarma</h3>
               <p class="svc-lens__sub">Detección y Alerta</p>
               <ul class="svc-lens__list">
@@ -427,7 +411,7 @@
 
             <article class="svc-lens" data-name="Portones Automáticos">
               <span class="svc-lens__num" aria-hidden="true">04</span>
-              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/></svg></div>
+              <div class="svc-lens__icon"><img src="assets/img/porton-sf.png" alt="" loading="lazy"></div>
               <h3 class="svc-lens__title">Portones Automáticos</h3>
               <p class="svc-lens__sub">Control de Accesos</p>
               <ul class="svc-lens__list">
@@ -440,7 +424,7 @@
 
             <article class="svc-lens" data-name="Mantenimiento">
               <span class="svc-lens__num" aria-hidden="true">05</span>
-              <div class="svc-lens__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+              <div class="svc-lens__icon"><img src="assets/img/mantenimiento-sf.png" alt="" loading="lazy"></div>
               <h3 class="svc-lens__title">Mantenimiento</h3>
               <p class="svc-lens__sub">Soporte Técnico</p>
               <ul class="svc-lens__list">
@@ -979,7 +963,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-  <script src="assets/js/main.js?v=3"></script>
+  <script src="assets/js/main.js?v=21"></script>
 
 </body>
 

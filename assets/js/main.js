@@ -206,9 +206,52 @@
     step();
   };
 
+  /* Reloj en vivo del monitor del hero */
+  const heroClock = document.getElementById('heroClock');
+  if (heroClock) {
+    const pad = (n) => String(n).padStart(2, '0');
+    const tickClock = () => {
+      const t = new Date();
+      heroClock.textContent = `${pad(t.getHours())}:${pad(t.getMinutes())}:${pad(t.getSeconds())}`;
+    };
+    tickClock();
+    setInterval(tickClock, 1000);
+  }
+
+  /* Carrusel giratorio de servicios del hero (flechas ◀ ▶) */
+  const svcImgs = ['camara.webp', 'cerco-sf.png', 'alarma-sf.png', 'porton-sf.png', 'mantenimiento-sf.png']
+    .map((f) => 'assets/img/' + f);
+  const slotL = document.querySelector('.hero__svc-slot--left img');
+  const slotR = document.querySelector('.hero__svc-slot--right img');
+  const slotGhost = document.getElementById('svcGhost');
+  if (slotL && slotR) {
+    let svcIdx = 0;
+    const n = svcImgs.length;
+    const renderSvc = () => {
+      slotL.src = svcImgs[svcIdx];
+      slotR.src = svcImgs[(svcIdx + 1) % n];
+      if (slotGhost) slotGhost.src = svcImgs[(svcIdx + 2) % n];   // próximo planeta (borroso)
+    };
+    const spinSvc = (dir) => {
+      svcIdx = (svcIdx + dir + svcImgs.length) % svcImgs.length;
+      [slotL, slotR].forEach((im) => {
+        const s = im.closest('.hero__svc-slot');
+        s.classList.remove('is-spinning');
+        void s.offsetWidth;            // reinicia la animación
+        s.classList.add('is-spinning');
+      });
+      setTimeout(renderSvc, 250);      // cambia la imagen a mitad del giro
+    };
+    const prev = document.getElementById('svcPrev');
+    const next = document.getElementById('svcNext');
+    if (prev) prev.addEventListener('click', () => spinSvc(-1));
+    if (next) next.addEventListener('click', () => spinSvc(1));
+    renderSvc();
+  }
+
 
   /* =========================================================
-     4) HERO  entrada escalonada 
+     4) HERO  entrada escalonada
   ========================================================= */
   const heroTextTl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out', duration: 0.9 } });
   heroTextTl
