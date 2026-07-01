@@ -219,28 +219,32 @@
   }
 
   /* Carrusel giratorio de servicios del hero (flechas ◀ ▶) */
-  const svcImgs = ['camara.webp', 'cerco-sf.png', 'alarma-sf.png', 'porton-sf.png', 'mantenimiento-sf.png']
+  const svcImgs = ['camara.webp', 'cerco-sf.webp', 'alarma-sf.webp', 'porton-sf.webp', 'mantenimiento-sf.webp']
     .map((f) => 'assets/img/' + f);
   const slotL = document.querySelector('.hero__svc-slot--left img');
   const slotR = document.querySelector('.hero__svc-slot--right img');
-  const slotGhost = document.getElementById('svcGhost');
+  const ghostL = document.getElementById('svcGhostL');
+  const ghostR = document.getElementById('svcGhostR');
   if (slotL && slotR) {
     let svcIdx = 0;
     const n = svcImgs.length;
     const renderSvc = () => {
       slotL.src = svcImgs[svcIdx];
       slotR.src = svcImgs[(svcIdx + 1) % n];
-      if (slotGhost) slotGhost.src = svcImgs[(svcIdx + 2) % n];   // próximo planeta (borroso)
+      if (ghostL) ghostL.src = svcImgs[(svcIdx - 1 + n) % n];   // planeta que precede (izq, borroso)
+      if (ghostR) ghostR.src = svcImgs[(svcIdx + 2) % n];        // planeta que sigue (der, borroso)
+    };
+    const orbit = (el, cls) => {
+      el.classList.remove('orbit-up', 'orbit-down');
+      void el.offsetWidth;             // reinicia la animación
+      el.classList.add(cls);
     };
     const spinSvc = (dir) => {
-      svcIdx = (svcIdx + dir + svcImgs.length) % svcImgs.length;
-      [slotL, slotR].forEach((im) => {
-        const s = im.closest('.hero__svc-slot');
-        s.classList.remove('is-spinning');
-        void s.offsetWidth;            // reinicia la animación
-        s.classList.add('is-spinning');
-      });
-      setTimeout(renderSvc, 250);      // cambia la imagen a mitad del giro
+      svcIdx = (svcIdx + dir + n) % n;
+      // Giro orbital: sentido horario (next) → izq baja, der sube; y viceversa
+      orbit(slotL.closest('.hero__svc-slot'), dir === 1 ? 'orbit-down' : 'orbit-up');
+      orbit(slotR.closest('.hero__svc-slot'), dir === 1 ? 'orbit-up' : 'orbit-down');
+      setTimeout(renderSvc, 255);      // cambia la imagen a mitad del recorrido
     };
     const prev = document.getElementById('svcPrev');
     const next = document.getElementById('svcNext');
