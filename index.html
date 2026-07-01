@@ -26,11 +26,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Gate de animaciones: decide ANTES del render para evitar parpadeos.
-       - .anim-ready: oculta-para-revelar (solo si se permite movimiento).
-       - .intro-play: muestra el intro cinematográfico (1 vez por sesión).
-       Sin JS o con reduced-motion no se añade ninguna: el contenido es visible
-       y el intro se omite. -->
   <script>
     (function () {
       var d = document.documentElement;
@@ -41,7 +36,7 @@
             d.classList.add('intro-play');
           }
         }
-      } catch (e) { /* navegadores antiguos: no ocultamos nada */ }
+      } catch (e) {  }
     })();
   </script>
 
@@ -65,8 +60,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://setrof.cl/">
 
-  <!-- Datos estructurados (JSON-LD): le dicen a Google qué negocio es, dónde
-       opera, su teléfono, horario y servicios. Ayuda al SEO local. -->
+  <!-- Datos estructurados PARA GOOGLE -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -152,7 +146,7 @@
 <body>
 
   <!-- ================================================
-       INTRO CINEMATOGRÁFICO (1 vez por sesión)
+       INTRO CINEMATOGRÁFICO 
   ================================================ -->
   <div class="intro" id="intro" role="presentation" aria-hidden="true">
     <div class="intro__bg"></div>
@@ -174,7 +168,7 @@
   </div>
 
   <!-- ================================================
-       HUD DEL VISOR (superposición tipo lente)
+       HUD DEL VISOR 
   ================================================ -->
   <div class="hud" id="hud" aria-hidden="true">
     <div class="hud__scan"></div>
@@ -245,10 +239,10 @@
           <span class="hero__rule" aria-hidden="true"></span>
         </div>
 
-        <!-- Escena: órbita de servicios alrededor del NVR (sol) -->
+        <!-- Escena: órbita de servicios alrededor del NVR  -->
         <div class="hero__visual hero__stage" id="heroStage">
 
-          <!-- Órbita elíptica + planetas borrosos (servicios que orbitan al fondo) -->
+          <!-- Órbita elíptica + planetas borrosos  -->
           <div class="hero__orbit" aria-hidden="true"></div>
           <img src="assets/img/mantenimiento-sf.webp" alt="" class="hero__svc-ghost hero__svc-ghost--left" id="svcGhostL" aria-hidden="true">
           <img src="assets/img/alarma-sf.webp" alt="" class="hero__svc-ghost hero__svc-ghost--right" id="svcGhostR" aria-hidden="true">
@@ -258,12 +252,12 @@
             <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
           </button>
 
-          <!-- Servicio izquierdo (gira) -->
+          <!-- Servicio izquierdo  -->
           <a href="#servicios" class="hero__svc-slot hero__svc-slot--left" aria-label="Ver servicios">
             <img src="assets/img/camara.webp" alt="Servicio SETROF" class="hero__camera">
           </a>
 
-          <!-- Monitor de vigilancia · video-wall en vivo (centro) -->
+          <!-- Monitor de vigilancia · video-wall en vivo  -->
           <div class="hero__monitor">
             <span class="hero__glow" aria-hidden="true"></span>
             <div class="hero__monitor-screen">
@@ -305,7 +299,7 @@
             </div>
           </div>
 
-          <!-- Servicio derecho (gira) -->
+          <!-- Servicio derecho  -->
           <a href="#servicios" class="hero__svc-slot hero__svc-slot--right" aria-label="Ver servicios">
             <img src="assets/img/cerco-sf.webp" alt="Servicio SETROF">
           </a>
@@ -320,10 +314,10 @@
       </div>
     </section>
 
-    <!-- (Las tarjetas rápidas de servicios se movieron al hero) -->
+    <!--  -->
 
     <!-- ================================================
-         SERVICIOS DETALLADOS — Lente de cámara
+         SERVICIOS DETALLADOS 
     ================================================ -->
     <section class="services" id="servicios" aria-labelledby="services-heading">
       <div class="container">
@@ -334,11 +328,11 @@
         </div>
       </div>
 
-      <!-- Escena "lente de cámara": enfoca 5 veces, un servicio por foco -->
+      <!-- Escena "lente -->
       <div class="lens-scene" id="lensScene" aria-label="Nuestros servicios a través del lente">
         <div class="lens-stage" id="lensStage">
 
-          <!-- Lente de cámara (decorativo, animado con el scroll) -->
+          <!-- Lente  -->
           <div class="lens" id="lens" aria-hidden="true">
             <div class="lens__rec"><span class="lens__rec-dot"></span> REC</div>
             <div class="lens__ring lens__ring--3"></div>
@@ -353,7 +347,7 @@
             <div class="lens__label">SETROF · 4K</div>
           </div>
 
-          <!-- Contenido REAL de los 5 servicios (permanece en el DOM para SEO y lectores) -->
+          <!-- Contenido REAL de los 5 servicios  -->
           <div class="svc-lens-wrap">
 
             <article class="svc-lens" data-name="Sistemas CCTV">
@@ -427,7 +421,7 @@
 
           </div>
 
-          <!-- Readout + progreso (HUD del lente) -->
+          <!--  progreso -->
           <div class="lens__readout" aria-hidden="true">
             <span class="lens__readout-tag"><span class="lens__readout-dot"></span> Enfocando</span>
             <span class="lens__readout-name" id="svcName">SERVICIO 01 · SISTEMAS CCTV</span>
@@ -503,7 +497,7 @@
     </section>
 
     <!-- ================================================
-         POR QUÉ ELEGIRNOS — Imagen + Card azul + Stats
+         POR QUÉ ELEGIRNOS 
     ================================================ -->
     <section class="why" id="por-que" aria-labelledby="why-heading">
       <div class="container">
@@ -622,7 +616,7 @@
     </section>
 
     <!-- ================================================
-         PISCINAS — SECCIÓN ESPECIAL
+         PISCINAS 
     ================================================ -->
     <section class="pools" id="piscinas" aria-labelledby="pools-heading">
       <div class="container">
@@ -638,7 +632,7 @@
         </div>
       </div>
 
-      <!-- Secuencia cinematográfica: proceso de construcción (pinned en desktop) -->
+      <!-- Secuencia cinematográfica: proceso de construcción -->
       <div class="pools__process" id="poolsProcess" aria-label="Proceso de construcción de piscinas paso a paso">
         <div class="pools__stage" id="poolsStage">
 
@@ -666,7 +660,7 @@
             <div class="pools__step-cap"><span class="n">04</span><h3>Piscina terminada</h3><p>Última fase: ya con agua, revestida y lista para disfrutar.</p></div>
           </div>
 
-          <!-- Lectura del paso (desktop) -->
+          <!-- Lectura del paso  -->
           <div class="pools__readout" aria-hidden="true">
             <span class="pools__readout-tag" id="poolStepTag">Proceso · En obra</span>
             <span class="pools__readout-num"><span id="poolStepNum">01</span><small id="poolStepDenom"> / 04</small></span>
@@ -674,7 +668,7 @@
             <p class="pools__readout-desc pools__readout-fx" id="poolStepDesc">Movimiento de tierras y nivelación precisa según el diseño.</p>
           </div>
 
-          <!-- Progreso de pasos (desktop) -->
+          <!-- Progreso de pasos -->
           <div class="pools__progress" aria-hidden="true" id="poolsProgress">
             <div class="pools__progress-item is-active"><span></span>01 Excavación</div>
             <div class="pools__progress-item"><span></span>02 Estructura</div>
@@ -685,7 +679,7 @@
         </div>
       </div>
 
-      <!-- Otro proyecto entregado (fuera de la secuencia del proceso) -->
+      <!-- Otro proyecto entregado -->
       <div class="container">
         <div class="pools__other fade-in">
           <div class="pools__other-media">
@@ -885,7 +879,7 @@
   </main>
 
   <!-- ================================================
-       FOOTER — barra azul horizontal
+       FOOTER 
   ================================================ -->
   <footer class="footer" role="contentinfo">
     <div class="container footer__bar">
@@ -946,8 +940,7 @@
   <!-- ================================================
        SCRIPTS
   ================================================ -->
-  <!-- Librerías de animación (CDN). Si alguna no carga, el sitio
-       degrada con elegancia: el contenido permanece visible. -->
+  <!-- Librerías de animación SI NO CAGRG -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
