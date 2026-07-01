@@ -631,12 +631,15 @@ html.intro-play .intro__skip { opacity: 0; }
 
 /* Flechas del carrusel — minimalistas (contorno + chevron fino) */
 .hero__arrow {
+  position: relative; z-index: 4;
   width: 54px; height: 54px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   background: transparent;
   border: 1.5px solid var(--border-2);
   color: var(--text-soft); font-size: 1.35rem;
   cursor: pointer; justify-self: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: var(--ease);
 }
 .hero__arrow:hover {
@@ -1490,20 +1493,22 @@ html.intro-play .intro__skip { opacity: 0; }
   /* Móvil: órbita y planetas de fondo fuera; monitor arriba + 2 planetas y flechas debajo */
   .hero__orbit, .hero__svc-ghost { display: none; }
   .hero__stage {
-    grid-template-columns: auto 1fr 1fr auto;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "mon mon mon mon"
-      "prev sl sr next";
-    gap: 18px 10px;
+      "mon mon"
+      "sl sr"
+      "prev next";
+    gap: 18px 20px;
     margin-top: 24px;
+    justify-items: center;
   }
   .hero__monitor { grid-area: mon; max-width: 100%; }
-  .hero__arrow--left  { grid-area: prev; }
-  .hero__arrow--right { grid-area: next; }
   .hero__svc-slot--left  { grid-area: sl; }
   .hero__svc-slot--right { grid-area: sr; }
-  .hero__svc-slot { max-width: 118px; }
-  .hero__arrow { width: 46px; height: 46px; font-size: 1.2rem; }
+  .hero__svc-slot { max-width: 130px; }
+  .hero__arrow--left  { grid-area: prev; justify-self: end; }
+  .hero__arrow--right { grid-area: next; justify-self: start; }
+  .hero__arrow { width: 50px; height: 50px; font-size: 1.25rem; }
 
   .quick-services__grid { grid-template-columns: 1fr 1fr; }
   .about__grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1889,11 +1894,7 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .svc-lens {
   position: relative;
-  background: var(--glass);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 38px 30px;
-  backdrop-filter: blur(10px);
+  padding: 12px 10px;
 }
 .svc-lens__num {
   font-family: var(--ff-display); font-size: 2.6rem; font-weight: 600;
