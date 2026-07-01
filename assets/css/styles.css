@@ -1496,8 +1496,7 @@ html.intro-play .intro__skip { opacity: 0; }
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "mon mon"
-      "sl sr"
-      "prev next";
+      "sl sr";
     gap: 18px 20px;
     margin-top: 24px;
     justify-items: center;
@@ -1506,9 +1505,7 @@ html.intro-play .intro__skip { opacity: 0; }
   .hero__svc-slot--left  { grid-area: sl; }
   .hero__svc-slot--right { grid-area: sr; }
   .hero__svc-slot { max-width: 130px; }
-  .hero__arrow--left  { grid-area: prev; justify-self: end; }
-  .hero__arrow--right { grid-area: next; justify-self: start; }
-  .hero__arrow { width: 50px; height: 50px; font-size: 1.25rem; }
+  .hero__arrow { display: none; }   /* sin flechas en móvil */
 
   .quick-services__grid { grid-template-columns: 1fr 1fr; }
   .about__grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1544,7 +1541,7 @@ html.intro-play .intro__skip { opacity: 0; }
   .wa-float { bottom: 20px; right: 20px; width: 56px; height: 56px; }
   .wa-float i { font-size: 1.7rem; }
 
-  .intro__camera { width: min(64vw, 280px); }
+  .intro__camera { width: min(76vw, 340px); }
   .intro__ring:nth-child(1) { width: 250px; height: 250px; }
   .intro__ring:nth-child(2) { width: 360px; height: 360px; }
   .intro__ring:nth-child(3) { width: 480px; height: 480px; }
