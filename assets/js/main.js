@@ -253,6 +253,39 @@
     renderSvc();
   }
 
+  /* =========================================================
+     Scroll animado del HERO — SOLO móvil.
+     Usa transforms inline por JS, así se ve aunque el teléfono
+     tenga "Reducir movimiento" activado (que apaga las
+     animaciones CSS) o aunque GSAP no aplique en móvil.
+  ========================================================= */
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    const mMon   = document.querySelector('.hero__monitor');
+    const mL     = document.querySelector('.hero__svc-slot--left');
+    const mR     = document.querySelector('.hero__svc-slot--right');
+    const mTitle = document.querySelector('.hero__title');
+    const mSub   = document.querySelector('.hero__subtitle');
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    let rafPending = false;
+    const animHeroScroll = () => {
+      rafPending = false;
+      const p = clamp((window.pageYOffset || document.documentElement.scrollTop || 0) / 460, 0, 1);
+      if (mMon)   mMon.style.transform = 'perspective(820px) translateY(' + (p * -24) + 'px) scale(' + (1 - p * 0.05) + ') rotateX(' + (p * 8) + 'deg)';
+      if (mL)   { mL.style.transform = 'translate(' + (p * -52) + 'px,' + (p * 26) + 'px) rotate(' + (p * -16) + 'deg)'; mL.style.opacity = String(1 - p * 0.9); }
+      if (mR)   { mR.style.transform = 'translate(' + (p * 52) + 'px,' + (p * 26) + 'px) rotate(' + (p * 16) + 'deg)'; mR.style.opacity = String(1 - p * 0.9); }
+      if (mTitle) mTitle.style.transform = 'translateY(' + (p * -14) + 'px)';
+      if (mSub)   mSub.style.opacity = String(1 - p * 0.5);
+    };
+    const onHeroScroll = () => {
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(animHeroScroll);
+    };
+    window.addEventListener('scroll', onHeroScroll, { passive: true });
+    window.addEventListener('resize', onHeroScroll, { passive: true });
+    animHeroScroll();
+  }
+
 
   /* =========================================================
      4) HERO  entrada escalonada

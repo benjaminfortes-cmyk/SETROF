@@ -1504,7 +1504,8 @@ html.intro-play .intro__skip { opacity: 0; }
   .hero__monitor { grid-area: mon; max-width: 100%; }
   .hero__svc-slot--left  { grid-area: sl; }
   .hero__svc-slot--right { grid-area: sr; }
-  .hero__svc-slot { max-width: 130px; }
+  .hero__svc-slot { max-width: 130px; transition: opacity .25s ease; will-change: transform, opacity; }
+  .hero__monitor { will-change: transform; }
   .hero__arrow { display: none; }   /* sin flechas en móvil */
 
   .quick-services__grid { grid-template-columns: 1fr 1fr; }
