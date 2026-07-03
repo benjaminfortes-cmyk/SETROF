@@ -447,6 +447,22 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .nav__toggle { display: none; color: var(--white); font-size: 1.4rem; padding: 8px; border-radius: var(--r); }
 
+/*  */
+.nav__badge-new {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: linear-gradient(125deg, #1d4ed8, #2563eb);
+  color: #fff;
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  vertical-align: 2px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, .35);
+}
+
 /* Botón destacado "Contáctanos" (WhatsApp) en la navbar */
 .nav__link--wa {
   display: inline-flex; align-items: center; gap: 7px;

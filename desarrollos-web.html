@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Setrof Seguridad — Planes de páginas web</title>
+<meta name="description" content="Planes de páginas web profesionales de Setrof Seguridad. Desde $45.000, dominio del primer año incluido." />
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink:      #071630;
+    --navy:     #0a2242;
+    --muted:    #5c6d84;
+    --line:     #e4ebf5;
+    --paper:    #ffffff;
+    --mist:     #f7faff;
+
+    --brand:    #0b6cff;
+    --violet:   #7c5cff;
+    --amber:    #d9950f;
+
+    --wsp:      #17a34a;
+    --wsp-deep: #128a3e;
+    --wsp-bg:   #e9faf0;
+    --wsp-line: #a5e8bd;
+
+    --maxw: 1180px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Manrope', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--mist);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  /* Blueprint grid backdrop, fading toward the fold */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    background:
+      linear-gradient(rgba(11,108,255,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11,108,255,0.055) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(1100px 720px at 50% -60px, #000 35%, transparent 78%);
+    mask-image: radial-gradient(1100px 720px at 50% -60px, #000 35%, transparent 78%);
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: -3; pointer-events: none;
+    background: radial-gradient(900px 480px at 72% -120px, #dbeaff, transparent 65%);
+  }
+
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
+
+  h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+  /* ============ TOP BAR ============ */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar__inner {
+    max-width: var(--maxw); margin: 0 auto; padding: 0 26px;
+    height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand__logo { height: 42px; width: auto; display: block; }
+  .topnav { display: flex; align-items: center; gap: 34px; }
+  .topnav a {
+    font-size: 0.94rem; font-weight: 600; color: #33465f;
+    transition: color .15s ease;
+  }
+  .topnav a:hover { color: var(--brand); }
+
+  /* WhatsApp pill — soft mint fill, green outline */
+  .btn-wsp {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 10px 22px; border-radius: 999px;
+    background: var(--wsp-bg); border: 1px solid var(--wsp-line);
+    color: var(--wsp); font-weight: 700; font-size: 0.94rem;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px -10px rgba(23,163,74,0.4);
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+  .btn-wsp svg { width: 17px; height: 17px; flex-shrink: 0; }
+  .btn-wsp:hover {
+    transform: translateY(-2px);
+    background: #ddf6e7;
+    box-shadow: 0 12px 26px -10px rgba(23,163,74,0.5);
+  }
+
+  /* ============ HEAD ============ */
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 26px; }
+  .head { text-align: center; max-width: 720px; margin: 74px auto 54px; }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; font-weight: 500;
+    letter-spacing: 0.32em; text-transform: uppercase; color: var(--brand);
+  }
+  .head h1 {
+    font-weight: 700; font-size: clamp(2.2rem, 5.2vw, 3.3rem);
+    line-height: 1.06; color: var(--navy); margin-top: 18px;
+  }
+  .head h1 em { font-style: normal; color: var(--brand); }
+  .head > p { color: var(--muted); margin-top: 16px; font-size: 1.08rem; }
+  .head__chips { display: flex; justify-content: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 0.88rem; font-weight: 700; color: #2b3c53;
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 999px; padding: 8px 18px 8px 10px;
+    box-shadow: 0 4px 12px -8px rgba(7,22,48,0.15);
+  }
+  .chip i {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--wsp-bg);
+  }
+  .chip i svg { width: 14px; height: 14px; stroke: var(--wsp-deep); }
+  .chip--blue i { background: #eaf3ff; }
+  .chip--blue i svg { stroke: var(--brand); }
+
+  /* ============ THE BROWSER ============ */
+  .browser {
+    opacity: 0; translate: 0 34px;
+    animation: rise .8s cubic-bezier(.2,.8,.3,1) .1s forwards;
+  }
+  @keyframes rise { to { opacity: 1; translate: 0 0; } }
+
+  /* Hint above the tabs */
+  .browser__hint {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-bottom: 14px; text-align: center;
+    font-weight: 700; font-size: 0.95rem; color: var(--navy);
+  }
+  .browser__hint svg {
+    width: 16px; height: 16px; color: var(--brand); flex-shrink: 0;
+    animation: nudge 1.6s ease-in-out infinite;
+  }
+  @keyframes nudge { 50% { transform: translateY(4px); } }
+
+  /* Plan selector — three big obvious buttons */
+  .browser__tabs {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-bottom: 22px;
+  }
+  .btab {
+    --tabcolor: var(--brand);
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 18px 12px 16px;
+    border: 2px solid var(--line); border-radius: 18px;
+    background: #fff; color: var(--navy);
+    font-family: 'Manrope', sans-serif; cursor: pointer;
+    box-shadow: 0 4px 14px -8px rgba(7,22,48,0.12);
+    transition: transform .18s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .btab:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--tabcolor) 55%, var(--line));
+    box-shadow: 0 12px 26px -12px rgba(7,22,48,0.25);
+  }
+  .btab--basico    { --tabcolor: var(--brand); }
+  .btab--potencial { --tabcolor: var(--wsp); }
+  .btab--pro       { --tabcolor: var(--amber); }
+  .btab__name { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.02rem; }
+  .btab__fav { width: 10px; height: 10px; border-radius: 50%; background: var(--tabcolor); flex-shrink: 0; }
+  .btab__price {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 1.4rem; letter-spacing: -0.02em; color: var(--navy);
+  }
+  .btab__state {
+    display: inline-flex; align-items: center;
+    font-size: 0.78rem; font-weight: 700; margin-top: 5px;
+    padding: 5px 15px; border-radius: 999px;
+    background: var(--mist); border: 1px solid var(--line); color: var(--muted);
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btab__state span { display: inline-flex; align-items: center; gap: 7px; }
+  .btab__state svg { width: 13px; height: 13px; flex-shrink: 0; stroke: currentColor; }
+  .btab[aria-selected="false"] .st-active { display: none; }
+  .btab[aria-selected="true"]  .st-idle   { display: none; }
+  .btab[aria-selected="true"] .btab__state { background: var(--tabcolor); border-color: var(--tabcolor); color: #fff; }
+  .btab[aria-selected="true"] {
+    border-color: var(--tabcolor);
+    background: color-mix(in srgb, var(--tabcolor) 6%, #fff);
+    box-shadow: 0 18px 36px -18px color-mix(in srgb, var(--tabcolor) 65%, transparent);
+  }
+  /* arrow connecting the chosen button to the window below */
+  .btab[aria-selected="true"]::after {
+    content: ""; position: absolute; left: 50%; bottom: -12px;
+    width: 18px; height: 18px; transform: translateX(-50%) rotate(45deg);
+    background: color-mix(in srgb, var(--tabcolor) 6%, #fff);
+    border-right: 2px solid var(--tabcolor); border-bottom: 2px solid var(--tabcolor);
+    border-radius: 3px;
+  }
+  .btab__star {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.66rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    background: linear-gradient(120deg, #22c05c, var(--wsp-deep)); color: #fff;
+    padding: 4px 13px; border-radius: 999px; white-space: nowrap;
+    box-shadow: 0 10px 20px -8px rgba(18,138,62,0.6);
+  }
+  .btab__star svg { width: 11px; height: 11px; fill: #fff; flex-shrink: 0; }
+
+  /* Window frame */
+  .browser__frame {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 20px;
+    overflow: hidden; position: relative;
+    box-shadow: 0 40px 80px -36px rgba(7,22,48,0.35), 0 6px 20px -10px rgba(7,22,48,0.1);
+  }
+  .browser__chrome {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 18px; background: #f2f6fc; border-bottom: 1px solid var(--line);
+  }
+  .dots { display: flex; gap: 6px; flex-shrink: 0; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot--r { background: #ff5f57; } .dot--y { background: #febc2e; } .dot--g { background: #28c840; }
+  .nav-arrows { display: flex; gap: 10px; color: #9fb0c6; flex-shrink: 0; }
+  .nav-arrows svg { width: 14px; height: 14px; }
+  .browser__url {
+    flex: 1; max-width: 460px; display: flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid var(--line); border-radius: 9px;
+    padding: 6px 14px; font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem; color: #3d4f68; min-width: 0;
+  }
+  .browser__url svg { width: 12px; height: 12px; flex-shrink: 0; color: var(--wsp); }
+  .browser__url span { overflow: hidden; white-space: nowrap; }
+  .browser__url .caret {
+    width: 1.5px; height: 13px; background: var(--brand); flex-shrink: 0;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ============ PLAN PANELS ============ */
+  .plan { display: grid; grid-template-columns: 1.04fr 0.96fr; animation: fadein .4s ease; }
+  .plan[hidden] { display: none; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(10px); } }
+
+  .plan__info { padding: 38px 42px 40px; --accent: var(--brand); --tint: #eaf3ff; }
+  .plan--basico    .plan__info { --accent: var(--brand);    --tint: #eaf3ff; }
+  .plan--potencial .plan__info { --accent: var(--wsp-deep); --tint: var(--wsp-bg); }
+  .plan--pro       .plan__info { --accent: var(--amber);    --tint: #fdf3dc; }
+
+  .plan__tier {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent);
+  }
+  .plan__name { font-size: 1.7rem; font-weight: 700; color: var(--navy); margin-top: 8px; }
+  .plan__price { display: flex; align-items: baseline; gap: 12px; margin-top: 14px; }
+  .plan__price .amount {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 3.1rem; letter-spacing: -0.03em; color: var(--navy); line-height: 1;
+  }
+  .plan__meta {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 0.86rem; font-weight: 600; color: var(--muted); margin-top: 12px;
+    background: var(--mist); border: 1px solid var(--line);
+    border-radius: 999px; padding: 5px 15px;
+  }
+  .plan__meta svg { width: 13px; height: 13px; flex-shrink: 0; stroke: var(--wsp-deep); }
+  .plan__divider { height: 1px; background: var(--line); margin: 24px 0 20px; }
+  .plan__lead { font-size: 0.86rem; font-weight: 700; color: var(--muted); margin-bottom: 15px; }
+
+  .features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .features li { display: flex; gap: 11px; font-size: 0.93rem; color: #2b3c53; line-height: 1.45; }
+  .features li strong { color: var(--navy); font-weight: 700; }
+  .features .tick {
+    flex-shrink: 0; width: 19px; height: 19px; margin-top: 3px; border-radius: 50%;
+    background: var(--tint); display: grid; place-items: center;
+  }
+  .features .tick svg { width: 10px; height: 10px; stroke: var(--accent); }
+  .features li.no { color: #9aa8ba; }
+  .features li.no .tick { background: #f0f3f7; }
+  .features li.no .tick svg { stroke: #b3bfce; }
+
+  .plan__addon {
+    margin-top: 20px; padding: 13px 15px; border-radius: 12px;
+    background: #f2fcf6; border: 1px dashed rgba(23,163,74,0.5);
+    font-size: 0.84rem; color: #1e5636; line-height: 1.5;
+  }
+  .plan__addon strong { color: var(--wsp-deep); font-weight: 800; }
+  .plan__addon-price {
+    display: inline-block; font-weight: 800; font-size: 0.8rem; color: #fff;
+    background: var(--wsp); padding: 2px 10px; border-radius: 999px; margin-right: 7px;
+  }
+
+  .plan__btn {
+    margin-top: 26px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    width: 100%; padding: 15px; border-radius: 999px; font-weight: 800; font-size: 0.98rem;
+    background: linear-gradient(120deg, #22c05c, #128a3e); color: #fff;
+    box-shadow: 0 18px 34px -14px rgba(18,138,62,0.6);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .plan__btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .plan__btn:hover { transform: translateY(-2px); box-shadow: 0 24px 42px -14px rgba(18,138,62,0.7); }
+
+  /* ============ LIVE PREVIEW PANE ============ */
+  .plan__preview {
+    position: relative; overflow: hidden;
+    border-left: 1px solid var(--line);
+    background: linear-gradient(165deg, var(--tint, #eaf3ff), #fff 80%);
+    padding: 26px 28px; display: flex; flex-direction: column;
+  }
+  .plan--basico    .plan__preview { --tint: #eaf3ff; --accent: var(--brand); }
+  .plan--potencial .plan__preview { --tint: var(--wsp-bg); --accent: var(--wsp); }
+  .plan--pro       .plan__preview { --tint: #fdf3dc; --accent: var(--amber); }
+
+  .plan__preview::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.75) 50%, transparent 58%);
+    transform: translateX(-100%);
+    animation: sweep 5s ease-in-out infinite;
+  }
+  @keyframes sweep { 25%, 100% { transform: translateX(100%); } }
+
+  .pv__caption {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: #7a8aa2; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pv__caption::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: #28c840; box-shadow: 0 0 0 3px rgba(40,200,64,0.2);
+  }
+
+  .pv { flex: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+  .pv__bar { display: flex; align-items: center; justify-content: space-between; }
+  .pv__logo { display: block; width: 34px; height: 9px; border-radius: 5px; background: var(--accent); }
+  .pv__links { display: flex; gap: 6px; }
+  .pv__links i { display: block; width: 20px; height: 5px; border-radius: 3px; background: #c9d6e8; }
+
+  .pv__hero {
+    padding: 16px 18px; background: #fff;
+    border: 1px solid var(--line); border-radius: 12px;
+  }
+  .pv__line { display: block; height: 7px; border-radius: 4px; background: #d6e0ef; }
+  .pv__line--lg { width: 64%; height: 10px; background: color-mix(in srgb, var(--accent) 55%, #d6e0ef); }
+  .pv__line + .pv__line { margin-top: 7px; width: 44%; }
+  .pv__cta {
+    display: inline-block; margin-top: 12px; width: 68px; height: 16px;
+    border-radius: 8px; background: var(--accent);
+  }
+
+  .pv__tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pv__tiles i {
+    display: block; height: 64px; border-radius: 10px;
+    background: #fff; border: 1px solid var(--line); position: relative;
+  }
+  .pv__tiles i::before {
+    content: ""; position: absolute; inset: 8px 8px auto 8px; height: 28px;
+    border-radius: 6px; background: var(--tint);
+  }
+  .pv__tiles i::after {
+    content: ""; position: absolute; left: 8px; bottom: 9px; width: 58%; height: 5px;
+    border-radius: 3px; background: color-mix(in srgb, var(--accent) 50%, #d6e0ef);
+  }
+
+  .pv__chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pv__cart, .pv__pay {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; font-weight: 500;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .pv__cart { background: var(--wsp-bg); border: 1px solid var(--wsp-line); color: var(--wsp-deep); }
+  .pv__pay { background: #fff; border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--line)); color: #8a5f0a; }
+  .pv__pay b { color: var(--wsp-deep); font-weight: 700; }
+
+  /* mini analytics chart (Plan Pro) */
+  .pv__stats {
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 14px 10px;
+  }
+  .pv__stats-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #8494ab; display: block; margin-bottom: 8px;
+  }
+  .pv__bars { display: flex; align-items: flex-end; gap: 6px; height: 34px; }
+  .pv__bars i {
+    flex: 1; border-radius: 3px 3px 0 0;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 70%, #fff), var(--accent));
+    transform-origin: bottom; animation: grow .8s cubic-bezier(.2,.8,.3,1) backwards;
+  }
+  .pv__bars i:nth-child(1) { height: 30%; animation-delay: .05s; }
+  .pv__bars i:nth-child(2) { height: 45%; animation-delay: .1s; }
+  .pv__bars i:nth-child(3) { height: 38%; animation-delay: .15s; }
+  .pv__bars i:nth-child(4) { height: 62%; animation-delay: .2s; }
+  .pv__bars i:nth-child(5) { height: 55%; animation-delay: .25s; }
+  .pv__bars i:nth-child(6) { height: 80%; animation-delay: .3s; }
+  .pv__bars i:nth-child(7) { height: 100%; animation-delay: .35s; }
+  @keyframes grow { from { transform: scaleY(0); } }
+
+  .pv__wsp {
+    position: absolute; right: 22px; bottom: 22px; z-index: 1;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #25d366; display: grid; place-items: center;
+    box-shadow: 0 10px 22px -6px rgba(18,138,62,0.55);
+    animation: bob 2.6s ease-in-out infinite;
+  }
+  .pv__wsp svg { width: 20px; height: 20px; fill: #fff; }
+  @keyframes bob { 50% { transform: translateY(-5px); } }
+
+  /* ============ EXTRAS ============ */
+  .extras { margin-top: 96px; }
+  .extras .head { margin: 0 auto 40px; }
+  .extras .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+  .extras__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .panel {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+    padding: 32px; box-shadow: 0 4px 16px -10px rgba(7,22,48,0.08);
+  }
+  .panel h3 {
+    font-size: 1.22rem; font-weight: 700; color: var(--navy);
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .panel h3 small { font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 0.8rem; color: var(--muted); letter-spacing: 0; }
+  .panel__row {
+    display: flex; align-items: baseline; gap: 14px; padding: 15px 0;
+    border-bottom: 1px solid var(--line); font-size: 0.95rem; color: #33445a;
+  }
+  .panel__row:last-of-type { border-bottom: none; }
+  .panel__price {
+    font-family: 'IBM Plex Mono', monospace; font-weight: 500;
+    color: var(--brand); white-space: nowrap; min-width: 88px;
+  }
+  .panel .note {
+    margin-top: 14px; font-size: 0.82rem; color: var(--muted);
+    background: var(--mist); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px;
+  }
+  .panel--dark {
+    background: linear-gradient(155deg, #081e3c, #0e3560);
+    border: none; color: #fff; position: relative; overflow: hidden;
+  }
+  .panel--dark::after {
+    content: ""; position: absolute; right: -80px; bottom: -80px;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(11,108,255,0.45), transparent 70%);
+  }
+  .panel--dark h3, .panel--dark .panel__row { position: relative; z-index: 1; }
+  .panel--dark h3 { color: #fff; }
+  .panel--dark h3 small { color: rgba(214,228,250,0.7); }
+  .panel--dark .panel__row { border-color: rgba(255,255,255,0.13); color: rgba(220,232,255,0.92); }
+  .panel--dark .panel__price { color: #8fc1ff; }
+
+  /* ============ FOOTER ============ */
+  footer.site {
+    margin-top: 90px; background: #fff; border-top: 1px solid var(--line);
+    color: var(--muted);
+  }
+  footer.site .inner {
+    max-width: var(--maxw); margin: 0 auto; padding: 30px 26px;
+    display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+  }
+  footer.site img { height: 36px; }
+  footer.site span { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; letter-spacing: 0.04em; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .plan { grid-template-columns: 1fr; }
+    .plan__preview { border-left: none; border-bottom: 1px solid var(--line); order: -1; min-height: 230px; }
+    .extras__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .browser__tabs { grid-template-columns: 1fr; gap: 13px; margin-bottom: 18px; }
+    .btab { flex-direction: row; justify-content: space-between; flex-wrap: wrap; padding: 14px 18px; }
+    .btab__price { font-size: 1.15rem; }
+    .btab__state { margin-top: 0; }
+    .btab[aria-selected="true"]::after { display: none; }
+    .btab__star { left: auto; right: 14px; transform: none; }
+  }
+  @media (max-width: 760px) {
+    .topnav { display: none; }
+  }
+  @media (max-width: 520px) {
+    .brand__logo { height: 36px; }
+    .btn-wsp { padding: 9px 16px; font-size: 0.88rem; }
+    .head { margin: 52px auto 40px; }
+    .plan__info { padding: 28px 22px 30px; }
+    .plan__preview { padding: 20px; }
+    .browser__url { font-size: 0.7rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .browser { animation: none; opacity: 1; translate: 0 0; }
+    .plan { animation: none; }
+    .plan__preview::after, .pv__wsp, .pv__bars i, .browser__url .caret, .browser__hint svg { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a href="index.html" class="brand" aria-label="Setrof Seguridad — inicio">
+        <img class="brand__logo" src="assets/img/logo.webp" alt="Setrof Seguridad" />
+      </a>
+      <nav class="topnav" aria-label="Secciones">
+        <a href="#planes">Planes</a>
+        <a href="#extras">Adicionales</a>
+        <a href="#renovacion">Renovación</a>
+      </nav>
+      <a class="btn-wsp" data-wa="Hola! Quiero cotizar una página web." href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
+        Contáctanos
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- HEAD -->
+    <div class="head" id="planes">
+      <span class="eyebrow">Planes de páginas web</span>
+      <h1>Elige el plan <em>ideal</em> para tu negocio</h1>
+      <p>Navega entre los planes como si ya tuvieras tu página. Pago único, sin mensualidades.</p>
+      <div class="head__chips">
+        <span class="chip"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i> Pago único</span>
+        <span class="chip chip--blue"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg></i> Dominio 1.<sup>er</sup> año incluido</span>
+        <span class="chip chip--blue"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></i> Optimizada para celular</span>
+      </div>
+    </div>
+
+    <!-- THE BROWSER -->
+    <section class="browser" aria-label="Planes disponibles">
+
+      <p class="browser__hint">
+        Selecciona cualquiera de los 3 planes disponibles
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v11M3.5 8.5L8 13l4.5-4.5"/></svg>
+      </p>
+
+      <div class="browser__tabs" role="tablist" aria-label="Elegir plan">
+        <button class="btab btab--basico" role="tab" id="tab-basico" aria-selected="false" aria-controls="panel-basico">
+          <span class="btab__name"><span class="btab__fav"></span> Plan Básico</span>
+          <span class="btab__price">$45.000</span>
+          <span class="btab__state">
+            <span class="st-idle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg> Ver este plan</span>
+            <span class="st-active"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Estás viendo este plan</span>
+          </span>
+        </button>
+        <button class="btab btab--potencial" role="tab" id="tab-potencial" aria-selected="true" aria-controls="panel-potencial">
+          <span class="btab__star"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95L12 2.5Z"/></svg> El más elegido</span>
+          <span class="btab__name"><span class="btab__fav"></span> Plan Potencial</span>
+          <span class="btab__price">$50.000</span>
+          <span class="btab__state">
+            <span class="st-idle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg> Ver este plan</span>
+            <span class="st-active"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Estás viendo este plan</span>
+          </span>
+        </button>
+        <button class="btab btab--pro" role="tab" id="tab-pro" aria-selected="false" aria-controls="panel-pro">
+          <span class="btab__name"><span class="btab__fav"></span> Plan Pro</span>
+          <span class="btab__price">$250.000</span>
+          <span class="btab__state">
+            <span class="st-idle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg> Ver este plan</span>
+            <span class="st-active"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Estás viendo este plan</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="browser__frame">
+        <div class="browser__chrome">
+          <span class="dots"><span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span></span>
+          <span class="nav-arrows" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
+          </span>
+          <span class="browser__url">
+            <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M6 1a3 3 0 0 0-3 3v1H2.5A1.5 1.5 0 0 0 1 6.5v3A1.5 1.5 0 0 0 2.5 11h7A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5H9V4a3 3 0 0 0-3-3Zm1.8 4V4a1.8 1.8 0 1 0-3.6 0v1h3.6Z"/></svg>
+            <span id="urlText">tunegocio.cl/catalogo</span>
+            <span class="caret"></span>
+          </span>
+        </div>
+
+        <!-- BÁSICO -->
+        <section class="plan plan--basico" id="panel-basico" role="tabpanel" aria-labelledby="tab-basico" hidden>
+          <div class="plan__info">
+            <span class="plan__tier">Plan Básico</span>
+            <h3 class="plan__name">Para empezar</h3>
+            <div class="plan__price"><span class="amount">$45.000</span></div>
+            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
+            <div class="plan__divider"></div>
+            <ul class="features">
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Landing de 1 página</strong></span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Diseño personalizado a tu gusto</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Optimizada para celular</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Botón de WhatsApp</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Dominio incluido el primer año</span></li>
+              <li class="no"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5" stroke-width="2" stroke-linecap="round"/></svg></span> <span>Sin acompañamiento ni cambios</span></li>
+              <li class="no"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5" stroke-width="2" stroke-linecap="round"/></svg></span> <span>Sin catálogo ni carrito</span></li>
+            </ul>
+            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Básico ($45.000)." href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
+              Quiero el Básico
+            </a>
+          </div>
+          <div class="plan__preview" aria-hidden="true">
+            <span class="pv__caption">Así se vería tu página</span>
+            <div class="pv">
+              <div class="pv__bar"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
+              <div class="pv__hero">
+                <i class="pv__line pv__line--lg"></i>
+                <i class="pv__line"></i>
+                <i class="pv__cta"></i>
+              </div>
+              <div class="pv__hero">
+                <i class="pv__line pv__line--lg" style="width:40%"></i>
+                <i class="pv__line" style="width:70%"></i>
+                <i class="pv__line" style="width:55%"></i>
+              </div>
+            </div>
+            <span class="pv__wsp"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Z"/></svg></span>
+          </div>
+        </section>
+
+        <!-- POTENCIAL -->
+        <section class="plan plan--potencial" id="panel-potencial" role="tabpanel" aria-labelledby="tab-potencial">
+          <div class="plan__info">
+            <span class="plan__tier">Plan Potencial · El más elegido</span>
+            <h3 class="plan__name">El más completo</h3>
+            <div class="plan__price"><span class="amount">$50.000</span></div>
+            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
+            <div class="plan__divider"></div>
+            <p class="plan__lead">Todo lo del Plan Básico, más:</p>
+            <ul class="features">
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Catálogo de productos con fotos</strong></span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Carrito modo WhatsApp:</strong> el cliente arma su pedido, se suma el total y se envía directo a tu WhatsApp</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>SEO básico:</strong> tu página optimizada para ganar visibilidad en Google</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Conexión con redes (Instagram, Facebook)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Diseño profesional y personalizado</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Garantía:</strong> cambios durante 1 mes completo tras la entrega</span></li>
+            </ul>
+            <div class="plan__addon">
+              <span class="plan__addon-price">+ $10.000</span>
+              Extiende el acompañamiento <strong>hasta diciembre</strong>: incluye cambios 1 vez al mes.
+            </div>
+            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Potencial ($50.000)." href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
+              Quiero el Potencial
+            </a>
+          </div>
+          <div class="plan__preview" aria-hidden="true">
+            <span class="pv__caption">Así se vería tu página</span>
+            <div class="pv">
+              <div class="pv__bar"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
+              <div class="pv__hero" style="padding:12px 14px">
+                <i class="pv__line pv__line--lg"></i>
+                <i class="pv__line"></i>
+              </div>
+              <div class="pv__tiles"><i></i><i></i><i></i></div>
+              <div class="pv__chips">
+                <span class="pv__cart">🛒 3 productos · $18.500 → WhatsApp</span>
+              </div>
+            </div>
+            <span class="pv__wsp"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Z"/></svg></span>
+          </div>
+        </section>
+
+        <!-- PRO -->
+        <section class="plan plan--pro" id="panel-pro" role="tabpanel" aria-labelledby="tab-pro" hidden>
+          <div class="plan__info">
+            <span class="plan__tier">Plan Pro</span>
+            <h3 class="plan__name">Para vender online</h3>
+            <div class="plan__price"><span class="amount">$250.000</span></div>
+            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
+            <div class="plan__divider"></div>
+            <p class="plan__lead">Todo lo del Plan Potencial, más:</p>
+            <ul class="features">
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Pago online real:</strong> tus clientes pagan con tarjeta dentro de la web (Webpay / MercadoPago)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Catálogo más grande</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>SEO más avanzado</strong> (mayor visibilidad en Google)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Estadísticas de visitas (Google Analytics)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Correo profesional (contacto@tunegocio.cl)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Soporte prioritario</span></li>
+            </ul>
+            <div class="plan__addon">
+              <span class="plan__addon-price">+ $20.000/mes</span>
+              <strong>Cargo extra:</strong> el soporte prioritario se paga de forma mensual ($20.000 al mes).
+            </div>
+            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Pro ($250.000)." href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
+              Quiero el Pro
+            </a>
+          </div>
+          <div class="plan__preview" aria-hidden="true">
+            <span class="pv__caption">Así se vería tu página</span>
+            <div class="pv">
+              <div class="pv__bar"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
+              <div class="pv__tiles"><i></i><i></i><i></i></div>
+              <div class="pv__chips">
+                <span class="pv__pay">💳 Webpay · <b>Pago aprobado ✓</b></span>
+              </div>
+              <div class="pv__stats">
+                <span class="pv__stats-label">Visitas · Google Analytics</span>
+                <div class="pv__bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              </div>
+            </div>
+            <span class="pv__wsp"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Z"/></svg></span>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- EXTRAS -->
+    <section class="extras" id="extras">
+      <div class="head">
+        <span class="eyebrow">Adicionales</span>
+        <h1>Servicios extra y <em>renovación</em></h1>
+      </div>
+      <div class="extras__grid">
+
+        <div class="panel">
+          <h3>Servicios extra</h3>
+          <div class="panel__row"><span class="panel__price">$10.000</span> Cambios una vez al mes, hasta diciembre</div>
+          <div class="panel__row"><span class="panel__price">$15.000</span> <span><strong>Convierte tu página en una app (PWA):</strong> tus clientes la instalan con su propio ícono en el celular y el computador, y la abren como cualquier aplicación</span></div>
+          <div class="panel__row"><span class="panel__price">$20.000</span> Ventana de 2 días con cambios ilimitados de contenido (para actualizar varias cosas de una vez)</div>
+          <div class="note">El extra de $20.000 incluye cambios de textos, fotos, precios y productos. No incluye rediseño completo ni funciones nuevas (eso se cotiza aparte).</div>
+        </div>
+
+        <div class="panel panel--dark" id="renovacion">
+          <h3>Renovación anual <small>(desde el 2.º año)</small></h3>
+          <div class="panel__row"><span class="panel__price">$10.000</span> En enero · renovación del dominio (mantiene tu página en línea)</div>
+          <div class="panel__row"><span class="panel__price">$30.000</span> Al año · asesoría y cambios durante el año (opcional)</div>
+          <div class="panel__row"><span class="panel__price">$40.000</span> Pack completo (dominio + asesoría juntos)</div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="inner">
+      <img src="assets/img/logo.webp" alt="Setrof Seguridad" />
+      <span>© 2026 SETROF · DISEÑO Y DESARROLLO WEB</span>
+    </div>
+  </footer>
+
+  <script>
+    // ——— Número de WhatsApp: cambiar solo aquí ———
+    const WHATSAPP = "56974054542";
+
+    document.querySelectorAll("a[data-wa]").forEach(a => {
+      a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.dataset.wa);
+    });
+
+    // ——— Pestañas del navegador ———
+    const urls = {
+      basico:    "tunegocio.cl",
+      potencial: "tunegocio.cl/catalogo",
+      pro:       "tunegocio.cl/pago"
+    };
+    const tabs = Array.from(document.querySelectorAll(".btab"));
+    const urlText = document.getElementById("urlText");
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    let typing = null;
+
+    function typeUrl(text) {
+      clearInterval(typing);
+      if (reduced.matches) { urlText.textContent = text; return; }
+      let i = 0;
+      urlText.textContent = "";
+      typing = setInterval(() => {
+        urlText.textContent = text.slice(0, ++i);
+        if (i >= text.length) clearInterval(typing);
+      }, 26);
+    }
+
+    function selectPlan(id) {
+      tabs.forEach(t => {
+        const active = t.id === "tab-" + id;
+        t.setAttribute("aria-selected", active);
+        document.getElementById("panel-" + t.id.slice(4)).hidden = !active;
+      });
+      typeUrl(urls[id]);
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => selectPlan(tab.id.slice(4)));
+      tab.addEventListener("keydown", e => {
+        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        const next = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+        next.focus();
+        selectPlan(next.id.slice(4));
+      });
+    });
+  </script>
+
+</body>
+</html>
