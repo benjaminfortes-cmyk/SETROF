@@ -78,34 +78,36 @@
     });
   }
 
-  /* ---- box para Piscinas  ---- */
+  /* ---- box para Piscinas (solo si la página tiene el modal) ---- */
   const poolModal = document.getElementById('poolModal');
   const modalImg = document.getElementById('modalImg');
   const modalText = document.getElementById('modalText');
   const closeModal = document.querySelector('.pool-modal__close');
 
-  document.querySelectorAll('img[data-description]').forEach(img => {
-    img.style.cursor = 'zoom-in';
-    img.addEventListener('click', () => {
-      modalImg.src = img.src;
-      modalText.textContent = img.getAttribute('data-description');
-      poolModal.classList.add('pool-modal--open');
-      document.body.style.overflow = 'hidden';
-      if (lenis) lenis.stop();
+  if (poolModal && modalImg && modalText && closeModal) {
+    document.querySelectorAll('img[data-description]').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modalText.textContent = img.getAttribute('data-description');
+        poolModal.classList.add('pool-modal--open');
+        document.body.style.overflow = 'hidden';
+        if (lenis) lenis.stop();
+      });
     });
-  });
 
-  const closePoolModal = () => {
-    poolModal.classList.remove('pool-modal--open');
-    document.body.style.overflow = '';
-    if (lenis) lenis.start();
-  };
+    const closePoolModal = () => {
+      poolModal.classList.remove('pool-modal--open');
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
+    };
 
-  closeModal.addEventListener('click', closePoolModal);
-  poolModal.addEventListener('click', (e) => { if (e.target === poolModal) closePoolModal(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && poolModal.classList.contains('pool-modal--open')) closePoolModal();
-  });
+    closeModal.addEventListener('click', closePoolModal);
+    poolModal.addEventListener('click', (e) => { if (e.target === poolModal) closePoolModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && poolModal.classList.contains('pool-modal--open')) closePoolModal();
+    });
+  }
 
 
   /* =========================================================
@@ -178,10 +180,11 @@
   }
 
   const hudLabels = {
-    inicio: 'SECTOR 01 · INICIO', nosotros: 'SECTOR 02 · NOSOTROS',
-    servicios: 'SECTOR 03 · SERVICIOS', sectores: 'SECTOR 04 · SECTORES',
-    'por-que': 'SECTOR 05 · CONFIANZA', piscinas: 'SECTOR 06 · PISCINAS',
-    galeria: 'SECTOR 07 · GALERÍA', contacto: 'SECTOR 08 · CONTACTO'
+    inicio: 'SECTOR 01 · INICIO', servicios: 'SECTOR 02 · SERVICIOS',
+    'demo-alerta': 'SECTOR 03 · DEMO EN VIVO', nosotros: 'SECTOR 04 · NOSOTROS',
+    'por-que': 'SECTOR 05 · CONFIANZA', 'test-seguridad': 'SECTOR 06 · DIAGNÓSTICO',
+    galeria: 'SECTOR 07 · GALERÍA',
+    'arma-tu-sistema': 'SECTOR 08 · COTIZADOR', contacto: 'SECTOR 09 · CONTACTO'
   };
   sections.forEach((sec) => {
     const setLbl = () => { if (hudStatus && hudLabels[sec.id]) hudStatus.textContent = hudLabels[sec.id]; };
@@ -750,5 +753,429 @@
 
   /* Refresca medidas tras cargar imágenes */
   window.addEventListener('load', () => ScrollTrigger.refresh());
+
+})();
+
+
+/* =========================================================================
+   MÓDULOS INTERACTIVOS — demo de alerta · test de seguridad · arma tu sistema
+   IIFE independiente del bloque anterior: funciona aunque GSAP no cargue
+   o el usuario tenga "reducir movimiento" activado.
+========================================================================= */
+(function () {
+  'use strict';
+
+  var WA_NUM = '56974054542';
+  var pad2 = function (n) { return String(n).padStart(2, '0'); };
+  var waLink = function (texto) {
+    return 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(texto);
+  };
+
+  /* API compartida: el test usa esto para pre-cargar el cotizador */
+  var builderAPI = null;
+
+  /* =========================================================
+     0.1) HERO — ticker de eventos en el pie del monitor NVR
+  ========================================================= */
+  (function () {
+    var tk = document.getElementById('heroTicker');
+    if (!tk) return;
+    var msgs = [
+      'Protección integral 24/7',
+      'Evento verificado · CAM 02',
+      'Sirena activada en 2 s',
+      'Cliente notificado en 4 s',
+      'Cerco perimetral · OK',
+      'Respaldo de video en la nube'
+    ];
+    var i = 0;
+    setInterval(function () {
+      i = (i + 1) % msgs.length;
+      tk.classList.add('is-fade');
+      setTimeout(function () {
+        tk.textContent = msgs[i];
+        tk.classList.remove('is-fade');
+      }, 350);
+    }, 3600);
+  })();
+
+  /* =========================================================
+     0.2) DEMO — comparador de tiempo de reacción (al entrar en vista)
+  ========================================================= */
+  (function () {
+    var cmp = document.getElementById('reactCompare');
+    if (!cmp) return;
+    if (!('IntersectionObserver' in window)) { cmp.classList.add('is-in'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { cmp.classList.add('is-in'); io.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    io.observe(cmp);
+  })();
+
+  /* =========================================================
+     0.3) GALERÍA — modo visión nocturna (IR)
+  ========================================================= */
+  (function () {
+    var btn = document.getElementById('nightToggle');
+    var gal = document.getElementById('galeria');
+    if (!btn || !gal) return;
+    var tx = document.getElementById('nightToggleTx');
+    var icon = btn.querySelector('i');
+    btn.addEventListener('click', function () {
+      var on = gal.classList.toggle('gallery--night');
+      btn.classList.toggle('is-on', on);
+      btn.setAttribute('aria-pressed', String(on));
+      if (tx) tx.textContent = on ? 'Ver con luz normal' : 'Ver en visión nocturna';
+      if (icon) icon.className = on ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    });
+  })();
+
+  /* =========================================================
+     1) DEMO EN VIVO — "Así llega la alerta a tu celular"
+  ========================================================= */
+  (function () {
+    var btn = document.getElementById('demoTrigger');
+    var phone = document.getElementById('demoPhone');
+    var notifs = document.getElementById('demoNotifs');
+    if (!btn || !phone || !notifs) return;
+
+    var btnTx = document.getElementById('demoTriggerTx');
+    var ckBig = document.getElementById('phoneClock');
+    var ckSm = document.getElementById('phoneClockSm');
+    var dateEl = document.getElementById('phoneDate');
+
+    /* Reloj y fecha reales en el teléfono */
+    var tickPhone = function () {
+      var d = new Date();
+      var hm = pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+      if (ckBig) ckBig.textContent = hm;
+      if (ckSm) ckSm.textContent = hm;
+      if (dateEl) dateEl.textContent = d.toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' });
+    };
+    tickPhone();
+    setInterval(tickPhone, 15000);
+
+    var buildNotif = function (opts) {
+      var n = document.createElement('div');
+      n.className = 'pnotif' + (opts.mod ? ' ' + opts.mod : '');
+      n.innerHTML =
+        '<span class="pnotif__icon"><i class="' + opts.icon + '" aria-hidden="true"></i></span>' +
+        '<span class="pnotif__body">' +
+          '<span class="pnotif__app">SETROF Seguridad · ahora</span>' +
+          '<b class="pnotif__title">' + opts.title + '</b>' +
+          '<span class="pnotif__sub">' + opts.sub + '</span>' +
+        '</span>' +
+        (opts.thumb ? '<img class="pnotif__thumb" src="' + opts.thumb + '" alt="" loading="lazy">' : '');
+      return n;
+    };
+
+    var busy = false;
+    btn.addEventListener('click', function () {
+      if (busy) return;
+      busy = true;
+      btn.classList.add('is-busy');
+      if (btnTx) btnTx.textContent = 'Detectando…';
+      notifs.innerHTML = '';
+
+      var now = new Date();
+      var hhmmss = pad2(now.getHours()) + ':' + pad2(now.getMinutes()) + ':' + pad2(now.getSeconds());
+
+      /* 1: llega la alerta de movimiento (con vibración del teléfono) */
+      setTimeout(function () {
+        phone.classList.add('is-buzz');
+        notifs.appendChild(buildNotif({
+          mod: 'pnotif--alert',
+          icon: 'fa-solid fa-triangle-exclamation',
+          title: '⚠ Movimiento detectado',
+          sub: 'CAM 02 · Muro Norte — ' + hhmmss,
+          thumb: 'assets/img/proyecto-3.webp'
+        }));
+        setTimeout(function () { phone.classList.remove('is-buzz'); }, 600);
+      }, 800);
+
+      /* 2: confirmación de grabación */
+      setTimeout(function () {
+        notifs.appendChild(buildNotif({
+          mod: 'pnotif--rec',
+          icon: 'fa-solid fa-video',
+          title: 'Grabando evento',
+          sub: 'Clip guardado · revisa la app'
+        }));
+      }, 2300);
+
+      setTimeout(function () {
+        busy = false;
+        btn.classList.remove('is-busy');
+        if (btnTx) btnTx.textContent = 'Repetir simulación';
+      }, 3100);
+    });
+  })();
+
+  /* =========================================================
+     2) TEST DE SEGURIDAD — diagnóstico en 5 preguntas
+  ========================================================= */
+  (function () {
+    var body = document.getElementById('quizBody');
+    if (!body) return;
+
+    var steps = Array.prototype.slice.call(body.querySelectorAll('.quiz__step'));
+    var result = document.getElementById('quizResult');
+    var stepLbl = document.getElementById('quizStepLbl');
+    var segs = Array.prototype.slice.call(document.querySelectorAll('#quizProgress i'));
+    var backBtn = document.getElementById('quizBack');
+    var finishBtn = document.getElementById('quizFinish');
+    var scoreNum = document.getElementById('quizScoreNum');
+    var meterFill = document.getElementById('quizMeterFill');
+    var levelEl = document.getElementById('quizLevel');
+    var weakEl = document.getElementById('quizWeak');
+    var recEl = document.getElementById('quizRec');
+    var waBtn = document.getElementById('quizWa');
+    var restart = document.getElementById('quizRestart');
+    var sectorInput = document.getElementById('quizSector');
+    var buildBtn = document.getElementById('quizBuild');
+
+    var answers = [];  /* por paso: { name, area, score, label } */
+    var idx = 0;
+    var lastDiag = null;  /* configuración sugerida para el cotizador */
+
+    var recMap = {
+      'Cámaras': 'Un kit de cámaras con acceso desde tu celular te da ojos en tu propiedad las 24 horas, desde cualquier lugar.',
+      'Perímetro': 'Un cerco eléctrico perimetral disuade y detiene la intrusión antes de que llegue a tu puerta.',
+      'Alarma': 'Una alarma con sensores reacciona en el segundo exacto y activa la sirena ante cualquier apertura o movimiento.',
+      'Alertas al celular': 'Con monitoreo remoto, cada evento llega como notificación a tu celular en segundos, estés donde estés.'
+    };
+
+    var show = function (i) {
+      idx = i;
+      result.hidden = true;
+      steps.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
+      segs.forEach(function (seg, k) { seg.classList.toggle('is-on', k <= Math.min(i, segs.length - 1)); });
+      if (stepLbl) stepLbl.textContent = (i < 5) ? 'PREGUNTA ' + (i + 1) + ' / 5' : 'ÚLTIMO PASO';
+      if (backBtn) backBtn.hidden = (i === 0);
+    };
+
+    steps.forEach(function (step, sIdx) {
+      step.querySelectorAll('.quiz__opt').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          step.querySelectorAll('.quiz__opt').forEach(function (o) { o.classList.remove('is-sel'); });
+          opt.classList.add('is-sel');
+          answers[sIdx] = {
+            name: step.getAttribute('data-name') || '',
+            area: step.getAttribute('data-area') || '',
+            score: parseInt(opt.getAttribute('data-score') || '-1', 10),
+            label: opt.getAttribute('data-label') || opt.textContent.trim()
+          };
+          setTimeout(function () { show(sIdx + 1); }, 260);
+        });
+      });
+    });
+
+    if (backBtn) backBtn.addEventListener('click', function () {
+      if (idx > 0) show(idx - 1);
+    });
+
+    /* Cuenta animada del puntaje (sin GSAP) */
+    var animScore = function (to) {
+      var t0 = null, dur = 1100;
+      var frame = function (t) {
+        if (!t0) t0 = t;
+        var p = Math.min(1, (t - t0) / dur);
+        var e = 1 - Math.pow(1 - p, 3);
+        if (scoreNum) scoreNum.textContent = Math.round(to * e);
+        if (meterFill) meterFill.style.width = (to * e) + '%';
+        if (p < 1) requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+    };
+
+    if (finishBtn) finishBtn.addEventListener('click', function () {
+      var scored = answers.filter(function (a) { return a && a.area; });
+      var total = scored.reduce(function (s, a) { return s + Math.max(0, a.score); }, 0);
+
+      var weak = null;
+      scored.forEach(function (a) { if (!weak || a.score < weak.score) weak = a; });
+
+      var lvl, cls;
+      if (total < 35)      { lvl = 'Nivel crítico';       cls = 'lv-1'; }
+      else if (total < 65) { lvl = 'Nivel vulnerable';    cls = 'lv-2'; }
+      else if (total < 85) { lvl = 'Protección parcial';  cls = 'lv-3'; }
+      else                 { lvl = 'Propiedad blindada';  cls = 'lv-4'; }
+
+      var blindada = total >= 85;
+      var weakName = blindada || !weak ? 'Sin puntos críticos' : weak.area;
+      var recText = blindada || !weak
+        ? 'Tu propiedad está bien cubierta. Un chequeo preventivo anual mantiene todo funcionando cuando más lo necesitas.'
+        : recMap[weak.area];
+
+      steps.forEach(function (s) { s.classList.remove('is-active'); });
+      segs.forEach(function (seg) { seg.classList.add('is-on'); });
+      if (stepLbl) stepLbl.textContent = 'INFORME LISTO';
+      if (backBtn) backBtn.hidden = true;
+
+      result.classList.remove('lv-1', 'lv-2', 'lv-3', 'lv-4');
+      result.classList.add(cls);
+      if (levelEl) levelEl.textContent = lvl;
+      if (weakEl) weakEl.textContent = weakName;
+      if (recEl) recEl.textContent = recText;
+      result.hidden = false;
+      animScore(total);
+
+      /* Configuración sugerida según lo que le falta (pre-carga el cotizador) */
+      var byArea = {};
+      scored.forEach(function (a) { byArea[a.area] = a.score; });
+      lastDiag = {
+        prop: answers[0] ? answers[0].label : null,
+        cams: (byArea['Cámaras'] < 25) ? 4 : 0,
+        cerco: (byArea['Perímetro'] < 25) ? 50 : 0,
+        alarma: byArea['Alarma'] < 25,
+        monitoreo: byArea['Alertas al celular'] < 25
+      };
+      if (buildBtn) buildBtn.hidden = blindada;
+
+      /* Mensaje de WhatsApp con el diagnóstico completo */
+      var sector = sectorInput ? sectorInput.value.trim() : '';
+      var lines = [
+        '¡Hola SETROF! Hice el *test de seguridad* en el sitio web.',
+        '',
+        '*Resultado: ' + total + '% — ' + lvl + '*',
+        '*Punto débil: ' + weakName + '*',
+        ''
+      ];
+      answers.forEach(function (a) {
+        if (a) lines.push('• ' + (a.name || 'Dato') + ': ' + a.label);
+      });
+      if (sector) lines.push('• Sector: ' + sector);
+      lines.push('', 'Quiero la *visita técnica gratis* para reforzar mi seguridad.');
+      if (waBtn) waBtn.href = waLink(lines.join('\n'));
+    });
+
+    if (restart) restart.addEventListener('click', function () {
+      answers = [];
+      body.querySelectorAll('.quiz__opt').forEach(function (o) { o.classList.remove('is-sel'); });
+      if (sectorInput) sectorInput.value = '';
+      show(0);
+    });
+
+    /* "Armar el sistema que me falta": pre-carga el cotizador y baja hasta él */
+    if (buildBtn) buildBtn.addEventListener('click', function () {
+      if (builderAPI && lastDiag) builderAPI.prefill(lastDiag);
+      /* la navegación al ancla #arma-tu-sistema la maneja el enlace */
+    });
+  })();
+
+  /* =========================================================
+     3) ARMA TU SISTEMA — pre-cotizador sin precios
+  ========================================================= */
+  (function () {
+    var list = document.getElementById('bTicketList');
+    if (!list) return;
+
+    var chips = Array.prototype.slice.call(document.querySelectorAll('#bProp .builder__chip'));
+    var camNum = document.getElementById('bCamNum');
+    var camHint = document.getElementById('bCamHint');
+    var camMinus = document.getElementById('bCamMinus');
+    var camPlus = document.getElementById('bCamPlus');
+    var cerco = document.getElementById('bCerco');
+    var cercoOut = document.getElementById('bCercoOut');
+    var toggles = Array.prototype.slice.call(document.querySelectorAll('.builder__switch input'));
+    var ticketProp = document.getElementById('bTicketProp');
+    var emptyMsg = document.getElementById('bTicketEmpty');
+    var waBtn = document.getElementById('bWa');
+
+    var prop = 'Casa';
+    var cams = 0;
+
+    var camHints = function (n) {
+      if (n === 0) return 'Sin cámaras';
+      if (n <= 3) return 'Cobertura básica';
+      if (n <= 7) return 'Cobertura completa';
+      return 'Proyecto grande';
+    };
+
+    var render = function () {
+      var items = [];
+      if (cams > 0) items.push(cams + (cams === 1 ? ' cámara' : ' cámaras') + ' de seguridad');
+      var m = cerco ? parseInt(cerco.value, 10) : 0;
+      if (m > 0) items.push('≈ ' + m + ' m de cerco eléctrico');
+      toggles.forEach(function (t) {
+        if (t.checked) items.push(t.getAttribute('data-item'));
+      });
+
+      if (ticketProp) ticketProp.textContent = prop;
+      list.innerHTML = items.map(function (i) {
+        return '<li><i class="fa-solid fa-check" aria-hidden="true"></i> ' + i + '</li>';
+      }).join('');
+      if (emptyMsg) emptyMsg.hidden = items.length > 0;
+
+      var ok = items.length > 0;
+      if (waBtn) {
+        waBtn.classList.toggle('is-disabled', !ok);
+        waBtn.setAttribute('aria-disabled', String(!ok));
+        if (ok) {
+          var msg = '¡Hola SETROF! Armé mi sistema en el sitio web:\n\n' +
+            '• Propiedad: ' + prop + '\n' +
+            items.map(function (i) { return '• ' + i; }).join('\n') +
+            '\n\nQuiero coordinar una *visita técnica gratis* para la pre-cotización (sin compromiso).';
+          waBtn.href = waLink(msg);
+        } else {
+          waBtn.removeAttribute('href');
+        }
+      }
+    };
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-on'); });
+        chip.classList.add('is-on');
+        prop = chip.getAttribute('data-val') || 'Casa';
+        render();
+      });
+    });
+
+    var setCams = function (n) {
+      cams = Math.max(0, Math.min(16, n));
+      if (camNum) camNum.textContent = cams;
+      if (camHint) camHint.textContent = camHints(cams);
+      render();
+    };
+    if (camMinus) camMinus.addEventListener('click', function () { setCams(cams - 1); });
+    if (camPlus) camPlus.addEventListener('click', function () { setCams(cams + 1); });
+
+    if (cerco) cerco.addEventListener('input', function () {
+      if (cercoOut) cercoOut.textContent = cerco.value + ' m';
+      render();
+    });
+
+    toggles.forEach(function (t) { t.addEventListener('change', render); });
+
+    /* API para que el test pre-cargue el cotizador con lo que le falta */
+    builderAPI = {
+      prefill: function (cfg) {
+        if (cfg.prop) {
+          var match = null;
+          chips.forEach(function (c) { if (c.getAttribute('data-val') === cfg.prop) match = c; });
+          if (match) {
+            chips.forEach(function (c) { c.classList.remove('is-on'); });
+            match.classList.add('is-on');
+            prop = cfg.prop;
+          }
+        }
+        if (typeof cfg.cams === 'number' && cfg.cams > 0) setCams(cfg.cams);
+        if (typeof cfg.cerco === 'number' && cfg.cerco > 0 && cerco) {
+          cerco.value = cfg.cerco;
+          if (cercoOut) cercoOut.textContent = cfg.cerco + ' m';
+        }
+        var alarma = document.getElementById('bAlarma');
+        var monitoreo = document.getElementById('bMonitoreo');
+        if (cfg.alarma && alarma) alarma.checked = true;
+        if (cfg.monitoreo && monitoreo) monitoreo.checked = true;
+        render();
+      }
+    };
+
+    render();
+  })();
 
 })();

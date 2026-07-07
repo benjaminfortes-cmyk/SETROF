@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<!--
+=============================================================================
+
+     H E C H O   P O R :
+     BENJAMIN FORTES CARRASCO — SETROF
+     División Piscinas · Región de Coquimbo, Chile
+
+=============================================================================
+-->
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script>
+    (function () {
+      var d = document.documentElement;
+      try {
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.classList.add('anim-ready');
+        }
+      } catch (e) {  }
+    })();
+  </script>
+
+  <!-- SEO -->
+  <title>Construcción de Piscinas en La Serena y Coquimbo | SETROF</title>
+  <meta name="description"
+    content="Diseño y construcción de piscinas de hormigón armado a medida en La Serena y Coquimbo. Excavación, estructura, equipamiento completo y mantención post-obra. Cotización sin compromiso.">
+  <meta name="keywords"
+    content="construcción de piscinas La Serena, piscinas Coquimbo, piscinas de hormigón, constructor de piscinas, SETROF piscinas">
+  <meta name="author" content="SETROF SEGURIDAD">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Construcción de Piscinas | SETROF">
+  <meta property="og:description"
+    content="Piscinas de hormigón armado a medida en La Serena y Coquimbo: de la excavación al primer chapuzón.">
+  <meta property="og:image" content="https://setrof.cl/assets/img/piscina-4.webp">
+  <meta property="og:url" content="https://setrof.cl/piscinas">
+  <meta property="og:locale" content="es_CL">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://setrof.cl/piscinas">
+
+  <!-- Datos estructurados -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Construcción de Piscinas",
+    "serviceType": "Construcción de piscinas de hormigón armado",
+    "description": "Diseño y construcción de piscinas a medida en La Serena y Coquimbo: hormigón armado, equipamiento completo y mantención post-obra.",
+    "url": "https://setrof.cl/piscinas",
+    "areaServed": ["La Serena", "Coquimbo", "Región de Coquimbo"],
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "SETROF SEGURIDAD",
+      "telephone": "+56974054542",
+      "url": "https://setrof.cl/"
+    }
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <!-- Google Fonts (mismas de la página principal) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Stylesheet compartido -->
+  <link rel="stylesheet" href="assets/css/styles.css?v=40">
+</head>
+
+<body class="page-pools">
+
+  <!-- ================================================
+       HEADER (misma navbar del sitio principal)
+  ================================================ -->
+  <header class="header" id="header" role="banner">
+    <nav class="nav container" aria-label="Navegación principal">
+      <a href="/" class="nav__logo" aria-label="SETROF SEGURIDAD — Ir al inicio">
+        <img src="assets/img/logo.webp" alt="Logo SETROF SEGURIDAD" class="nav__logo-img">
+      </a>
+
+      <ul class="nav__menu" id="navMenu" role="list">
+        <li><a href="/#nosotros" class="nav__link">Nosotros</a></li>
+        <li><a href="/#servicios" class="nav__link">Servicios</a></li>
+        <li><a href="/#por-que" class="nav__link">¿Por qué elegirnos?</a></li>
+        <li><a href="/piscinas" class="nav__link nav__link--here" aria-current="page">Piscinas</a></li>
+        <li><a href="/#galeria" class="nav__link">Galería</a></li>
+        <li><a href="/desarrollos-web" class="nav__link">Desarrollos Web <span class="nav__badge-new">NEW</span></a></li>
+        <li><a href="https://wa.me/56974054542" target="_blank" rel="noopener noreferrer"
+          class="nav__link nav__link--wa"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Contáctanos</a></li>
+      </ul>
+
+      <a href="#cotizar" class="nav__search" aria-label="Ir a cotización de piscina" title="Cotizar">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú de navegación" aria-expanded="false"
+        aria-controls="navMenu">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ================================================
+         HERO — PISCINA REAL CON AGUA
+    ================================================ -->
+    <section class="pp-hero" id="inicio" aria-label="Construcción de piscinas">
+      <div class="pp-hero__bg" aria-hidden="true">
+        <img src="assets/img/piscina-4.webp" alt="" fetchpriority="high">
+      </div>
+      <div class="pp-hero__overlay" aria-hidden="true"></div>
+      <div class="pp-hero__caustics" aria-hidden="true"></div>
+
+      <div class="container pp-hero__inner">
+        <span class="pp-hero__eyebrow"><i class="fa-solid fa-water-ladder" aria-hidden="true"></i> SETROF · División Piscinas</span>
+        <h1 class="pp-hero__title">Construcción de <em>Piscinas</em></h1>
+        <p class="pp-hero__sub">
+          Diseñamos y construimos piscinas de hormigón armado a medida,
+          desde la excavación hasta el primer chapuzón.
+        </p>
+        <div class="pp-hero__ctas">
+          <a href="https://wa.me/56974054542?text=Hola%20SETROF%2C%20quiero%20cotizar%20la%20construcci%C3%B3n%20de%20una%20piscina."
+            target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Cotizar mi piscina
+          </a>
+          <a href="#proceso" class="pp-hero__ghost">
+            Ver el proceso <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </a>
+        </div>
+        <ul class="pp-hero__trust" role="list">
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Hormigón armado</li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Equipamiento completo</li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Mantención post-obra</li>
+        </ul>
+      </div>
+
+      <div class="pp-hero__waves" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path fill="rgba(255,255,255,.4)" d="M0,64 C240,96 480,32 720,48 C960,64 1200,112 1440,80 L1440,120 L0,120 Z"/>
+          <path fill="#ffffff" d="M0,88 C240,116 480,64 720,76 C960,88 1200,120 1440,96 L1440,120 L0,120 Z"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ================================================
+         PROCESO — REGLA DE PROFUNDIDAD
+    ================================================ -->
+    <section class="pp-process" id="proceso" aria-labelledby="proceso-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label">De la tierra al agua</span>
+          <h2 class="section-title" id="proceso-heading">El proceso, <span class="text-accent">metro a metro</span></h2>
+          <p class="section-subtitle">Cada piscina baja por las mismas 4 etapas. Síguelas como una regla de profundidad: del terreno seco al agua lista.</p>
+        </div>
+
+        <div class="pp-steps">
+
+          <article class="pp-step fade-in">
+            <span class="pp-step__depth" aria-hidden="true">− 0,40 m</span>
+            <div class="pp-step__media">
+              <img src="assets/img/piscina-1.webp" alt="Excavación y preparación del terreno para piscina" loading="lazy" decoding="async"
+                data-description="Excavación y preparación del terreno: iniciamos con el movimiento de tierras y nivelación precisa según el diseño.">
+              <span class="pp-step__num" aria-hidden="true">01</span>
+            </div>
+            <div class="pp-step__body">
+              <h3>Excavación y preparación</h3>
+              <p>Movimiento de tierras y nivelación precisa según el diseño de tu piscina.</p>
+            </div>
+          </article>
+
+          <article class="pp-step fade-in">
+            <span class="pp-step__depth" aria-hidden="true">− 0,90 m</span>
+            <div class="pp-step__media">
+              <img src="assets/img/piscina-2.webp" alt="Estructura y enfierradura de piscina" loading="lazy" decoding="async"
+                data-description="Estructura y enfierradura: colocación de mallas de acero y refuerzos estructurales para garantizar la máxima durabilidad.">
+              <span class="pp-step__num" aria-hidden="true">02</span>
+            </div>
+            <div class="pp-step__body">
+              <h3>Estructura y enfierradura</h3>
+              <p>Mallas de acero y refuerzos estructurales para una durabilidad máxima.</p>
+            </div>
+          </article>
+
+          <article class="pp-step fade-in">
+            <span class="pp-step__depth" aria-hidden="true">− 1,40 m</span>
+            <div class="pp-step__media">
+              <img src="assets/img/piscina-3.webp" alt="Hormigonado y encofrado de piscina" loading="lazy" decoding="async"
+                data-description="Hormigonado y encofrado: vaciado de concreto de alta resistencia para formar el vaso de la piscina.">
+              <span class="pp-step__num" aria-hidden="true">03</span>
+            </div>
+            <div class="pp-step__body">
+              <h3>Hormigonado y encofrado</h3>
+              <p>Vaciado de concreto de alta resistencia para formar el vaso.</p>
+            </div>
+          </article>
+
+          <article class="pp-step pp-step--final fade-in">
+            <span class="pp-step__depth" aria-hidden="true">− 1,80 m</span>
+            <div class="pp-step__media">
+              <img src="assets/img/piscina-4.webp" alt="Piscina terminada con agua, lista para usar" loading="lazy" decoding="async"
+                data-description="Piscina terminada: la misma piscina ya con agua, revestida y lista para disfrutar.">
+              <span class="pp-step__num" aria-hidden="true">04</span>
+            </div>
+            <div class="pp-step__body">
+              <h3>Piscina terminada</h3>
+              <p>Ya con agua, revestida y lista para disfrutar. El mismo proyecto, de principio a fin.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         QUÉ INCLUYE — TARJETAS
+    ================================================ -->
+    <section class="pp-feats" id="incluye" aria-labelledby="incluye-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label">Todo incluido</span>
+          <h2 class="section-title" id="incluye-heading">Una piscina <span class="text-accent">completa</span></h2>
+          <p class="section-subtitle">No entregamos solo un hoyo con agua: cada proyecto incluye estructura, equipamiento y respaldo.</p>
+        </div>
+
+        <div class="pools__features">
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg></div>
+            <h3 class="pool-feat__title">Diseño personalizado</h3>
+            <p class="pool-feat__text">Cada proyecto se adapta a tu espacio, estilo y presupuesto. Asesoría integral
+              desde el plano hasta la entrega.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v6"/><path d="M16 15v6"/><path d="M16 3v6"/><path d="M3 15h18"/><path d="M3 9h18"/><path d="M8 15v6"/><path d="M8 3v6"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg></div>
+            <h3 class="pool-feat__title">Construcción en concreto armado</h3>
+            <p class="pool-feat__text">Estructuras de larga duración con encofrados profesionales y materiales de
+              primera calidad.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <h3 class="pool-feat__title">Equipamiento completo</h3>
+            <p class="pool-feat__text">Sistemas de filtrado, motores, iluminación LED y automatización para mantener
+              tu piscina impecable.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></div>
+            <h3 class="pool-feat__title">Acabados premium</h3>
+            <p class="pool-feat__text">Revestimientos cerámicos, fibras de vidrio y bordes finos para un resultado
+              estético y duradero.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3 class="pool-feat__title">Seguridad integrada</h3>
+            <p class="pool-feat__text">Alarmas de inmersión, cámaras y protección perimetral para piscinas
+              residenciales y comunitarias — somos expertos en seguridad.</p>
+          </article>
+
+          <article class="pool-feat fade-in">
+            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            <h3 class="pool-feat__title">Mantención post-obra</h3>
+            <p class="pool-feat__text">Servicio continuo de limpieza, control químico y revisión técnica para mantener
+              tu piscina en óptimas condiciones.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         OTRO PROYECTO ENTREGADO
+    ================================================ -->
+    <section class="pp-other" aria-label="Más proyectos de piscinas">
+      <div class="container">
+        <div class="pools__other fade-in">
+          <div class="pools__other-media">
+            <img src="assets/img/piscina-otro.webp" alt="Otro proyecto de piscina entregado en la región" loading="lazy" decoding="async"
+              data-description="Otro proyecto entregado: una piscina distinta, terminada en otra obra de la región. Una muestra de la variedad de trabajos que realizamos.">
+            <span class="pools__other-seal" aria-hidden="true"><i class="fa-solid fa-circle-check"></i> Proyecto entregado</span>
+          </div>
+          <div class="pools__other-text">
+            <span class="section-label">Más trabajos</span>
+            <h3 class="pools__other-title">Otro proyecto entregado</h3>
+            <p class="pools__other-desc">Una piscina distinta, terminada en otra obra de la región — una muestra de la variedad de proyectos que realizamos con el mismo estándar de calidad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         CTA FINAL
+    ================================================ -->
+    <section class="pp-cta" id="cotizar" aria-labelledby="cotizar-heading">
+      <div class="container">
+        <div class="pp-cta__card fade-in">
+          <h2 class="pp-cta__title" id="cotizar-heading">¿Listo para construir <em>tu piscina?</em></h2>
+          <p class="pp-cta__sub">Cuéntanos tu idea: visitamos tu terreno, lo medimos y te entregamos una propuesta a tu medida, sin compromiso.</p>
+          <div class="pp-cta__btns">
+            <a href="https://wa.me/56974054542?text=Hola%20SETROF%2C%20quiero%20cotizar%20la%20construcci%C3%B3n%20de%20una%20piscina."
+              target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Cotizar por WhatsApp
+            </a>
+            <a href="tel:+56974054542" class="pp-cta__tel">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i> +56 9 7405 4542
+            </a>
+          </div>
+          <p class="pp-cta__note"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Visita técnica gratis · La Serena y Coquimbo</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================================================
+       FOOTER (mismo del sitio principal)
+  ================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__bar">
+      <div class="footer__brand">
+        <img src="assets/img/logo.webp" alt="Logo SETROF SEGURIDAD" class="footer__logo" loading="lazy" decoding="async">
+      </div>
+
+      <div class="footer__contacts">
+        <a href="tel:+56974054542" class="footer__item">
+          <i class="fa-solid fa-phone"></i>
+          <span>+56 9 7405 4542</span>
+        </a>
+        <a href="mailto:mforttes8364@gmail.com" class="footer__item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>mforttes8364@gmail.com</span>
+        </a>
+        <span class="footer__item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>La Serena, Coquimbo, Chile</span>
+        </span>
+      </div>
+
+      <div class="footer__social">
+        <a href="https://wa.me/56974054542" target="_blank" rel="noopener noreferrer" class="footer__social-link"
+          aria-label="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div class="footer__copy-bar">
+      <div class="container">
+        <p>© <span id="copyYear">2026</span> SETROF SEGURIDAD · Sistemas Integrales de Seguridad. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Flotante -->
+  <a href="https://wa.me/56974054542?text=Hola%20SETROF%2C%20quiero%20cotizar%20la%20construcci%C3%B3n%20de%20una%20piscina."
+    class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+    <span class="wa-float__tip">¡Cotiza tu piscina!</span>
+  </a>
+
+  <!-- Modal para fotos de piscinas -->
+  <div id="poolModal" class="pool-modal" role="dialog" aria-modal="true">
+    <button class="pool-modal__close" aria-label="Cerrar modal">&times;</button>
+    <div class="pool-modal__content">
+      <img id="modalImg" src="" alt="Vista ampliada">
+      <div class="pool-modal__info">
+        <p id="modalText"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================
+       SCRIPTS (mismos del sitio principal)
+  ================================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <script src="assets/js/main.js?v=38"></script>
+
+</body>
+
+</html>

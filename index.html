@@ -110,7 +110,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=36">
+  <link rel="stylesheet" href="assets/css/styles.css?v=40">
 
   <!-- Schema.org LocalBusiness -->
   <script type="application/ld+json">
@@ -200,7 +200,7 @@
         <li><a href="#nosotros" class="nav__link">Nosotros</a></li>
         <li><a href="#servicios" class="nav__link">Servicios</a></li>
         <li><a href="#por-que" class="nav__link">¿Por qué elegirnos?</a></li>
-        <li><a href="#piscinas" class="nav__link">Piscinas</a></li>
+        <li><a href="/piscinas" class="nav__link">Piscinas</a></li>
         <li><a href="#galeria" class="nav__link">Galería</a></li>
         <li><a href="/desarrollos-web" class="nav__link">Desarrollos Web <span class="nav__badge-new">NEW</span></a></li>
         <li><a href="https://wa.me/56974054542" target="_blank" rel="noopener noreferrer"
@@ -236,7 +236,7 @@
         <div class="hero__head">
           <span class="sr-only">SETROF — Sistemas integrales de seguridad en La Serena y Coquimbo, Región de Coquimbo, Chile.</span>
           <h1 class="hero__title">SET<span class="hero__title-accent">ROF</span></h1>
-          <p class="hero__subtitle">Sistemas Integrales de Seguridad</p>
+          <p class="hero__subtitle">Tu propiedad vigilada desde tu celular, 24/7</p>
 
           <!-- CTA principal: botón estilo panel NVR -->
           <a class="hero__cta" href="https://wa.me/56974054542?text=Hola!%20Quiero%20cotizar%20un%20sistema%20de%20seguridad%20para%20mi%20propiedad."
@@ -244,6 +244,12 @@
             <span class="hero__cta-led" aria-hidden="true"></span>
             <span class="hero__cta-text">Cotiza gratis ahora</span>
             <i class="fa-brands fa-whatsapp hero__cta-icon" aria-hidden="true"></i>
+          </a>
+
+          <!-- Acceso al test de seguridad -->
+          <a class="hero__cta-test" href="#test-seguridad">
+            ¿Qué tan protegido estás? Haz el test de 30 segundos
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
 
@@ -289,6 +295,9 @@
                 <span class="hero__motion" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i> MOVIMIENTO</span>
                 <span class="hero__feed-ts js-nvr-clock">--:--:--</span>
                 <span class="hero__sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                <a class="hero__feed-go" href="#demo-alerta" aria-label="Ver la demo: así llega la alerta a tu celular">
+                  <span class="hero__feed-go-tip"><i class="fa-solid fa-play" aria-hidden="true"></i> Mira qué pasa cuando detectamos algo</span>
+                </a>
               </figure>
               <figure class="hero__feed">
                 <img src="assets/img/proyecto-5.webp" alt="" loading="lazy">
@@ -304,7 +313,7 @@
               </figure>
             </div>
             <div class="hero__monitor-foot">
-              <span class="hero__monitor-loc"><i class="fa-solid fa-shield-halved"></i> Protección integral 24/7</span>
+              <span class="hero__monitor-loc"><i class="fa-solid fa-shield-halved"></i> <span class="hero__ticker" id="heroTicker">Protección integral 24/7</span></span>
               <span class="hero__monitor-ts"><span class="js-nvr-date"></span> <b id="heroClock">--:--:--</b></span>
             </div>
             </div><!-- /screen -->
@@ -454,6 +463,83 @@
     </section>
 
     <!-- ================================================
+         DEMO EN VIVO — ASÍ LLEGA LA ALERTA A TU CELULAR
+    ================================================ -->
+    <section class="livedemo" id="demo-alerta" aria-labelledby="livedemo-heading">
+      <div class="livedemo__bg" aria-hidden="true"></div>
+      <div class="container livedemo__grid">
+
+        <div class="livedemo__copy fade-in">
+          <span class="section-label">Demo en vivo</span>
+          <h2 class="section-title" id="livedemo-heading">
+            Así llega la alerta <em>a tu celular</em>
+          </h2>
+          <p class="livedemo__para">
+            Cuando algo cruza tu perímetro no te enteras al día siguiente: te enteras en segundos.
+            Presiona el botón y mira exactamente lo que recibirías en tu teléfono.
+          </p>
+          <ul class="livedemo__steps" role="list">
+            <li><i aria-hidden="true">1</i><span><b>Detección</b> — la cámara o el sensor capta el movimiento</span></li>
+            <li><i aria-hidden="true">2</i><span><b>Grabación</b> — el sistema guarda el clip del evento</span></li>
+            <li><i aria-hidden="true">3</i><span><b>Alerta</b> — la notificación llega a tu celular, estés donde estés</span></li>
+          </ul>
+          <button type="button" class="livedemo__btn" id="demoTrigger">
+            <span class="livedemo__btn-led" aria-hidden="true"></span>
+            <span id="demoTriggerTx">Simular intrusión</span>
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+          </button>
+          <p class="livedemo__note">Simulación segura: no se activa ninguna alarma real.</p>
+        </div>
+
+        <div class="livedemo__phone-col fade-in">
+          <div class="livedemo__phone" id="demoPhone" role="img" aria-label="Teléfono mostrando la notificación de alerta del sistema SETROF">
+            <span class="livedemo__speaker" aria-hidden="true"></span>
+            <div class="livedemo__screen" id="demoScreen">
+              <div class="livedemo__statusbar" aria-hidden="true">
+                <span id="phoneClockSm">--:--</span>
+                <span class="livedemo__statusicons">
+                  <i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-three-quarters"></i>
+                </span>
+              </div>
+              <div class="livedemo__lock" aria-hidden="true">
+                <span class="livedemo__lock-clock" id="phoneClock">--:--</span>
+                <span class="livedemo__lock-date" id="phoneDate"></span>
+              </div>
+              <div class="livedemo__notifs" id="demoNotifs" aria-live="polite"></div>
+            </div>
+          </div>
+          <p class="livedemo__phone-cap"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Notificación real del sistema de monitoreo SETROF</p>
+        </div>
+
+      </div>
+
+      <!-- Comparador: tiempo de reacción con y sin sistema -->
+      <div class="container">
+        <div class="livedemo__compare fade-in" id="reactCompare">
+          <h3 class="livedemo__compare-title">¿Cuánto tardarías en enterarte de una intrusión?</h3>
+
+          <div class="livedemo__compare-row">
+            <div class="livedemo__compare-head">
+              <span class="livedemo__compare-name"><i class="fa-solid fa-house-circle-xmark" aria-hidden="true"></i> Sin sistema de seguridad</span>
+              <b class="livedemo__compare-val">Horas… o al volver</b>
+            </div>
+            <div class="livedemo__compare-track"><i class="livedemo__compare-fill livedemo__compare-fill--slow"></i></div>
+          </div>
+
+          <div class="livedemo__compare-row">
+            <div class="livedemo__compare-head">
+              <span class="livedemo__compare-name livedemo__compare-name--setrof"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Con SETROF</span>
+              <b class="livedemo__compare-val livedemo__compare-val--setrof">Segundos</b>
+            </div>
+            <div class="livedemo__compare-track"><i class="livedemo__compare-fill livedemo__compare-fill--fast"></i></div>
+          </div>
+
+          <p class="livedemo__compare-note">Sin monitoreo, una intrusión se descubre al volver a la propiedad. Con alerta al celular, reaccionas mientras está ocurriendo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
          QUIÉNES SOMOS
     ================================================ -->
     <section class="about" id="nosotros" aria-labelledby="about-heading">
@@ -557,6 +643,114 @@
     </section>
 
     <!-- ================================================
+         TEST DE SEGURIDAD — DIAGNÓSTICO INTERACTIVO
+    ================================================ -->
+    <section class="quiz" id="test-seguridad" aria-labelledby="quiz-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="section-label">Diagnóstico gratis · 30 segundos</span>
+          <h2 class="section-title" id="quiz-heading">¿Qué tan protegida está <span class="text-accent">tu propiedad?</span></h2>
+          <p class="section-subtitle">Responde 5 preguntas y descubre tu nivel de protección, tu punto débil y qué te conviene reforzar primero.</p>
+        </div>
+
+        <div class="quiz__card fade-in">
+          <div class="quiz__top">
+            <span class="quiz__top-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> DIAGNÓSTICO SETROF</span>
+            <span class="quiz__top-step" id="quizStepLbl">PREGUNTA 1 / 5</span>
+            <span class="quiz__top-scan" aria-hidden="true"><span></span> SCAN</span>
+          </div>
+          <div class="quiz__progress" aria-hidden="true" id="quizProgress">
+            <i class="is-on"></i><i></i><i></i><i></i><i></i>
+          </div>
+
+          <div class="quiz__body" id="quizBody">
+
+            <div class="quiz__step is-active" data-name="Propiedad">
+              <h3 class="quiz__q">¿Qué quieres proteger?</h3>
+              <div class="quiz__opts">
+                <button type="button" class="quiz__opt" data-label="Casa"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span>Casa</span></button>
+                <button type="button" class="quiz__opt" data-label="Negocio o local"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg></span><span>Negocio o local</span></button>
+                <button type="button" class="quiz__opt" data-label="Parcela o terreno"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17Z"/><path d="M12 22v-3"/></svg></span><span>Parcela o terreno</span></button>
+                <button type="button" class="quiz__opt" data-label="Condominio o edificio"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span><span>Condominio o edificio</span></button>
+              </div>
+            </div>
+
+            <div class="quiz__step" data-name="Cámaras" data-area="Cámaras">
+              <h3 class="quiz__q">¿Tienes cámaras de seguridad?</h3>
+              <div class="quiz__opts">
+                <button type="button" class="quiz__opt" data-score="25" data-label="Sí, y las veo desde el celular"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 19v-4"/><path d="M7 19h5"/><rect width="6" height="10" x="16" y="12" rx="2"/></svg></span><span>Sí, y las veo desde el celular</span></button>
+                <button type="button" class="quiz__opt" data-score="12" data-label="Sí, pero antiguas o sin app"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg></span><span>Sí, pero antiguas o sin app</span></button>
+                <button type="button" class="quiz__opt" data-score="0" data-label="No tengo"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.66 6H14a2 2 0 0 1 2 2v2.5l5.248-3.062A.5.5 0 0 1 22 7.87v8.196"/><path d="M16 16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2"/><line x1="2" x2="22" y1="2" y2="22"/></svg></span><span>No tengo</span></button>
+              </div>
+            </div>
+
+            <div class="quiz__step" data-name="Perímetro" data-area="Perímetro">
+              <h3 class="quiz__q">¿Cómo está protegido tu perímetro?</h3>
+              <div class="quiz__opts">
+                <button type="button" class="quiz__opt" data-score="25" data-label="Con cerco eléctrico"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span><span>Con cerco eléctrico</span></button>
+                <button type="button" class="quiz__opt" data-score="10" data-label="Solo reja o pandereta"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/></svg></span><span>Solo reja o pandereta</span></button>
+                <button type="button" class="quiz__opt" data-score="0" data-label="Sin cierre completo"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20H2"/><path d="M11 4.562v16.157a1 1 0 0 0 1.242.97L19 20V5.562a2 2 0 0 0-1.515-1.94l-4-1A2 2 0 0 0 11 4.562Z"/><path d="M11 4H8a2 2 0 0 0-2 2v14"/><path d="M14 12h.01"/><path d="M22 20h-3"/></svg></span><span>Sin cierre completo</span></button>
+              </div>
+            </div>
+
+            <div class="quiz__step" data-name="Alarma" data-area="Alarma">
+              <h3 class="quiz__q">¿Tienes alarma con sensores?</h3>
+              <div class="quiz__opts">
+                <button type="button" class="quiz__opt" data-score="25" data-label="Sí, y funciona bien"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M22 8c0-2.3-.8-4.3-2-6"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/></svg></span><span>Sí, y funciona bien</span></button>
+                <button type="button" class="quiz__opt" data-score="10" data-label="Sí, pero falla o no la uso"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M17 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 .258-1.742"/><path d="m2 2 20 20"/><path d="M8.668 3.01A6 6 0 0 1 18 8c0 2.687.77 4.653 1.707 6.05"/></svg></span><span>Sí, pero falla o no la uso</span></button>
+                <button type="button" class="quiz__opt" data-score="0" data-label="No tengo"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></span><span>No tengo</span></button>
+              </div>
+            </div>
+
+            <div class="quiz__step" data-name="Alertas" data-area="Alertas al celular">
+              <h3 class="quiz__q">Si algo pasara ahora mismo, ¿te enterarías?</h3>
+              <div class="quiz__opts">
+                <button type="button" class="quiz__opt" data-score="25" data-label="Sí, me llega una alerta al celular"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg></span><span>Sí, me llega una alerta al celular</span></button>
+                <button type="button" class="quiz__opt" data-score="10" data-label="Solo si un vecino o alguien me avisa"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Solo si un vecino o alguien me avisa</span></button>
+                <button type="button" class="quiz__opt" data-score="0" data-label="No me enteraría hasta llegar"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg></span><span>No me enteraría hasta llegar</span></button>
+              </div>
+            </div>
+
+            <div class="quiz__step quiz__step--final" data-name="Sector">
+              <h3 class="quiz__q">Último dato: ¿en qué sector estás?</h3>
+              <p class="quiz__hint">Opcional — nos ayuda a confirmar cobertura y coordinar la visita técnica gratis.</p>
+              <input type="text" id="quizSector" class="form__input" placeholder="Ej: Las Compañías, La Serena" autocomplete="off">
+              <button type="button" class="btn btn--primary btn--full" id="quizFinish">
+                Ver mi resultado <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <div class="quiz__result" id="quizResult" hidden aria-live="polite">
+              <span class="quiz__result-tag">Informe · Nivel de protección</span>
+              <div class="quiz__gauge"><b id="quizScoreNum">0</b><span>%</span></div>
+              <div class="quiz__meter"><i id="quizMeterFill"></i></div>
+              <p class="quiz__level" id="quizLevel"></p>
+              <div class="quiz__weak">
+                <span>Tu punto débil</span>
+                <b id="quizWeak"></b>
+              </div>
+              <p class="quiz__rec" id="quizRec"></p>
+              <div class="quiz__result-btns">
+                <a href="#" id="quizWa" class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">
+                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Enviar diagnóstico · visita gratis
+                </a>
+                <a href="#arma-tu-sistema" id="quizBuild" class="btn btn--primary">
+                  <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Armar el sistema que me falta
+                </a>
+                <button type="button" class="quiz__restart" id="quizRestart"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Repetir test</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="quiz__foot">
+            <button type="button" class="quiz__back" id="quizBack" hidden><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Anterior</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
          SECTORES
     ================================================ -->
     <section class="sectors" id="sectores" aria-labelledby="sectors-heading" hidden style="display:none">
@@ -607,6 +801,15 @@
           <h2 class="section-title" id="gallery-heading">Galería de Proyectos</h2>
           <p class="section-subtitle">Muestras reales de trabajos ejecutados en la región</p>
         </div>
+
+        <!-- Toggle visión nocturna IR -->
+        <div class="gallery__night fade-in">
+          <button type="button" class="gallery__night-btn" id="nightToggle" aria-pressed="false">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+            <span id="nightToggleTx">Ver en visión nocturna</span>
+          </button>
+        </div>
+
         <div class="gallery__grid">
           <div class="gallery__cell fade-in">
             <img src="assets/img/proyecto-1.webp" alt="Instalación de seguridad 1" loading="lazy" decoding="async">
@@ -631,144 +834,88 @@
     </section>
 
     <!-- ================================================
-         PISCINAS 
+         ARMA TU SISTEMA — PRE-COTIZADOR SIN PRECIOS
     ================================================ -->
-    <section class="pools" id="piscinas" aria-labelledby="pools-heading">
+    <section class="builder" id="arma-tu-sistema" aria-labelledby="builder-heading">
       <div class="container">
-        <div class="pools__hero fade-in">
-          <span class="section-label section-label--light">Servicio destacado</span>
-          <h2 class="section-title section-title--light" id="pools-heading">
-            Construcción de <span class="text-accent-light">Piscinas</span>
-          </h2>
-          <p class="pools__subtitle">
-            Diseñamos y construimos piscinas a medida con los más altos estándares de calidad. Soluciones residenciales,
-            comunitarias y comerciales.
-          </p>
-        </div>
-      </div>
-
-      <!-- Secuencia cinematográfica: proceso de construcción -->
-      <div class="pools__process" id="poolsProcess" aria-label="Proceso de construcción de piscinas paso a paso">
-        <div class="pools__stage" id="poolsStage">
-
-          <div class="pools__step" data-num="01" data-title="Excavación y preparación">
-            <img src="assets/img/piscina-1.webp" alt="Proceso piscina 1: Excavación" loading="lazy" decoding="async"
-              data-description="Excavación y preparación del terreno: Iniciamos con el movimiento de tierras y nivelación precisa según el diseño.">
-            <div class="pools__step-cap"><span class="n">01</span><h3>Excavación y preparación</h3><p>Movimiento de tierras y nivelación precisa según el diseño.</p></div>
-          </div>
-
-          <div class="pools__step" data-num="02" data-title="Estructura y enfierradura">
-            <img src="assets/img/piscina-2.webp" alt="Proceso piscina 2: Estructura" loading="lazy" decoding="async"
-              data-description="Estructura y enfierradura: Colocación de mallas de acero y refuerzos estructurales para garantizar la máxima durabilidad.">
-            <div class="pools__step-cap"><span class="n">02</span><h3>Estructura y enfierradura</h3><p>Mallas de acero y refuerzos estructurales para máxima durabilidad.</p></div>
-          </div>
-
-          <div class="pools__step" data-num="03" data-title="Hormigonado y encofrado">
-            <img src="assets/img/piscina-3.webp" alt="Proceso piscina 3: Encofrado" loading="lazy" decoding="async"
-              data-description="Hormigonado y encofrado: Vaciado de concreto de alta resistencia para formar el vaso de la piscina.">
-            <div class="pools__step-cap"><span class="n">03</span><h3>Hormigonado y encofrado</h3><p>Vaciado de concreto de alta resistencia para formar el vaso.</p></div>
-          </div>
-
-          <div class="pools__step" data-num="04" data-title="Piscina terminada" data-tag="Proceso · Última fase">
-            <img src="assets/img/piscina-4.webp" alt="Piscina terminada, última fase del proceso" loading="lazy" decoding="async"
-              data-description="Piscina terminada: última fase del proceso. La misma piscina ya con agua, revestida y lista para disfrutar.">
-            <div class="pools__step-cap"><span class="n">04</span><h3>Piscina terminada</h3><p>Última fase: ya con agua, revestida y lista para disfrutar.</p></div>
-          </div>
-
-          <!-- Lectura del paso  -->
-          <div class="pools__readout" aria-hidden="true">
-            <span class="pools__readout-tag" id="poolStepTag">Proceso · En obra</span>
-            <span class="pools__readout-num"><span id="poolStepNum">01</span><small id="poolStepDenom"> / 04</small></span>
-            <h3 class="pools__readout-title pools__readout-fx" id="poolStepTitle">Excavación y preparación</h3>
-            <p class="pools__readout-desc pools__readout-fx" id="poolStepDesc">Movimiento de tierras y nivelación precisa según el diseño.</p>
-          </div>
-
-          <!-- Progreso de pasos -->
-          <div class="pools__progress" aria-hidden="true" id="poolsProgress">
-            <div class="pools__progress-item is-active"><span></span>01 Excavación</div>
-            <div class="pools__progress-item"><span></span>02 Estructura</div>
-            <div class="pools__progress-item"><span></span>03 Hormigonado</div>
-            <div class="pools__progress-item"><span></span>04 Terminada</div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Otro proyecto entregado -->
-      <div class="container">
-        <div class="pools__other fade-in">
-          <div class="pools__other-media">
-            <img src="assets/img/piscina-otro.webp" alt="Otro proyecto de piscina entregado en la región" loading="lazy" decoding="async"
-              data-description="Otro proyecto entregado: una piscina distinta, terminada en otra obra de la región. Una muestra de la variedad de trabajos que realizamos.">
-            <span class="pools__other-seal" aria-hidden="true"><i class="fa-solid fa-circle-check"></i> Proyecto entregado</span>
-          </div>
-          <div class="pools__other-text">
-            <span class="section-label section-label--light">Más trabajos</span>
-            <h3 class="pools__other-title">Otro proyecto entregado</h3>
-            <p class="pools__other-desc">Una piscina distinta, terminada en otra obra de la región, una muestra de la variedad de proyectos que realizamos con el mismo estándar de calidad.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
-
-        <div class="pools__features">
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg></div>
-            <h3 class="pool-feat__title">Diseño personalizado</h3>
-            <p class="pool-feat__text">Cada proyecto se adapta a tu espacio, estilo y presupuesto. Asesoría integral
-              desde el plano hasta la entrega.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v6"/><path d="M16 15v6"/><path d="M16 3v6"/><path d="M3 15h18"/><path d="M3 9h18"/><path d="M8 15v6"/><path d="M8 3v6"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg></div>
-            <h3 class="pool-feat__title">Construcción en concreto armado</h3>
-            <p class="pool-feat__text">Estructuras de larga duración con encofrados profesionales y materiales de
-              primera calidad.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
-            <h3 class="pool-feat__title">Equipamiento completo</h3>
-            <p class="pool-feat__text">Sistemas de filtrado, motores, iluminación LED y automatización para mantener
-              tu piscina impecable.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></div>
-            <h3 class="pool-feat__title">Acabados premium</h3>
-            <p class="pool-feat__text">Revestimientos cerámicos, fibras de vidrio y bordes finos para un resultado
-              estético y duradero.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
-            <h3 class="pool-feat__title">Seguridad integrada</h3>
-            <p class="pool-feat__text">Alarmas de inmersión, cámaras y sistemas de protección perimetral para piscinas
-              residenciales y comunitarias.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-            <h3 class="pool-feat__title">Mantención post-obra</h3>
-            <p class="pool-feat__text">Servicio continuo de limpieza, control químico y revisión técnica para mantener
-              tu piscina en óptimas condiciones.</p>
-          </article>
+        <div class="section-header fade-in">
+          <span class="section-label">Cotizador interactivo</span>
+          <h2 class="section-title" id="builder-heading">Arma <span class="text-accent">tu sistema</span></h2>
+          <p class="section-subtitle">Elige lo que necesitas y envíanos tu pedido armado por WhatsApp. Sin precios online ni compromiso: un técnico lo valida contigo en una visita gratis.</p>
         </div>
 
-        <div class="pools__cta fade-in">
-          <p class="pools__cta-text">¿Quieres construir tu piscina con nosotros? Cuéntanos tu proyecto.</p>
-          <div class="pools__cta-btns">
-            <a href="#contacto" class="btn btn--primary">
-              <i class="fa-solid fa-file-invoice"></i>
-              Cotizar piscina
-            </a>
-            <a href="https://wa.me/56974054542?text=Hola%20SETROF%20SEGURIDAD%2C%20quiero%20cotizar%20la%20construcci%C3%B3n%20de%20una%20piscina."
-              target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
-              <i class="fa-brands fa-whatsapp"></i>
-              WhatsApp piscinas
-            </a>
+        <div class="builder__grid">
+          <div class="builder__controls fade-in">
+
+            <div class="builder__group">
+              <span class="builder__label"><i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i> Tipo de propiedad</span>
+              <div class="builder__chips" id="bProp">
+                <button type="button" class="builder__chip is-on" data-val="Casa"><i class="fa-solid fa-house" aria-hidden="true"></i> Casa</button>
+                <button type="button" class="builder__chip" data-val="Negocio o local"><i class="fa-solid fa-store" aria-hidden="true"></i> Negocio</button>
+                <button type="button" class="builder__chip" data-val="Parcela o terreno"><i class="fa-solid fa-tree" aria-hidden="true"></i> Parcela</button>
+                <button type="button" class="builder__chip" data-val="Condominio o edificio"><i class="fa-solid fa-building" aria-hidden="true"></i> Condominio</button>
+              </div>
+            </div>
+
+            <div class="builder__group">
+              <span class="builder__label"><i class="fa-solid fa-video" aria-hidden="true"></i> Cámaras de seguridad</span>
+              <div class="builder__stepper">
+                <button type="button" id="bCamMinus" aria-label="Quitar una cámara"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
+                <b id="bCamNum">0</b>
+                <button type="button" id="bCamPlus" aria-label="Agregar una cámara"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
+                <span class="builder__stepper-hint" id="bCamHint">Sin cámaras</span>
+              </div>
+            </div>
+
+            <div class="builder__group">
+              <span class="builder__label"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Cerco eléctrico</span>
+              <div class="builder__range">
+                <input type="range" id="bCerco" min="0" max="150" step="5" value="0" aria-label="Metros de cerco eléctrico">
+                <output for="bCerco" id="bCercoOut">0 m</output>
+              </div>
+              <p class="builder__hint">¿No sabes los metros exactos? Déjalo aproximado: se confirma en la visita.</p>
+            </div>
+
+            <div class="builder__group">
+              <span class="builder__label"><i class="fa-solid fa-puzzle-piece" aria-hidden="true"></i> Complementos</span>
+              <div class="builder__switches">
+                <label class="builder__switch">
+                  <input type="checkbox" id="bAlarma" data-item="Alarma con sensores">
+                  <span class="builder__switch-ui" aria-hidden="true"></span>
+                  <span class="builder__switch-tx"><i class="fa-solid fa-bell" aria-hidden="true"></i> Alarma con sensores</span>
+                </label>
+                <label class="builder__switch">
+                  <input type="checkbox" id="bPorton" data-item="Automatización de portón">
+                  <span class="builder__switch-ui" aria-hidden="true"></span>
+                  <span class="builder__switch-tx"><i class="fa-solid fa-warehouse" aria-hidden="true"></i> Portón automático</span>
+                </label>
+                <label class="builder__switch">
+                  <input type="checkbox" id="bMonitoreo" data-item="Monitoreo desde el celular">
+                  <span class="builder__switch-ui" aria-hidden="true"></span>
+                  <span class="builder__switch-tx"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i> Monitoreo desde el celular</span>
+                </label>
+              </div>
+            </div>
+
           </div>
+
+          <aside class="builder__ticket fade-in" aria-label="Resumen de tu sistema">
+            <div class="builder__ticket-top">
+              <span><i class="fa-solid fa-file-invoice" aria-hidden="true"></i> PRE-COTIZACIÓN</span>
+              <span class="builder__ticket-id">SETROF · WEB</span>
+            </div>
+            <div class="builder__ticket-body">
+              <p class="builder__ticket-prop">Propiedad: <b id="bTicketProp">Casa</b></p>
+              <ul id="bTicketList" role="list" aria-live="polite"></ul>
+              <p class="builder__ticket-empty" id="bTicketEmpty">Aún no agregas nada — suma cámaras, metros de cerco o complementos.</p>
+            </div>
+            <div class="builder__ticket-foot">
+              <p class="builder__ticket-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Sin precios online: un técnico valida todo en terreno, gratis y sin compromiso.</p>
+              <a href="#" class="btn btn--whatsapp btn--full is-disabled" id="bWa" target="_blank" rel="noopener noreferrer" aria-disabled="true">
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Enviar pre-cotización
+              </a>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -832,6 +979,15 @@
               <i class="fa-brands fa-whatsapp"></i>
               Escribir por WhatsApp
             </a>
+
+            <!-- Soporte para clientes existentes -->
+            <div class="contact__client">
+              <span class="contact__client-q">¿Ya eres cliente?</span>
+              <a href="https://wa.me/56974054542?text=%C2%A1Hola%20SETROF!%20Ya%20soy%20cliente%20y%20necesito%20*soporte%20t%C3%A9cnico*%20con%20mi%20sistema."
+                target="_blank" rel="noopener noreferrer" class="contact__client-btn">
+                <i class="fa-solid fa-headset" aria-hidden="true"></i> Soporte técnico directo
+              </a>
+            </div>
           </div>
 
           <!-- Formulario -->
@@ -941,17 +1097,6 @@
     <span class="wa-float__tip">¡Escríbenos!</span>
   </a>
 
-  <!-- Modal para fotos de piscinas -->
-  <div id="poolModal" class="pool-modal" role="dialog" aria-modal="true">
-    <button class="pool-modal__close" aria-label="Cerrar modal">&times;</button>
-    <div class="pool-modal__content">
-      <img id="modalImg" src="" alt="Vista ampliada">
-      <div class="pool-modal__info">
-        <p id="modalText"></p>
-      </div>
-    </div>
-  </div>
-
   <!-- ================================================
        SCRIPTS
   ================================================ -->
@@ -960,7 +1105,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-  <script src="assets/js/main.js?v=35"></script>
+  <script src="assets/js/main.js?v=38"></script>
 
 </body>
 
