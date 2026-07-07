@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Setrof Seguridad — Planes de páginas web</title>
-<meta name="description" content="Planes de páginas web profesionales de Setrof Seguridad. Desde $45.000, dominio del primer año incluido." />
+<meta name="description" content="Planes de páginas web profesionales de Setrof Seguridad. Desde $40.000, dominio del primer año incluido." />
 <link rel="icon" type="image/png" href="assets/img/favicon.png" />
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -127,6 +127,108 @@
   .chip i svg { width: 14px; height: 14px; stroke: var(--wsp-deep); }
   .chip--blue i { background: #eaf3ff; }
   .chip--blue i svg { stroke: var(--brand); }
+
+  /* ============ BARRA DE DOMINIO VIVA ============ */
+  .domainbar {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin: 0 auto 28px; padding: 13px 24px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 999px;
+    box-shadow: 0 12px 32px -18px rgba(7,22,48,.4);
+    font-family: 'IBM Plex Mono', monospace; font-size: 1.02rem; color: var(--navy);
+    white-space: nowrap;
+  }
+  .domainbar__lock { width: 15px; height: 15px; color: var(--wsp); flex-shrink: 0; }
+  .domainbar__scheme { color: #9fb0c6; }
+  .domainbar__type { font-weight: 500; min-width: 2px; }
+  .domainbar__caret {
+    width: 2px; height: 1.25em; border-radius: 1px; background: var(--brand);
+    animation: caretBlink 1s steps(2, jump-none) infinite;
+  }
+  @keyframes caretBlink { 50% { opacity: 0; } }
+  .domainbar__check {
+    display: inline-flex; align-items: center; gap: 6px; margin-left: 6px;
+    font-family: 'Manrope', sans-serif; font-size: .76rem; font-weight: 800;
+    color: var(--wsp-deep); background: var(--wsp-bg); border: 1px solid var(--wsp-line);
+    padding: 4px 12px; border-radius: 999px;
+    opacity: 0; transform: scale(.75);
+    transition: opacity .25s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .domainbar__check.is-on { opacity: 1; transform: scale(1); }
+  .domainbar__check svg { width: 11px; height: 11px; }
+  @media (max-width: 600px) {
+    .domainbar { font-size: .8rem; padding: 10px 16px; gap: 7px; }
+    .domainbar__check { font-size: .64rem; padding: 3px 9px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .domainbar__caret { animation: none; } }
+
+  /* ============ PRUEBA TU DOMINIO (interactivo) ============ */
+  .trydom { max-width: 620px; margin: 0 auto 58px; text-align: center; }
+  .trydom__title {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-weight: 800; font-size: 1.02rem; color: var(--navy); margin-bottom: 14px;
+  }
+  .trydom__title svg { width: 17px; height: 17px; color: var(--brand); flex-shrink: 0; }
+  .trydom__bar {
+    display: flex; align-items: center; gap: 2px;
+    background: var(--paper); border: 2px solid var(--line); border-radius: 999px;
+    padding: 12px 22px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 1.05rem; color: var(--navy);
+    box-shadow: 0 14px 34px -20px rgba(7,22,48,.45);
+    transition: border-color .25s ease, box-shadow .25s ease;
+  }
+  .trydom__bar:focus-within {
+    border-color: var(--brand);
+    box-shadow: 0 14px 34px -18px rgba(11,108,255,.5);
+  }
+  .trydom.is-ready .trydom__bar {
+    border-color: var(--wsp);
+    box-shadow: 0 14px 34px -16px rgba(23,163,74,.55);
+  }
+  .trydom__lock { width: 15px; height: 15px; color: #9fb0c6; flex-shrink: 0; margin-right: 7px; transition: color .25s ease; }
+  .trydom.is-ready .trydom__lock { color: var(--wsp); }
+  .trydom__scheme { color: #9fb0c6; }
+  .trydom__bar input {
+    flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+    font: inherit; color: var(--navy); padding: 0;
+  }
+  .trydom__bar input::placeholder { color: #b7c4d6; }
+  .trydom__tld { color: var(--muted); font-weight: 500; flex-shrink: 0; }
+  .trydom__status {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 13px;
+    font-size: .84rem; font-weight: 700; color: var(--muted);
+    padding: 6px 16px; border-radius: 999px;
+    background: var(--mist); border: 1px solid var(--line);
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .trydom__status svg { width: 12px; height: 12px; flex-shrink: 0; display: none; }
+  .trydom.is-ready .trydom__status {
+    color: var(--wsp-deep); background: var(--wsp-bg); border-color: var(--wsp-line);
+    transform: scale(1.05);
+  }
+  .trydom.is-ready .trydom__status svg { display: inline-block; }
+  @media (max-width: 600px) {
+    .trydom__bar { font-size: .88rem; padding: 10px 16px; }
+    .trydom__status { font-size: .76rem; }
+  }
+
+  /* La barra del navegador se "enciende" cuando el dominio es del cliente */
+  .browser__url { transition: background .3s ease, border-color .3s ease; }
+  .browser__url.is-custom { background: var(--wsp-bg); border-color: var(--wsp-line); color: var(--wsp-deep); font-weight: 500; }
+
+  /* QR en vivo del futuro dominio */
+  .trydom__qr {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    max-width: 340px; margin: 16px auto 0; padding: 12px 18px;
+    background: var(--paper); border: 1px solid var(--wsp-line); border-radius: 16px;
+    box-shadow: 0 14px 30px -20px rgba(23,163,74,.6);
+    animation: qrPop .4s cubic-bezier(.34,1.56,.64,1);
+    text-align: left;
+  }
+  .trydom__qr[hidden] { display: none; }
+  .trydom__qr img { width: 74px; height: 74px; border-radius: 8px; flex-shrink: 0; }
+  .trydom__qr span { font-size: .8rem; font-weight: 700; color: var(--wsp-deep); line-height: 1.4; }
+  @keyframes qrPop { from { opacity: 0; transform: scale(.8); } }
+  @media (prefers-reduced-motion: reduce) { .trydom__qr { animation: none; } }
 
   /* ============ THE BROWSER ============ */
   .browser {
@@ -371,7 +473,69 @@
     font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; font-weight: 500;
     padding: 6px 12px; border-radius: 999px;
   }
-  .pv__cart { background: var(--wsp-bg); border: 1px solid var(--wsp-line); color: var(--wsp-deep); }
+  .pv__cart { background: var(--wsp-bg); border: 1px solid var(--wsp-line); color: var(--wsp-deep); transition: background .25s ease, border-color .25s ease, color .25s ease; }
+
+  /* placa de dominio en vivo arriba de cada demo */
+  .pv__domain {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 8px 14px;
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    font-family: 'IBM Plex Mono', monospace; font-size: .74rem; color: #3d4f68;
+    transition: background .3s ease, border-color .3s ease, color .3s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .pv__domain svg { width: 11px; height: 11px; color: var(--wsp); flex-shrink: 0; }
+  .pv__domain.is-custom {
+    background: var(--wsp-bg); border-color: var(--wsp); color: var(--wsp-deep);
+    font-weight: 700; transform: scale(1.04);
+  }
+
+  /* mini catálogo interactivo (Plan Potencial) */
+  .pv__shop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pv__prod {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 11px 6px 9px;
+    background: #fff; border: 2px solid var(--line); border-radius: 12px;
+    font-family: 'Manrope', sans-serif; cursor: pointer;
+    transition: transform .15s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .pv__prod:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--wsp) 45%, var(--line)); }
+  .pv__prod:active { transform: scale(.96); }
+  .pv__prod-img { display: grid; place-items: center; height: 26px; color: var(--accent); }
+  .pv__prod-img svg { width: 22px; height: 22px; }
+  .pv__prod-name { font-size: .7rem; font-weight: 800; color: var(--navy); }
+  .pv__prod-price { font-family: 'IBM Plex Mono', monospace; font-size: .62rem; color: var(--muted); }
+  .pv__prod-add {
+    margin-top: 4px; font-size: .58rem; font-weight: 800; letter-spacing: .02em;
+    padding: 2px 9px; border-radius: 999px;
+    background: var(--mist); border: 1px solid var(--line); color: var(--muted);
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .pv__prod.is-in { border-color: var(--wsp); box-shadow: 0 10px 20px -10px rgba(23,163,74,.55); }
+  .pv__prod.is-in .pv__prod-add { background: var(--wsp); border-color: var(--wsp); color: #fff; }
+  .pv__cart:not(.has-items) { background: var(--mist); border-color: var(--line); color: var(--muted); }
+  .pv__cart.bump { animation: cartBump .35s ease; }
+  @keyframes cartBump { 30% { transform: scale(1.07); } }
+  @media (prefers-reduced-motion: reduce) { .pv__cart.bump { animation: none; } }
+
+  /* el pedido llegando a tu WhatsApp (Plan Potencial) */
+  .pv__chat[hidden] { display: none; }
+  .pv__chat-head {
+    font-family: 'IBM Plex Mono', monospace; font-size: .62rem; letter-spacing: .14em;
+    text-transform: uppercase; color: #7a8aa2; display: block; margin-bottom: 7px;
+  }
+  .pv__bubble {
+    background: #dcf7c8; border: 1px solid #b9e8a0;
+    border-radius: 14px 14px 14px 4px; padding: 10px 13px;
+    font-size: .73rem; color: #1e3a26; line-height: 1.55;
+    box-shadow: 0 8px 18px -12px rgba(23,163,74,.6);
+    animation: qrPop .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .pv__bubble > b { display: block; }
+  .pv__bubble .pv__chat-src { display: block; font-size: .64rem; color: #4c7a58; }
+  .pv__chat-meta { display: block; text-align: right; font-size: .6rem; color: #7ba36b; margin-top: 3px; }
+  .pv__chat-meta i { font-style: normal; color: #3aa9e0; letter-spacing: -0.12em; }
+  @media (prefers-reduced-motion: reduce) { .pv__bubble { animation: none; } }
   .pv__pay { background: #fff; border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--line)); color: #8a5f0a; }
   .pv__pay b { color: var(--wsp-deep); font-weight: 700; }
 
@@ -408,6 +572,149 @@
   }
   .pv__wsp svg { width: 20px; height: 20px; fill: #fff; }
   @keyframes bob { 50% { transform: translateY(-5px); } }
+
+  /* mini landing editable (Plan Básico) */
+  .pv__name {
+    width: 100%; padding: 10px 14px;
+    background: #fff; border: 2px dashed color-mix(in srgb, var(--accent) 45%, var(--line));
+    border-radius: 10px; font-family: 'Manrope', sans-serif;
+    font-size: .82rem; font-weight: 700; color: var(--navy);
+    outline: none; transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .pv__name::placeholder { color: #9fb0c6; font-weight: 600; }
+  .pv__name:focus { border-style: solid; border-color: var(--accent); box-shadow: 0 8px 18px -12px color-mix(in srgb, var(--accent) 70%, transparent); }
+  .pv__hero--land { text-align: center; padding: 20px 16px; }
+  .pv__land-badge {
+    display: inline-grid; place-items: center;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .pv__land-title {
+    display: block; font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 1.18rem; letter-spacing: -0.02em; color: var(--navy); line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  .pv__land-sub { display: block; font-size: .72rem; color: var(--muted); margin-top: 4px; }
+  .pv__hero--land .pv__cta { margin-top: 10px; }
+
+  /* demo de pago (Plan Pro) */
+  .pv__paybtn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; font-weight: 500;
+    padding: 9px 16px; border-radius: 999px; cursor: pointer;
+    background: #fff; border: 2px solid color-mix(in srgb, var(--amber) 55%, var(--line));
+    color: #8a5f0a;
+    box-shadow: 0 8px 18px -10px rgba(217,149,15,.5);
+    transition: transform .15s ease, background .25s ease, border-color .25s ease, color .25s ease;
+  }
+  .pv__paybtn > svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .pv__paybtn.is-processing > svg, .pv__paybtn.is-approved > svg { display: none; }
+  .pv__paybtn:hover { transform: translateY(-2px); }
+  .pv__paybtn:active { transform: scale(.97); }
+  .pv__paybtn.is-processing { cursor: wait; border-color: var(--line); color: var(--muted); }
+  .pv__paybtn.is-processing::before {
+    content: ""; width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0;
+    border: 2px solid var(--line); border-top-color: var(--brand);
+    animation: paySpin .7s linear infinite;
+  }
+  @keyframes paySpin { to { transform: rotate(360deg); } }
+  .pv__paybtn.is-approved {
+    background: var(--wsp-bg); border-color: var(--wsp); color: var(--wsp-deep); font-weight: 700;
+    animation: qrPop .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  @media (prefers-reduced-motion: reduce) { .pv__paybtn.is-processing::before, .pv__paybtn.is-approved { animation: none; } }
+
+  /* selector de medio de pago (Plan Pro) */
+  .pv__paysteps[hidden] { display: none; }
+  .pv__paylabel {
+    font-family: 'IBM Plex Mono', monospace; font-size: .62rem; letter-spacing: .14em;
+    text-transform: uppercase; color: #7a8aa2; display: block; margin-bottom: 7px;
+  }
+  .pv__paymethods { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pv__method {
+    font-family: 'Manrope', sans-serif; font-size: .74rem; font-weight: 700;
+    padding: 8px 15px; border-radius: 999px; cursor: pointer;
+    background: #fff; border: 2px solid var(--line); color: var(--navy);
+    animation: qrPop .3s cubic-bezier(.34,1.56,.64,1);
+    transition: transform .15s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .pv__method:hover {
+    transform: translateY(-2px);
+    border-color: var(--amber);
+    box-shadow: 0 10px 20px -12px rgba(217,149,15,.6);
+  }
+  .pv__method:active { transform: scale(.97); }
+
+  /* boleta electrónica llegando al correo (Plan Pro) */
+  .pv__mail[hidden] { display: none; }
+  .pv__mail-card {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--wsp);
+    border-radius: 10px; padding: 10px 13px;
+    box-shadow: 0 10px 22px -14px rgba(7,22,48,.35);
+    animation: qrPop .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .pv__mail-card > svg { width: 16px; height: 16px; color: var(--wsp-deep); flex-shrink: 0; margin-top: 2px; }
+  .pv__mail-body b { display: block; font-size: .73rem; color: var(--navy); }
+  .pv__mail-body { font-size: .7rem; color: #33445a; line-height: 1.5; }
+  .pv__mail-from { display: block; font-size: .62rem; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { .pv__mail-card, .pv__method { animation: none; } }
+
+  /* selector de color de marca (Plan Básico) */
+  .pv__colors { display: flex; align-items: center; justify-content: center; gap: 9px; }
+  .pv__colors-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: .62rem; letter-spacing: .14em;
+    text-transform: uppercase; color: #7a8aa2;
+  }
+  .pv__color {
+    width: 20px; height: 20px; border-radius: 50%; padding: 0; cursor: pointer;
+    background: var(--c); border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--line);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .pv__color:hover { transform: scale(1.18); }
+  .pv__color.is-on { box-shadow: 0 0 0 2px var(--navy); transform: scale(1.12); }
+
+  /* ============ COMPARADOR DE AHORRO ============ */
+  .saving { margin-top: 96px; }
+  .saving .head { margin: 0 auto 36px; }
+  .saving .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+  .saving__card {
+    max-width: 780px; margin: 0 auto;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+    padding: 34px 36px 26px; box-shadow: 0 4px 16px -10px rgba(7,22,48,0.08);
+  }
+  .saving__row + .saving__row { margin-top: 26px; }
+  .saving__label {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+    font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: 9px;
+  }
+  .saving__num { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; letter-spacing: -0.02em; white-space: nowrap; }
+  .saving__num--rival { color: #d43a3a; }
+  .saving__num--ours { color: var(--wsp-deep); }
+  .saving__track { height: 14px; border-radius: 999px; background: var(--mist); border: 1px solid var(--line); overflow: hidden; }
+  .saving__fill { display: block; height: 100%; width: 0; border-radius: 999px; transition: width 1.3s cubic-bezier(.2,.8,.3,1); }
+  .saving__fill--rival { background: linear-gradient(90deg, #f89b9b, #e05252); }
+  .saving__fill--ours { background: linear-gradient(90deg, #22c05c, var(--wsp-deep)); }
+  .saving.is-on .saving__fill--rival { width: 100%; }
+  .saving.is-on .saving__fill--ours { width: 33.4%; }
+  .saving__note { display: block; margin-top: 7px; font-size: .8rem; color: var(--muted); }
+  .saving__punch {
+    margin-top: 28px; text-align: center;
+    font-size: 1.05rem; font-weight: 800; color: var(--navy);
+    background: var(--wsp-bg); border: 1px solid var(--wsp-line); border-radius: 14px;
+    padding: 14px 18px;
+  }
+  .saving__punch b { color: var(--wsp-deep); font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; }
+  .saving__punch svg { width: 19px; height: 19px; vertical-align: -4px; margin-right: 5px; color: var(--wsp-deep); }
+  .saving__fine { display: block; margin-top: 12px; text-align: center; font-size: .72rem; color: #93a3b8; }
+  @media (max-width: 520px) {
+    .saving__card { padding: 24px 18px 20px; }
+    .saving__label { flex-direction: column; gap: 2px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .saving__fill { transition: none; } }
 
   /* ============ EXTRAS ============ */
   .extras { margin-top: 96px; }
@@ -507,7 +814,8 @@
       </a>
       <nav class="topnav" aria-label="Secciones">
         <a href="#planes">Planes</a>
-        <a href="#extras">Adicionales</a>
+        <a href="#ahorro">Ahorro</a>
+        <a href="#extras">Servicios extra</a>
         <a href="#renovacion">Renovación</a>
         <a href="/">Volver al inicio</a>
       </nav>
@@ -522,13 +830,39 @@
 
     <!-- HEAD -->
     <div class="head" id="planes">
-      <span class="eyebrow">Planes de páginas web</span>
-      <h1>Elige el plan <em>ideal</em> para tu negocio</h1>
-      <p>Navega entre los planes como si ya tuvieras tu página. Pago único, sin mensualidades.</p>
+      <!-- Barra de direcciones viva: tu futuro dominio, escribiéndose solo -->
+      <div class="domainbar" aria-hidden="true">
+        <svg class="domainbar__lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        <span class="domainbar__scheme">https://</span><span class="domainbar__type" id="domainType"></span><span class="domainbar__caret"></span>
+        <span class="domainbar__check" id="domainCheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> disponible</span>
+      </div>
+      <h1>Tu competencia ya está en Google.<br><em>Es hora de superarla.</em></h1>
+      <p>Ese dominio está libre. Nosotros construimos tu página y tú atiendes más clientes: pago único, sin mensualidades.</p>
       <div class="head__chips">
         <span class="chip"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i> Pago único</span>
         <span class="chip chip--blue"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg></i> Dominio 1.<sup>er</sup> año incluido</span>
         <span class="chip chip--blue"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></i> Optimizada para celular</span>
+      </div>
+    </div>
+
+    <!-- PRUEBA TU FUTURO DOMINIO -->
+    <div class="trydom" id="trydom">
+      <p class="trydom__title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        Prueba tu futuro dominio
+      </p>
+      <label class="trydom__bar" for="domainInput">
+        <svg class="trydom__lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        <span class="trydom__scheme">https://</span><input id="domainInput" type="text" maxlength="30" placeholder="tu-negocio" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="tryStatus" /><span class="trydom__tld">.cl</span>
+      </label>
+      <br />
+      <span class="trydom__status" id="tryStatus" role="status">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <span id="tryStatusText">Escribe el nombre de tu negocio y míralo en los planes de abajo</span>
+      </span>
+      <div class="trydom__qr" id="tryQr" hidden>
+        <img id="qrImg" alt="Código QR de tu futuro dominio" width="74" height="74" />
+        <span>Escanéalo con tu celular.<br />Así compartirás tu página cuando esté lista.</span>
       </div>
     </div>
 
@@ -543,7 +877,7 @@
       <div class="browser__tabs" role="tablist" aria-label="Elegir plan">
         <button class="btab btab--basico" role="tab" id="tab-basico" aria-selected="false" aria-controls="panel-basico">
           <span class="btab__name"><span class="btab__fav"></span> Plan Básico</span>
-          <span class="btab__price">$45.000</span>
+          <span class="btab__price">$40.000</span>
           <span class="btab__state">
             <span class="st-idle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg> Ver este plan</span>
             <span class="st-active"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Estás viendo este plan</span>
@@ -552,7 +886,7 @@
         <button class="btab btab--potencial" role="tab" id="tab-potencial" aria-selected="true" aria-controls="panel-potencial">
           <span class="btab__star"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95L12 2.5Z"/></svg> El más elegido</span>
           <span class="btab__name"><span class="btab__fav"></span> Plan Potencial</span>
-          <span class="btab__price">$50.000</span>
+          <span class="btab__price">$60.000</span>
           <span class="btab__state">
             <span class="st-idle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg> Ver este plan</span>
             <span class="st-active"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Estás viendo este plan</span>
@@ -560,7 +894,7 @@
         </button>
         <button class="btab btab--pro" role="tab" id="tab-pro" aria-selected="false" aria-controls="panel-pro">
           <span class="btab__name"><span class="btab__fav"></span> Plan Pro</span>
-          <span class="btab__price">$250.000</span>
+          <span class="btab__price">$299.990</span>
           <span class="btab__state">
             <span class="st-idle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></svg> Ver este plan</span>
             <span class="st-active"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Estás viendo este plan</span>
@@ -587,11 +921,11 @@
           <div class="plan__info">
             <span class="plan__tier">Plan Básico</span>
             <h3 class="plan__name">Para empezar</h3>
-            <div class="plan__price"><span class="amount">$45.000</span></div>
+            <div class="plan__price"><span class="amount">$40.000</span></div>
             <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
             <div class="plan__divider"></div>
             <ul class="features">
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Landing de 1 página</strong></span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Landing de 1 página:</strong> toda la información de tu negocio estilo landing page (quién eres, qué ofreces y cómo contactarte, en una sola página)</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Diseño personalizado a tu gusto</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Optimizada para celular</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Botón de WhatsApp</span></li>
@@ -599,27 +933,38 @@
               <li class="no"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5" stroke-width="2" stroke-linecap="round"/></svg></span> <span>Sin acompañamiento ni cambios</span></li>
               <li class="no"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5" stroke-width="2" stroke-linecap="round"/></svg></span> <span>Sin catálogo ni carrito</span></li>
             </ul>
-            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Básico ($45.000)." href="#" target="_blank" rel="noopener">
+            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Básico ($40.000)." href="#" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
               Quiero el Básico
             </a>
           </div>
-          <div class="plan__preview" aria-hidden="true">
-            <span class="pv__caption">Así se vería tu página</span>
+          <div class="plan__preview">
+            <span class="pv__caption">Demo real · escribe tu nombre y elige un color ↓</span>
             <div class="pv">
-              <div class="pv__bar"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
-              <div class="pv__hero">
-                <i class="pv__line pv__line--lg"></i>
-                <i class="pv__line"></i>
-                <i class="pv__cta"></i>
+              <div class="pv__domain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="js-pvdomain">tunegocio.cl</span></div>
+              <div class="pv__bar" aria-hidden="true"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
+              <input class="pv__name" id="landName" type="text" maxlength="24" placeholder="Escribe el nombre de tu negocio…" autocomplete="off" spellcheck="false" aria-label="Escribe el nombre de tu negocio para ver tu mini landing" />
+              <div class="pv__colors" role="group" aria-label="Elige el color de tu página">
+                <span class="pv__colors-label">Tu color</span>
+                <button type="button" class="pv__color is-on" data-color="#0b6cff" style="--c:#0b6cff" aria-label="Azul"></button>
+                <button type="button" class="pv__color" data-color="#17a34a" style="--c:#17a34a" aria-label="Verde"></button>
+                <button type="button" class="pv__color" data-color="#7c5cff" style="--c:#7c5cff" aria-label="Violeta"></button>
+                <button type="button" class="pv__color" data-color="#d9950f" style="--c:#d9950f" aria-label="Dorado"></button>
+                <button type="button" class="pv__color" data-color="#e11d48" style="--c:#e11d48" aria-label="Rojo"></button>
               </div>
-              <div class="pv__hero">
+              <div class="pv__hero pv__hero--land">
+                <span class="pv__land-badge" id="landLogo" aria-hidden="true">T</span>
+                <b class="pv__land-title" id="landTitle">Tu Negocio</b>
+                <span class="pv__land-sub">Bienvenido a nuestra página oficial</span>
+                <i class="pv__cta" aria-hidden="true"></i>
+              </div>
+              <div class="pv__hero" aria-hidden="true">
                 <i class="pv__line pv__line--lg" style="width:40%"></i>
                 <i class="pv__line" style="width:70%"></i>
                 <i class="pv__line" style="width:55%"></i>
               </div>
             </div>
-            <span class="pv__wsp"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Z"/></svg></span>
+            <span class="pv__wsp" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Z"/></svg></span>
           </div>
         </section>
 
@@ -628,11 +973,12 @@
           <div class="plan__info">
             <span class="plan__tier">Plan Potencial · El más elegido</span>
             <h3 class="plan__name">El más completo</h3>
-            <div class="plan__price"><span class="amount">$50.000</span></div>
+            <div class="plan__price"><span class="amount">$60.000</span></div>
             <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
             <div class="plan__divider"></div>
             <p class="plan__lead">Todo lo del Plan Básico, más:</p>
             <ul class="features">
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Derecho a 2 pestañas incluidas:</strong> por ejemplo Inicio + Catálogo, tú eliges cómo organizar tu página</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Catálogo de productos con fotos</strong></span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Carrito modo WhatsApp:</strong> el cliente arma su pedido, se suma el total y se envía directo a tu WhatsApp</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>SEO básico:</strong> tu página optimizada para ganar visibilidad en Google</span></li>
@@ -644,25 +990,51 @@
               <span class="plan__addon-price">+ $10.000</span>
               Extiende el acompañamiento <strong>hasta diciembre</strong>: incluye cambios 1 vez al mes.
             </div>
-            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Potencial ($50.000)." href="#" target="_blank" rel="noopener">
+            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Potencial ($60.000)." href="#" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
               Quiero el Potencial
             </a>
           </div>
-          <div class="plan__preview" aria-hidden="true">
-            <span class="pv__caption">Así se vería tu página</span>
+          <div class="plan__preview">
+            <span class="pv__caption">Demo real · toca los productos ↓</span>
             <div class="pv">
-              <div class="pv__bar"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
-              <div class="pv__hero" style="padding:12px 14px">
-                <i class="pv__line pv__line--lg"></i>
-                <i class="pv__line"></i>
+              <div class="pv__domain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="js-pvdomain">tunegocio.cl</span></div>
+              <div class="pv__bar" aria-hidden="true"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
+              <div class="pv__shop" role="group" aria-label="Demo del catálogo: agrega productos al pedido">
+                <button type="button" class="pv__prod" data-price="7990">
+                  <span class="pv__prod-img" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+                  <span class="pv__prod-name">Bolso</span>
+                  <span class="pv__prod-price">$7.990</span>
+                  <span class="pv__prod-add">+ Agregar</span>
+                </button>
+                <button type="button" class="pv__prod" data-price="9990">
+                  <span class="pv__prod-img" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23Z"/></svg></span>
+                  <span class="pv__prod-name">Polera</span>
+                  <span class="pv__prod-price">$9.990</span>
+                  <span class="pv__prod-add">+ Agregar</span>
+                </button>
+                <button type="button" class="pv__prod" data-price="14990">
+                  <span class="pv__prod-img" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9.5V12l1.5 1.5"/><path d="m16.13 7.66-.81-4.05A2 2 0 0 0 13.35 2h-2.7a2 2 0 0 0-1.97 1.61l-.81 4.05"/><path d="m7.87 16.34.81 4.05A2 2 0 0 0 10.65 22h2.7a2 2 0 0 0 1.97-1.61l.81-4.05"/></svg></span>
+                  <span class="pv__prod-name">Reloj</span>
+                  <span class="pv__prod-price">$14.990</span>
+                  <span class="pv__prod-add">+ Agregar</span>
+                </button>
               </div>
-              <div class="pv__tiles"><i></i><i></i><i></i></div>
               <div class="pv__chips">
-                <span class="pv__cart">🛒 3 productos · $18.500 → WhatsApp</span>
+                <span class="pv__cart" id="wspCart" role="status">Así funcionará tu catálogo: toca un producto</span>
+              </div>
+              <div class="pv__chat" id="wspChat" hidden>
+                <span class="pv__chat-head">Así te llega el pedido a tu WhatsApp</span>
+                <div class="pv__bubble">
+                  <b>Nuevo pedido</b>
+                  <span id="chatItems"></span>
+                  <b id="chatTotal"></b>
+                  <span class="pv__chat-src">vía <span class="js-pvdomain">tunegocio.cl</span></span>
+                  <span class="pv__chat-meta">ahora <i>✓✓</i></span>
+                </div>
               </div>
             </div>
-            <span class="pv__wsp"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Z"/></svg></span>
+            <span class="pv__wsp" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Z"/></svg></span>
           </div>
         </section>
 
@@ -671,7 +1043,7 @@
           <div class="plan__info">
             <span class="plan__tier">Plan Pro</span>
             <h3 class="plan__name">Para vender online</h3>
-            <div class="plan__price"><span class="amount">$250.000</span></div>
+            <div class="plan__price"><span class="amount">$299.990</span></div>
             <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
             <div class="plan__divider"></div>
             <p class="plan__lead">Todo lo del Plan Potencial, más:</p>
@@ -680,25 +1052,66 @@
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Catálogo más grande</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>SEO más avanzado</strong> (mayor visibilidad en Google)</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Estadísticas de visitas (Google Analytics)</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Correo profesional (contacto@tunegocio.cl)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Correo profesional (<span id="proMail">contacto@tunegocio.cl</span>)</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Soporte prioritario</span></li>
             </ul>
             <div class="plan__addon">
               <span class="plan__addon-price">+ $20.000/mes</span>
               <strong>Cargo extra:</strong> el soporte prioritario se paga de forma mensual ($20.000 al mes).
             </div>
-            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Pro ($250.000)." href="#" target="_blank" rel="noopener">
+            <a class="plan__btn" data-wa="Hola! Me interesa el Plan Pro ($299.990)." href="#" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
               Quiero el Pro
             </a>
           </div>
-          <div class="plan__preview" aria-hidden="true">
-            <span class="pv__caption">Así se vería tu página</span>
+          <div class="plan__preview">
+            <span class="pv__caption">Demo real · elige y paga ↓</span>
             <div class="pv">
-              <div class="pv__bar"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
-              <div class="pv__tiles"><i></i><i></i><i></i></div>
+              <div class="pv__domain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="js-pvdomain">tunegocio.cl</span></div>
+              <div class="pv__bar" aria-hidden="true"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
+              <div class="pv__shop" role="group" aria-label="Demo de compra: elige productos y paga con tarjeta">
+                <button type="button" class="pv__prod" data-price="7990">
+                  <span class="pv__prod-img" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+                  <span class="pv__prod-name">Bolso</span>
+                  <span class="pv__prod-price">$7.990</span>
+                  <span class="pv__prod-add">+ Agregar</span>
+                </button>
+                <button type="button" class="pv__prod" data-price="9990">
+                  <span class="pv__prod-img" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23Z"/></svg></span>
+                  <span class="pv__prod-name">Polera</span>
+                  <span class="pv__prod-price">$9.990</span>
+                  <span class="pv__prod-add">+ Agregar</span>
+                </button>
+                <button type="button" class="pv__prod" data-price="14990">
+                  <span class="pv__prod-img" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9.5V12l1.5 1.5"/><path d="m16.13 7.66-.81-4.05A2 2 0 0 0 13.35 2h-2.7a2 2 0 0 0-1.97 1.61l-.81 4.05"/><path d="m7.87 16.34.81 4.05A2 2 0 0 0 10.65 22h2.7a2 2 0 0 0 1.97-1.61l.81-4.05"/></svg></span>
+                  <span class="pv__prod-name">Reloj</span>
+                  <span class="pv__prod-price">$14.990</span>
+                  <span class="pv__prod-add">+ Agregar</span>
+                </button>
+              </div>
               <div class="pv__chips">
-                <span class="pv__pay">💳 Webpay · <b>Pago aprobado ✓</b></span>
+                <button type="button" class="pv__paybtn" id="payDemo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                  <span>Probar pago con tarjeta</span>
+                </button>
+              </div>
+              <div class="pv__paysteps" id="payMethods" hidden>
+                <span class="pv__paylabel">Elige cómo pagar</span>
+                <div class="pv__paymethods">
+                  <button type="button" class="pv__method" data-method="crédito">Tarjeta de crédito</button>
+                  <button type="button" class="pv__method" data-method="débito">Tarjeta de débito</button>
+                </div>
+              </div>
+              <div class="pv__mail" id="payMail" hidden>
+                <span class="pv__chat-head">La boleta llega sola al correo del cliente</span>
+                <div class="pv__mail-card">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <div class="pv__mail-body">
+                    <b>Boleta electrónica · <span id="mailNum">N° 8.452</span></b>
+                    <span id="mailDetail">Total $22.980 · tarjeta de débito</span>
+                    <span class="pv__mail-from">De: <span class="js-pvdomain">tunegocio.cl</span> · Para: cliente@correo.cl</span>
+                  </div>
+                </div>
               </div>
               <div class="pv__stats">
                 <span class="pv__stats-label">Visitas · Google Analytics</span>
@@ -712,10 +1125,39 @@
       </div>
     </section>
 
+    <!-- COMPARADOR DE AHORRO -->
+    <section class="saving" id="ahorro" aria-label="Comparación de ahorro">
+      <div class="head">
+        <span class="eyebrow">Comparación de precios</span>
+        <h1>Pago único vs <em>arriendo mensual</em></h1>
+        <p>Otras plataformas te cobran todos los meses, para siempre. Aquí pagas una vez y la página es tuya.</p>
+      </div>
+      <div class="saving__card">
+        <div class="saving__row">
+          <div class="saving__label">
+            <span>Plataformas de arriendo mensual (Wix, Shopify u otras)*</span>
+            <b class="saving__num saving__num--rival" id="rivalNum" data-total="180000">$180.000</b>
+          </div>
+          <div class="saving__track"><i class="saving__fill saving__fill--rival"></i></div>
+          <span class="saving__note">~$15.000 al mes · lo pagas todos los años, para siempre</span>
+        </div>
+        <div class="saving__row">
+          <div class="saving__label">
+            <span>Setrof · Plan Potencial</span>
+            <b class="saving__num saving__num--ours" id="oursNum" data-total="60000">$60.000</b>
+          </div>
+          <div class="saving__track"><i class="saving__fill saving__fill--ours"></i></div>
+          <span class="saving__note">Una sola vez · desde el 2.º año solo $10.000 de renovación de dominio</span>
+        </div>
+        <p class="saving__punch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg> Te ahorras <b>$120.000</b> solo el primer año</p>
+        <small class="saving__fine">*Precio referencial del año 1 con planes básicos de esas plataformas en Chile.</small>
+      </div>
+    </section>
+
     <!-- EXTRAS -->
     <section class="extras" id="extras">
       <div class="head">
-        <span class="eyebrow">Adicionales</span>
+        <span class="eyebrow">Después de la entrega</span>
         <h1>Servicios extra y <em>renovación</em></h1>
       </div>
       <div class="extras__grid">
@@ -755,20 +1197,66 @@
     // ——— Número de WhatsApp: cambiar solo aquí ———
     const WHATSAPP = "56974054542";
 
-    document.querySelectorAll("a[data-wa]").forEach(a => {
-      a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.dataset.wa);
-    });
+    // Si el visitante escribió su dominio, se agrega al mensaje de WhatsApp
+    let customDomain = "";
+    function refreshWaLinks() {
+      document.querySelectorAll("a[data-wa]").forEach(a => {
+        let msg = a.dataset.wa;
+        if (customDomain) msg += " Mi dominio ideal es: " + customDomain;
+        a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
+      });
+    }
+    refreshWaLinks();
+
+    // ——— Dominio escribiéndose en la barra ———
+    const domEl = document.getElementById("domainType");
+    const domCheck = document.getElementById("domainCheck");
+    if (domEl && domCheck) {
+      const domains = ["tu-restaurante.cl", "tu-barberia.cl", "tu-ferreteria.cl", "tu-gimnasio.cl", "tu-negocio.cl"];
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        domEl.textContent = "tu-negocio.cl";
+        domCheck.classList.add("is-on");
+      } else {
+        let di = 0, ci = 0, deleting = false;
+        const step = () => {
+          const word = domains[di];
+          if (!deleting) {
+            ci++;
+            domEl.textContent = word.slice(0, ci);
+            if (ci === word.length) {
+              domCheck.classList.add("is-on");
+              deleting = true;
+              setTimeout(step, 2000);
+              return;
+            }
+            setTimeout(step, 85);
+          } else {
+            domCheck.classList.remove("is-on");
+            ci--;
+            domEl.textContent = word.slice(0, ci);
+            if (ci === 0) {
+              deleting = false;
+              di = (di + 1) % domains.length;
+              setTimeout(step, 400);
+              return;
+            }
+            setTimeout(step, 38);
+          }
+        };
+        step();
+      }
+    }
 
     // ——— Pestañas del navegador ———
-    const urls = {
-      basico:    "tunegocio.cl",
-      potencial: "tunegocio.cl/catalogo",
-      pro:       "tunegocio.cl/pago"
-    };
+    const paths = { basico: "", potencial: "/catalogo", pro: "/pago" };
+    let currentPlan = "potencial";
     const tabs = Array.from(document.querySelectorAll(".btab"));
     const urlText = document.getElementById("urlText");
+    const urlBox = urlText.closest(".browser__url");
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     let typing = null;
+
+    function baseDomain() { return customDomain || "tunegocio.cl"; }
 
     function typeUrl(text) {
       clearInterval(typing);
@@ -782,12 +1270,13 @@
     }
 
     function selectPlan(id) {
+      currentPlan = id;
       tabs.forEach(t => {
         const active = t.id === "tab-" + id;
         t.setAttribute("aria-selected", active);
         document.getElementById("panel-" + t.id.slice(4)).hidden = !active;
       });
-      typeUrl(urls[id]);
+      typeUrl(baseDomain() + paths[id]);
     }
 
     tabs.forEach((tab, i) => {
@@ -799,6 +1288,222 @@
         selectPlan(next.id.slice(4));
       });
     });
+
+    // ——— Prueba tu futuro dominio ———
+    const trydom = document.getElementById("trydom");
+    const domainInput = document.getElementById("domainInput");
+    const tryStatusText = document.getElementById("tryStatusText");
+    const proMail = document.getElementById("proMail");
+    const STATUS_IDLE = "Escribe el nombre de tu negocio y míralo en los planes de abajo";
+    const STATUS_READY = "¡Dominio listo! Así se verá tu página ↓";
+
+    // Limpia lo escrito: minúsculas, espacios → guiones, sin símbolos raros
+    function slugify(v) {
+      return v.toLowerCase()
+        .replace(/[áàâä]/g, "a").replace(/[éèêë]/g, "e").replace(/[íìîï]/g, "i")
+        .replace(/[óòôö]/g, "o").replace(/[úùûü]/g, "u")
+        .replace(/\s+/g, "-")
+        .replace(/[^a-z0-9ñ-]/g, "")
+        .replace(/-{2,}/g, "-");
+    }
+
+    function applyDomain() {
+      const dom = baseDomain();
+      clearInterval(typing); // corta la animación de tipeo para que no pise el dominio nuevo
+      urlText.textContent = dom + paths[currentPlan];
+      urlBox.classList.toggle("is-custom", !!customDomain);
+      if (proMail) proMail.textContent = "contacto@" + dom;
+      document.querySelectorAll(".js-pvdomain").forEach(el => { el.textContent = dom; });
+      document.querySelectorAll(".pv__domain").forEach(el => el.classList.toggle("is-custom", !!customDomain));
+      refreshWaLinks();
+    }
+
+    // ——— Mini catálogo de demostración (Plan Potencial) ———
+    const prods = Array.from(document.querySelectorAll("#panel-potencial .pv__prod"));
+    const cartEl = document.getElementById("wspCart");
+    const CART_EMPTY = "Así funcionará tu catálogo: toca un producto";
+
+    const wspChat = document.getElementById("wspChat");
+    const chatItems = document.getElementById("chatItems");
+    const chatTotal = document.getElementById("chatTotal");
+
+    function updateCart() {
+      const sel = prods.filter(p => p.classList.contains("is-in"));
+      prods.forEach(p => {
+        p.querySelector(".pv__prod-add").textContent = p.classList.contains("is-in") ? "✓ Agregado" : "+ Agregar";
+      });
+      if (!sel.length) {
+        cartEl.textContent = CART_EMPTY;
+        cartEl.classList.remove("has-items");
+        if (wspChat) wspChat.hidden = true;
+        return;
+      }
+      const total = sel.reduce((s, p) => s + Number(p.dataset.price), 0);
+      cartEl.textContent = sel.length + (sel.length === 1 ? " producto" : " productos")
+        + " · $" + total.toLocaleString("es-CL") + " → Enviar a WhatsApp";
+      cartEl.classList.add("has-items");
+      cartEl.classList.remove("bump");
+      void cartEl.offsetWidth; // reinicia la animación
+      cartEl.classList.add("bump");
+      // el pedido "llega" al WhatsApp del dueño
+      if (wspChat) {
+        chatItems.textContent = sel.map(p =>
+          "1× " + p.querySelector(".pv__prod-name").textContent
+          + " ($" + Number(p.dataset.price).toLocaleString("es-CL") + ")"
+        ).join(" · ");
+        chatTotal.textContent = "Total: $" + total.toLocaleString("es-CL");
+        wspChat.hidden = false;
+      }
+    }
+
+    if (cartEl && prods.length) {
+      prods.forEach(p => p.addEventListener("click", () => {
+        p.classList.toggle("is-in");
+        updateCart();
+      }));
+    }
+
+    // QR en vivo: se genera cuando el visitante deja de escribir
+    const tryQr = document.getElementById("tryQr");
+    const qrImg = document.getElementById("qrImg");
+    let qrTimer = null;
+    if (qrImg) {
+      qrImg.addEventListener("load", () => { tryQr.hidden = false; });
+      qrImg.addEventListener("error", () => { tryQr.hidden = true; });
+    }
+    function updateQr(ready) {
+      clearTimeout(qrTimer);
+      if (!qrImg) return;
+      if (!ready) { tryQr.hidden = true; return; }
+      qrTimer = setTimeout(() => {
+        qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=148x148&data="
+          + encodeURIComponent("https://" + customDomain);
+      }, 500);
+    }
+
+    if (domainInput) {
+      domainInput.addEventListener("input", () => {
+        const clean = slugify(domainInput.value);
+        if (clean !== domainInput.value) domainInput.value = clean;
+        const name = clean.replace(/^-+|-+$/g, "");
+        const ready = name.length >= 2;
+        customDomain = ready ? name + ".cl" : "";
+        trydom.classList.toggle("is-ready", ready);
+        tryStatusText.textContent = ready ? STATUS_READY : STATUS_IDLE;
+        applyDomain();
+        updateQr(ready);
+      });
+    }
+
+    // ——— Mini landing editable (Plan Básico) ———
+    const landName = document.getElementById("landName");
+    const landTitle = document.getElementById("landTitle");
+    const landLogo = document.getElementById("landLogo");
+    if (landName) {
+      landName.addEventListener("input", () => {
+        const v = landName.value.trim();
+        landTitle.textContent = v || "Tu Negocio";
+        landLogo.textContent = (v || "T").charAt(0).toUpperCase();
+      });
+    }
+
+    // ——— Demo de compra y pago (Plan Pro) ———
+    const payBtn = document.getElementById("payDemo");
+    if (payBtn) {
+      const payLabel = payBtn.querySelector("span");
+      const proProds = Array.from(document.querySelectorAll("#panel-pro .pv__prod"));
+      const payMethods = document.getElementById("payMethods");
+      const payMail = document.getElementById("payMail");
+      const mailNum = document.getElementById("mailNum");
+      const mailDetail = document.getElementById("mailDetail");
+      let payTimers = [];
+
+      function proTotal() {
+        return proProds.filter(p => p.classList.contains("is-in"))
+          .reduce((s, p) => s + Number(p.dataset.price), 0);
+      }
+      function proIdleLabel() {
+        const total = proTotal();
+        return total ? "Pagar $" + total.toLocaleString("es-CL") + " con tarjeta" : "Probar pago con tarjeta";
+      }
+      function payBusy() {
+        return payBtn.classList.contains("is-processing") || payBtn.classList.contains("is-approved");
+      }
+
+      proProds.forEach(p => p.addEventListener("click", () => {
+        p.classList.toggle("is-in");
+        p.querySelector(".pv__prod-add").textContent = p.classList.contains("is-in") ? "✓ Agregado" : "+ Agregar";
+        if (!payBusy()) payLabel.textContent = proIdleLabel();
+      }));
+
+      // Paso 1: al tocar "Pagar" se abre la elección de crédito o débito
+      payBtn.addEventListener("click", () => {
+        if (payBusy()) return;
+        payMail.hidden = true;
+        payMethods.hidden = !payMethods.hidden;
+      });
+
+      // Paso 2: elige el medio, se procesa y llega la boleta al correo
+      payMethods.querySelectorAll(".pv__method").forEach(m => m.addEventListener("click", () => {
+        const metodo = m.dataset.method;
+        payTimers.forEach(clearTimeout);
+        payTimers = [];
+        payMethods.hidden = true;
+        payBtn.classList.add("is-processing");
+        payLabel.textContent = "Procesando " + metodo + "…";
+        payTimers.push(setTimeout(() => {
+          payBtn.classList.remove("is-processing");
+          payBtn.classList.add("is-approved");
+          payLabel.textContent = "✓ Pago aprobado con " + metodo;
+          const total = proTotal();
+          mailNum.textContent = "N° " + (8000 + Math.floor(Math.random() * 2000)).toLocaleString("es-CL");
+          mailDetail.textContent = (total ? "Total $" + total.toLocaleString("es-CL") : "Compra de prueba")
+            + " · tarjeta de " + metodo;
+          payMail.hidden = false;
+          payTimers.push(setTimeout(() => {
+            payBtn.classList.remove("is-approved");
+            payLabel.textContent = proIdleLabel();
+            payMail.hidden = true;
+          }, 7000));
+        }, 1200));
+      }));
+    }
+
+    // ——— Selector de color de marca (Plan Básico) ———
+    const colorBtns = Array.from(document.querySelectorAll(".pv__color"));
+    const basicoPreview = document.querySelector("#panel-basico .plan__preview");
+    if (colorBtns.length && basicoPreview) {
+      colorBtns.forEach(btn => btn.addEventListener("click", () => {
+        colorBtns.forEach(b => b.classList.toggle("is-on", b === btn));
+        basicoPreview.style.setProperty("--accent", btn.dataset.color);
+      }));
+    }
+
+    // ——— Comparador de ahorro: barras y contadores al entrar en pantalla ———
+    const savingSec = document.querySelector(".saving");
+    function countUp(el) {
+      const total = Number(el.dataset.total);
+      const t0 = performance.now();
+      const DUR = 1300;
+      function frame(now) {
+        const p = Math.min((now - t0) / DUR, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = "$" + Math.round(total * eased).toLocaleString("es-CL");
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    if (savingSec && "IntersectionObserver" in window && !reduced.matches) {
+      const obs = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) return;
+        savingSec.classList.add("is-on");
+        savingSec.querySelectorAll(".saving__num").forEach(countUp);
+        obs.disconnect();
+      }, { threshold: 0.35 });
+      obs.observe(savingSec);
+    } else if (savingSec) {
+      savingSec.classList.add("is-on");
+    }
   </script>
 
 </body>

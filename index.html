@@ -110,7 +110,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=35">
+  <link rel="stylesheet" href="assets/css/styles.css?v=36">
 
   <!-- Schema.org LocalBusiness -->
   <script type="application/ld+json">
@@ -237,7 +237,14 @@
           <span class="sr-only">SETROF — Sistemas integrales de seguridad en La Serena y Coquimbo, Región de Coquimbo, Chile.</span>
           <h1 class="hero__title">SET<span class="hero__title-accent">ROF</span></h1>
           <p class="hero__subtitle">Sistemas Integrales de Seguridad</p>
-          <span class="hero__rule" aria-hidden="true"></span>
+
+          <!-- CTA principal: botón estilo panel NVR -->
+          <a class="hero__cta" href="https://wa.me/56974054542?text=Hola!%20Quiero%20cotizar%20un%20sistema%20de%20seguridad%20para%20mi%20propiedad."
+             target="_blank" rel="noopener noreferrer" aria-label="Cotiza gratis por WhatsApp">
+            <span class="hero__cta-led" aria-hidden="true"></span>
+            <span class="hero__cta-text">Cotiza gratis ahora</span>
+            <i class="fa-brands fa-whatsapp hero__cta-icon" aria-hidden="true"></i>
+          </a>
         </div>
 
         <!-- Escena: órbita de servicios alrededor del NVR  -->
@@ -263,35 +270,42 @@
             <span class="hero__glow" aria-hidden="true"></span>
             <div class="hero__monitor-screen">
             <div class="hero__monitor-top">
-              <span class="hero__monitor-name"><i class="fa-solid fa-video"></i> SETROF · NVR</span>
+              <span class="hero__monitor-name"><i class="fa-solid fa-video"></i> SETROF · NVR&#8209;8CH</span>
               <span class="hero__monitor-net"><i></i> ONLINE</span>
+              <span class="hero__hdd">HDD <b>62%</b></span>
+              <span class="hero__hdd">CH <b>4/4</b></span>
               <span class="hero__rec"><span class="hero__rec-dot"></span> REC</span>
             </div>
             <div class="hero__feeds">
               <figure class="hero__feed">
                 <img src="assets/img/porque-elegirnos.webp" alt="" loading="lazy">
-                <span class="hero__feed-cam">CAM 01</span>
-                <span class="hero__feed-live"><i></i> LIVE</span>
+                <span class="hero__feed-cam">CAM 01 <small>· CERCO PERIMETRAL</small></span>
+                <span class="hero__feed-ts js-nvr-clock">--:--:--</span>
+                <span class="hero__sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
               </figure>
-              <figure class="hero__feed">
+              <figure class="hero__feed hero__feed--motion">
                 <img src="assets/img/proyecto-3.webp" alt="" loading="lazy">
-                <span class="hero__feed-cam">CAM 02</span>
-                <span class="hero__feed-live"><i></i> LIVE</span>
+                <span class="hero__feed-cam">CAM 02 <small>· MURO NORTE</small></span>
+                <span class="hero__motion" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i> MOVIMIENTO</span>
+                <span class="hero__feed-ts js-nvr-clock">--:--:--</span>
+                <span class="hero__sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
               </figure>
               <figure class="hero__feed">
                 <img src="assets/img/proyecto-5.webp" alt="" loading="lazy">
-                <span class="hero__feed-cam">CAM 03</span>
-                <span class="hero__feed-live"><i></i> LIVE</span>
+                <span class="hero__feed-cam">CAM 03 <small>· ENERGIZADOR</small></span>
+                <span class="hero__feed-ts js-nvr-clock">--:--:--</span>
+                <span class="hero__sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
               </figure>
               <figure class="hero__feed">
                 <img src="assets/img/proyecto-1.webp" alt="" loading="lazy">
-                <span class="hero__feed-cam">CAM 04</span>
-                <span class="hero__feed-live"><i></i> LIVE</span>
+                <span class="hero__feed-cam">CAM 04 <small>· ACCESO PRINCIPAL</small></span>
+                <span class="hero__feed-ts js-nvr-clock">--:--:--</span>
+                <span class="hero__sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
               </figure>
             </div>
             <div class="hero__monitor-foot">
               <span class="hero__monitor-loc"><i class="fa-solid fa-shield-halved"></i> Protección integral 24/7</span>
-              <span class="hero__monitor-ts" id="heroClock">--:--:--</span>
+              <span class="hero__monitor-ts"><span class="js-nvr-date"></span> <b id="heroClock">--:--:--</b></span>
             </div>
             </div><!-- /screen -->
             <div class="hero__monitor-chin" aria-hidden="true">

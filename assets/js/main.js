@@ -206,16 +206,30 @@
     step();
   };
 
-  /* Reloj en vivo del monitor del hero */
+  /* Reloj en vivo del monitor del hero (barra inferior + cada cámara) */
   const heroClock = document.getElementById('heroClock');
-  if (heroClock) {
+  const nvrClocks = document.querySelectorAll('.js-nvr-clock');
+  const nvrDate = document.querySelector('.js-nvr-date');
+  if (heroClock || nvrClocks.length) {
     const pad = (n) => String(n).padStart(2, '0');
     const tickClock = () => {
       const t = new Date();
-      heroClock.textContent = `${pad(t.getHours())}:${pad(t.getMinutes())}:${pad(t.getSeconds())}`;
+      const hhmmss = `${pad(t.getHours())}:${pad(t.getMinutes())}:${pad(t.getSeconds())}`;
+      if (heroClock) heroClock.textContent = hhmmss;
+      nvrClocks.forEach((el) => { el.textContent = hhmmss; });
+      if (nvrDate) nvrDate.textContent = t.toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit', year: 'numeric' });
     };
     tickClock();
     setInterval(tickClock, 1000);
+  }
+
+  /* Alerta de movimiento en CAM 02 cada algunos segundos */
+  const motionFeed = document.querySelector('.hero__feed--motion');
+  if (motionFeed && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => {
+      motionFeed.classList.add('is-motion');
+      setTimeout(() => motionFeed.classList.remove('is-motion'), 2600);
+    }, 7000);
   }
 
   /* Carrusel giratorio de servicios del hero (flechas ◀ ▶) */
