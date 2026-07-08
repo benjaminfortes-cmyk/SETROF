@@ -19,7 +19,7 @@
     --paper:    #ffffff;
     --mist:     #f7faff;
 
-    --brand:    #0b6cff;
+    --brand:    #0ea5e9;
     --violet:   #7c5cff;
     --amber:    #d9950f;
 
@@ -45,15 +45,15 @@
   body::before {
     content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
     background:
-      linear-gradient(rgba(11,108,255,0.055) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(11,108,255,0.055) 1px, transparent 1px);
+      linear-gradient(rgba(14,165,233,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,165,233,0.055) 1px, transparent 1px);
     background-size: 44px 44px;
     -webkit-mask-image: radial-gradient(1100px 720px at 50% -60px, #000 35%, transparent 78%);
     mask-image: radial-gradient(1100px 720px at 50% -60px, #000 35%, transparent 78%);
   }
   body::after {
     content: ""; position: fixed; inset: 0; z-index: -3; pointer-events: none;
-    background: radial-gradient(900px 480px at 72% -120px, #dbeaff, transparent 65%);
+    background: radial-gradient(900px 480px at 72% -120px, #e0f2fe, transparent 65%);
   }
 
   a { color: inherit; text-decoration: none; }
@@ -70,7 +70,7 @@
     border-bottom: 1px solid var(--line);
   }
   .topbar__inner {
-    max-width: var(--maxw); margin: 0 auto; padding: 0 26px;
+    max-width: 1240px; margin: 0 auto; padding: 0 28px;
     height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
   }
   .brand__logo { height: 56px; width: auto; display: block; }
@@ -80,6 +80,10 @@
     transition: color .15s ease;
   }
   .topnav a:hover { color: var(--brand); }
+  @media (max-width: 768px) {
+    .topbar__inner { height: 64px; }
+    .brand__logo { height: 44px; }
+  }
 
   /* WhatsApp pill — soft mint fill, green outline */
   .btn-wsp {
@@ -125,7 +129,7 @@
     background: var(--wsp-bg);
   }
   .chip i svg { width: 14px; height: 14px; stroke: var(--wsp-deep); }
-  .chip--blue i { background: #eaf3ff; }
+  .chip--blue i { background: #e0f2fe; }
   .chip--blue i svg { stroke: var(--brand); }
 
   /* ============ BARRA DE DOMINIO VIVA ============ */
@@ -178,7 +182,7 @@
   }
   .trydom__bar:focus-within {
     border-color: var(--brand);
-    box-shadow: 0 14px 34px -18px rgba(11,108,255,.5);
+    box-shadow: 0 14px 34px -18px rgba(14,165,233,.5);
   }
   .trydom.is-ready .trydom__bar {
     border-color: var(--wsp);
@@ -348,8 +352,8 @@
   .plan[hidden] { display: none; }
   @keyframes fadein { from { opacity: 0; transform: translateY(10px); } }
 
-  .plan__info { padding: 38px 42px 40px; --accent: var(--brand); --tint: #eaf3ff; }
-  .plan--basico    .plan__info { --accent: var(--brand);    --tint: #eaf3ff; }
+  .plan__info { padding: 38px 42px 40px; --accent: var(--brand); --tint: #e0f2fe; }
+  .plan--basico    .plan__info { --accent: var(--brand);    --tint: #e0f2fe; }
   .plan--potencial .plan__info { --accent: var(--wsp-deep); --tint: var(--wsp-bg); }
   .plan--pro       .plan__info { --accent: var(--amber);    --tint: #fdf3dc; }
 
@@ -410,10 +414,10 @@
   .plan__preview {
     position: relative; overflow: hidden;
     border-left: 1px solid var(--line);
-    background: linear-gradient(165deg, var(--tint, #eaf3ff), #fff 80%);
+    background: linear-gradient(165deg, var(--tint, #e0f2fe), #fff 80%);
     padding: 26px 28px; display: flex; flex-direction: column;
   }
-  .plan--basico    .plan__preview { --tint: #eaf3ff; --accent: var(--brand); }
+  .plan--basico    .plan__preview { --tint: #e0f2fe; --accent: var(--brand); }
   .plan--potencial .plan__preview { --tint: var(--wsp-bg); --accent: var(--wsp); }
   .plan--pro       .plan__preview { --tint: #fdf3dc; --accent: var(--amber); }
 
@@ -750,7 +754,7 @@
   .panel--dark::after {
     content: ""; position: absolute; right: -80px; bottom: -80px;
     width: 260px; height: 260px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(11,108,255,0.45), transparent 70%);
+    background: radial-gradient(circle, rgba(14,165,233,0.45), transparent 70%);
   }
   .panel--dark h3, .panel--dark .panel__row { position: relative; z-index: 1; }
   .panel--dark h3 { color: #fff; }
@@ -788,7 +792,6 @@
     .topnav { display: none; }
   }
   @media (max-width: 520px) {
-    .brand__logo { height: 36px; }
     .btn-wsp { padding: 9px 16px; font-size: 0.88rem; }
     .head { margin: 52px auto 40px; }
     .plan__info { padding: 28px 22px 30px; }
@@ -946,7 +949,7 @@
               <input class="pv__name" id="landName" type="text" maxlength="24" placeholder="Escribe el nombre de tu negocio…" autocomplete="off" spellcheck="false" aria-label="Escribe el nombre de tu negocio para ver tu mini landing" />
               <div class="pv__colors" role="group" aria-label="Elige el color de tu página">
                 <span class="pv__colors-label">Tu color</span>
-                <button type="button" class="pv__color is-on" data-color="#0b6cff" style="--c:#0b6cff" aria-label="Azul"></button>
+                <button type="button" class="pv__color is-on" data-color="#0ea5e9" style="--c:#0ea5e9" aria-label="Azul"></button>
                 <button type="button" class="pv__color" data-color="#17a34a" style="--c:#17a34a" aria-label="Verde"></button>
                 <button type="button" class="pv__color" data-color="#7c5cff" style="--c:#7c5cff" aria-label="Violeta"></button>
                 <button type="button" class="pv__color" data-color="#d9950f" style="--c:#d9950f" aria-label="Dorado"></button>
