@@ -871,6 +871,16 @@
       return n;
     };
 
+    /* Cámara en vivo dentro del teléfono (aparece tras las alertas) */
+    var liveCard = document.getElementById('demoLive');
+    var liveTs = document.getElementById('demoLiveTs');
+    var liveTimer = null;
+    var tickLive = function () {
+      if (!liveTs) return;
+      var d = new Date();
+      liveTs.textContent = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
+    };
+
     var busy = false;
     btn.addEventListener('click', function () {
       if (busy) return;
@@ -878,6 +888,8 @@
       btn.classList.add('is-busy');
       if (btnTx) btnTx.textContent = 'Detectando…';
       notifs.innerHTML = '';
+      if (liveCard) liveCard.classList.remove('is-on');
+      if (liveTimer) { clearInterval(liveTimer); liveTimer = null; }
 
       var now = new Date();
       var hhmmss = pad2(now.getHours()) + ':' + pad2(now.getMinutes()) + ':' + pad2(now.getSeconds());
@@ -889,7 +901,7 @@
           mod: 'pnotif--alert',
           icon: 'fa-solid fa-triangle-exclamation',
           title: '⚠ Movimiento detectado',
-          sub: 'CAM 02 · Muro Norte — ' + hhmmss,
+          sub: 'CAM 02 · Muro Norte · ' + hhmmss,
           thumb: 'assets/img/proyecto-3.webp'
         }));
         setTimeout(function () { phone.classList.remove('is-buzz'); }, 600);
@@ -905,11 +917,20 @@
         }));
       }, 2300);
 
+      /* 3: se abre la cámara en vivo abajo en la pantalla */
+      setTimeout(function () {
+        if (liveCard) {
+          tickLive();
+          liveTimer = setInterval(tickLive, 1000);
+          liveCard.classList.add('is-on');
+        }
+      }, 3400);
+
       setTimeout(function () {
         busy = false;
         btn.classList.remove('is-busy');
         if (btnTx) btnTx.textContent = 'Repetir simulación';
-      }, 3100);
+      }, 4200);
     });
   })();
 
@@ -942,7 +963,7 @@
 
     var recMap = {
       'Cámaras': 'Un kit de cámaras con acceso desde tu celular te da ojos en tu propiedad las 24 horas, desde cualquier lugar.',
-      'Perímetro': 'Un cerco eléctrico perimetral disuade y detiene la intrusión antes de que llegue a tu puerta.',
+      'Perímetro': 'Un cerco eléctrico perimetral disuade y detiene un robo antes de que llegue a tu puerta.',
       'Alarma': 'Una alarma con sensores reacciona en el segundo exacto y activa la sirena ante cualquier apertura o movimiento.',
       'Alertas al celular': 'Con monitoreo remoto, cada evento llega como notificación a tu celular en segundos, estés donde estés.'
     };
@@ -1039,7 +1060,7 @@
       var lines = [
         '¡Hola SETROF! Hice el *test de seguridad* en el sitio web.',
         '',
-        '*Resultado: ' + total + '% — ' + lvl + '*',
+        '*Resultado: ' + total + '% · ' + lvl + '*',
         '*Punto débil: ' + weakName + '*',
         ''
       ];
@@ -1174,6 +1195,107 @@
         render();
       }
     };
+
+    render();
+  })();
+
+  /* =========================================================
+     4) PÁGINA PISCINAS — módulos exclusivos de /piscinas
+     (guardados por elemento: no corren en la página principal)
+  ========================================================= */
+
+  /* 4.1 Cuenta regresiva al verano (21 de diciembre) */
+  (function () {
+    var daysEl = document.getElementById('ppCountDays');
+    var wrap = document.getElementById('ppCount');
+    if (!daysEl || !wrap) return;
+    var now = new Date();
+    var target = new Date(now.getFullYear(), 11, 21);
+    if (target - now <= 0) target = new Date(now.getFullYear() + 1, 11, 21);
+    daysEl.textContent = Math.ceil((target - now) / 86400000);
+    wrap.hidden = false;
+  })();
+
+  /* 4.2 Timeline de semanas: se llena al entrar en pantalla */
+  (function () {
+    var wk = document.getElementById('ppWeeks');
+    if (!wk) return;
+    if (!('IntersectionObserver' in window)) { wk.classList.add('is-in'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { wk.classList.add('is-in'); io.disconnect(); }
+      });
+    }, { threshold: 0.35 });
+    io.observe(wk);
+  })();
+
+  /* 4.3 Ondas de agua al hacer clic/tocar el hero */
+  (function () {
+    var hero = document.querySelector('.pp-hero');
+    if (!hero) return;
+    hero.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('a, button')) return;
+      var r = document.createElement('span');
+      r.className = 'pp-ripple';
+      var rect = hero.getBoundingClientRect();
+      r.style.left = (e.clientX - rect.left) + 'px';
+      r.style.top = (e.clientY - rect.top) + 'px';
+      hero.appendChild(r);
+      setTimeout(function () { r.remove(); }, 1500);
+    });
+  })();
+
+  /* 4.4 "Arma tu piscina" — pre-cotizador sin precios */
+  (function () {
+    var list = document.getElementById('pbTicketList');
+    if (!list) return;
+
+    var formaChips = Array.prototype.slice.call(document.querySelectorAll('#pbForma .builder__chip'));
+    var sizeChips = Array.prototype.slice.call(document.querySelectorAll('#pbSize .builder__chip'));
+    var extras = Array.prototype.slice.call(document.querySelectorAll('#pbExtras input'));
+    var ticketProp = document.getElementById('pbTicketProp');
+    var emptyMsg = document.getElementById('pbTicketEmpty');
+    var waBtn = document.getElementById('pbWa');
+
+    var forma = 'Rectangular';
+    var size = '3×6 m';
+
+    var render = function () {
+      var items = [];
+      extras.forEach(function (t) {
+        if (t.checked) items.push(t.getAttribute('data-item'));
+      });
+
+      if (ticketProp) ticketProp.textContent = forma + ' · ' + size;
+      list.innerHTML = items.map(function (i) {
+        return '<li><i class="fa-solid fa-check" aria-hidden="true"></i> ' + i + '</li>';
+      }).join('');
+      if (emptyMsg) emptyMsg.hidden = items.length > 0;
+
+      if (waBtn) {
+        var msg = '¡Hola SETROF! Armé mi piscina en el sitio web:\n\n' +
+          '• Forma: ' + forma + '\n' +
+          '• Tamaño: ' + size +
+          (items.length ? '\n' + items.map(function (i) { return '• ' + i; }).join('\n') : '') +
+          '\n\nQuiero coordinar una *visita técnica gratis* para la cotización (sin compromiso).';
+        waBtn.href = waLink(msg);
+      }
+    };
+
+    var wireChips = function (chips, setVal) {
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          chips.forEach(function (c) { c.classList.remove('is-on'); });
+          chip.classList.add('is-on');
+          setVal(chip.getAttribute('data-val'));
+          render();
+        });
+      });
+    };
+    wireChips(formaChips, function (v) { forma = v || 'Rectangular'; });
+    wireChips(sizeChips, function (v) { size = v || '3×6 m'; });
+
+    extras.forEach(function (t) { t.addEventListener('change', render); });
 
     render();
   })();

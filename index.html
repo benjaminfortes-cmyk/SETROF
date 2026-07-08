@@ -41,9 +41,9 @@
   </script>
 
   <!-- SEO -->
-  <title>SETROF SEGURIDAD | Sistemas Integrales de Seguridad — La Serena y Coquimbo</title>
+  <title>SETROF SEGURIDAD | Sistemas Integrales de Seguridad en La Serena y Coquimbo</title>
   <meta name="description"
-    content="SETROF SEGURIDAD — Diseño, instalación y mantenimiento de sistemas de seguridad en La Serena y Coquimbo. CCTV, alarmas, cercos eléctricos, portones automáticos y construcción de piscinas.">
+    content="SETROF SEGURIDAD: diseño, instalación y mantenimiento de sistemas de seguridad en La Serena y Coquimbo. CCTV, alarmas, cercos eléctricos, portones automáticos y construcción de piscinas.">
   <meta name="keywords"
     content="seguridad La Serena, CCTV Coquimbo, cámaras de seguridad, cercos eléctricos, alarmas, portones automáticos, construcción de piscinas, SETROF SEGURIDAD">
   <meta name="author" content="SETROF SEGURIDAD">
@@ -110,7 +110,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=40">
+  <link rel="stylesheet" href="assets/css/styles.css?v=43">
 
   <!-- Schema.org LocalBusiness -->
   <script type="application/ld+json">
@@ -192,7 +192,7 @@
   ================================================ -->
   <header class="header" id="header" role="banner">
     <nav class="nav container" aria-label="Navegación principal">
-      <a href="#inicio" class="nav__logo" aria-label="SETROF SEGURIDAD — Ir al inicio">
+      <a href="#inicio" class="nav__logo" aria-label="SETROF SEGURIDAD, ir al inicio">
         <img src="assets/img/logo.webp" alt="Logo SETROF SEGURIDAD" class="nav__logo-img">
       </a>
 
@@ -234,7 +234,7 @@
 
         <!-- Encabezado centrado -->
         <div class="hero__head">
-          <span class="sr-only">SETROF — Sistemas integrales de seguridad en La Serena y Coquimbo, Región de Coquimbo, Chile.</span>
+          <span class="sr-only">SETROF: sistemas integrales de seguridad en La Serena y Coquimbo, Región de Coquimbo, Chile.</span>
           <h1 class="hero__title">SET<span class="hero__title-accent">ROF</span></h1>
           <p class="hero__subtitle">Tu propiedad vigilada desde tu celular, 24/7</p>
 
@@ -346,7 +346,6 @@
     <section class="services" id="servicios" aria-labelledby="services-heading">
       <div class="container">
         <div class="section-header fade-in">
-          <span class="section-label">Lo que hacemos</span>
           <h2 class="section-title" id="services-heading">Nuestros Servicios</h2>
           <p class="section-subtitle">Soluciones completas de seguridad adaptadas a cada proyecto</p>
         </div>
@@ -408,7 +407,7 @@
               <h3 class="svc-lens__title">Sistemas de Alarma</h3>
               <p class="svc-lens__sub">Detección y Alerta</p>
               <ul class="svc-lens__list">
-                <li>Alarmas perimetrales e intrusión</li>
+                <li>Alarmas perimetrales y contra robos</li>
                 <li>Sensores de movimiento, apertura y vibración</li>
                 <li>Paneles de control y comunicadores GSM/IP</li>
                 <li>Integración con monitoreo central</li>
@@ -470,7 +469,6 @@
       <div class="container livedemo__grid">
 
         <div class="livedemo__copy fade-in">
-          <span class="section-label">Demo en vivo</span>
           <h2 class="section-title" id="livedemo-heading">
             Así llega la alerta <em>a tu celular</em>
           </h2>
@@ -479,14 +477,13 @@
             Presiona el botón y mira exactamente lo que recibirías en tu teléfono.
           </p>
           <ul class="livedemo__steps" role="list">
-            <li><i aria-hidden="true">1</i><span><b>Detección</b> — la cámara o el sensor capta el movimiento</span></li>
-            <li><i aria-hidden="true">2</i><span><b>Grabación</b> — el sistema guarda el clip del evento</span></li>
-            <li><i aria-hidden="true">3</i><span><b>Alerta</b> — la notificación llega a tu celular, estés donde estés</span></li>
+            <li><i aria-hidden="true">1</i><span><b>Detección:</b> la cámara o el sensor capta el movimiento</span></li>
+            <li><i aria-hidden="true">2</i><span><b>Grabación:</b> el sistema guarda el clip del evento</span></li>
+            <li><i aria-hidden="true">3</i><span><b>Alerta:</b> la notificación llega a tu celular, estés donde estés</span></li>
           </ul>
           <button type="button" class="livedemo__btn" id="demoTrigger">
             <span class="livedemo__btn-led" aria-hidden="true"></span>
-            <span id="demoTriggerTx">Simular intrusión</span>
-            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+            <span id="demoTriggerTx">Simular robo</span>
           </button>
           <p class="livedemo__note">Simulación segura: no se activa ninguna alarma real.</p>
         </div>
@@ -506,6 +503,14 @@
                 <span class="livedemo__lock-date" id="phoneDate"></span>
               </div>
               <div class="livedemo__notifs" id="demoNotifs" aria-live="polite"></div>
+
+              <!-- Cámara en vivo (aparece tras las alertas) -->
+              <div class="livedemo__live" id="demoLive" aria-hidden="true">
+                <img src="assets/img/proyecto-3.webp" alt="" loading="lazy">
+                <span class="livedemo__live-tag"><i></i> EN VIVO</span>
+                <span class="livedemo__live-cam">CAM 02 · MURO NORTE</span>
+                <span class="livedemo__live-ts" id="demoLiveTs">--:--:--</span>
+              </div>
             </div>
           </div>
           <p class="livedemo__phone-cap"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Notificación real del sistema de monitoreo SETROF</p>
@@ -516,7 +521,7 @@
       <!-- Comparador: tiempo de reacción con y sin sistema -->
       <div class="container">
         <div class="livedemo__compare fade-in" id="reactCompare">
-          <h3 class="livedemo__compare-title">¿Cuánto tardarías en enterarte de una intrusión?</h3>
+          <h3 class="livedemo__compare-title">¿Cuánto tardarías en enterarte de un robo?</h3>
 
           <div class="livedemo__compare-row">
             <div class="livedemo__compare-head">
@@ -534,7 +539,7 @@
             <div class="livedemo__compare-track"><i class="livedemo__compare-fill livedemo__compare-fill--fast"></i></div>
           </div>
 
-          <p class="livedemo__compare-note">Sin monitoreo, una intrusión se descubre al volver a la propiedad. Con alerta al celular, reaccionas mientras está ocurriendo.</p>
+          <p class="livedemo__compare-note">Sin monitoreo, un robo se descubre al volver a la propiedad. Con alerta al celular, reaccionas mientras está ocurriendo.</p>
         </div>
       </div>
     </section>
@@ -546,7 +551,6 @@
       <div class="container">
         <div class="about__grid">
           <div class="about__text-col fade-in">
-            <span class="section-label">¿Quiénes somos?</span>
             <h2 class="section-title" id="about-heading">
               Tu empresa de seguridad de confianza en la Región de Coquimbo
             </h2>
@@ -648,7 +652,6 @@
     <section class="quiz" id="test-seguridad" aria-labelledby="quiz-heading">
       <div class="container">
         <div class="section-header fade-in">
-          <span class="section-label">Diagnóstico gratis · 30 segundos</span>
           <h2 class="section-title" id="quiz-heading">¿Qué tan protegida está <span class="text-accent">tu propiedad?</span></h2>
           <p class="section-subtitle">Responde 5 preguntas y descubre tu nivel de protección, tu punto débil y qué te conviene reforzar primero.</p>
         </div>
@@ -713,7 +716,7 @@
 
             <div class="quiz__step quiz__step--final" data-name="Sector">
               <h3 class="quiz__q">Último dato: ¿en qué sector estás?</h3>
-              <p class="quiz__hint">Opcional — nos ayuda a confirmar cobertura y coordinar la visita técnica gratis.</p>
+              <p class="quiz__hint">Opcional: nos ayuda a confirmar cobertura y coordinar la visita técnica gratis.</p>
               <input type="text" id="quizSector" class="form__input" placeholder="Ej: Las Compañías, La Serena" autocomplete="off">
               <button type="button" class="btn btn--primary btn--full" id="quizFinish">
                 Ver mi resultado <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
@@ -797,7 +800,6 @@
     <section class="gallery" id="galeria" aria-labelledby="gallery-heading">
       <div class="container">
         <div class="section-header fade-in">
-          <span class="section-label">Nuestras instalaciones</span>
           <h2 class="section-title" id="gallery-heading">Galería de Proyectos</h2>
           <p class="section-subtitle">Muestras reales de trabajos ejecutados en la región</p>
         </div>
@@ -839,7 +841,6 @@
     <section class="builder" id="arma-tu-sistema" aria-labelledby="builder-heading">
       <div class="container">
         <div class="section-header fade-in">
-          <span class="section-label">Cotizador interactivo</span>
           <h2 class="section-title" id="builder-heading">Arma <span class="text-accent">tu sistema</span></h2>
           <p class="section-subtitle">Elige lo que necesitas y envíanos tu pedido armado por WhatsApp. Sin precios online ni compromiso: un técnico lo valida contigo en una visita gratis.</p>
         </div>
@@ -907,7 +908,7 @@
             <div class="builder__ticket-body">
               <p class="builder__ticket-prop">Propiedad: <b id="bTicketProp">Casa</b></p>
               <ul id="bTicketList" role="list" aria-live="polite"></ul>
-              <p class="builder__ticket-empty" id="bTicketEmpty">Aún no agregas nada — suma cámaras, metros de cerco o complementos.</p>
+              <p class="builder__ticket-empty" id="bTicketEmpty">Aún no agregas nada: suma cámaras, metros de cerco o complementos.</p>
             </div>
             <div class="builder__ticket-foot">
               <p class="builder__ticket-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Sin precios online: un técnico valida todo en terreno, gratis y sin compromiso.</p>
@@ -926,7 +927,6 @@
     <section class="contact" id="contacto" aria-labelledby="contact-heading">
       <div class="container">
         <div class="section-header fade-in">
-          <span class="section-label">Hablemos</span>
           <h2 class="section-title" id="contact-heading">Contáctenos</h2>
           <p class="section-subtitle">Solicite una cotización sin compromiso, respondemos rápido</p>
         </div>
@@ -1105,7 +1105,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-  <script src="assets/js/main.js?v=38"></script>
+  <script src="assets/js/main.js?v=42"></script>
 
 </body>
 

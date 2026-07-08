@@ -81,7 +81,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <!-- Stylesheet compartido -->
-  <link rel="stylesheet" href="assets/css/styles.css?v=40">
+  <link rel="stylesheet" href="assets/css/styles.css?v=43">
 </head>
 
 <body class="page-pools">
@@ -91,7 +91,7 @@
   ================================================ -->
   <header class="header" id="header" role="banner">
     <nav class="nav container" aria-label="Navegación principal">
-      <a href="/" class="nav__logo" aria-label="SETROF SEGURIDAD — Ir al inicio">
+      <a href="/" class="nav__logo" aria-label="SETROF SEGURIDAD, ir al inicio">
         <img src="assets/img/logo.webp" alt="Logo SETROF SEGURIDAD" class="nav__logo-img">
       </a>
 
@@ -130,7 +130,6 @@
       <div class="pp-hero__caustics" aria-hidden="true"></div>
 
       <div class="container pp-hero__inner">
-        <span class="pp-hero__eyebrow"><i class="fa-solid fa-water-ladder" aria-hidden="true"></i> SETROF · División Piscinas</span>
         <h1 class="pp-hero__title">Construcción de <em>Piscinas</em></h1>
         <p class="pp-hero__sub">
           Diseñamos y construimos piscinas de hormigón armado a medida,
@@ -150,6 +149,12 @@
           <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Equipamiento completo</li>
           <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Mantención post-obra</li>
         </ul>
+
+        <!-- Cuenta regresiva al verano -->
+        <div class="pp-count" id="ppCount" hidden>
+          <i class="fa-solid fa-sun" aria-hidden="true"></i>
+          <span>Faltan <b id="ppCountDays">…</b> días para el verano: empieza ahora y estrena en diciembre</span>
+        </div>
       </div>
 
       <div class="pp-hero__waves" aria-hidden="true">
@@ -166,7 +171,6 @@
     <section class="pp-process" id="proceso" aria-labelledby="proceso-heading">
       <div class="container">
         <div class="section-header fade-in">
-          <span class="section-label">De la tierra al agua</span>
           <h2 class="section-title" id="proceso-heading">El proceso, <span class="text-accent">metro a metro</span></h2>
           <p class="section-subtitle">Cada piscina baja por las mismas 4 etapas. Síguelas como una regla de profundidad: del terreno seco al agua lista.</p>
         </div>
@@ -230,12 +234,42 @@
     </section>
 
     <!-- ================================================
+         PLAZOS — ¿CUÁNTO DEMORA?
+    ================================================ -->
+    <section class="pp-weeks" id="plazos" aria-labelledby="plazos-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 class="section-title" id="plazos-heading">¿Cuánto demora <span class="text-accent">tu piscina?</span></h2>
+          <p class="section-subtitle">De la firma al primer chapuzón: aproximadamente 8 semanas de obra.</p>
+        </div>
+
+        <div class="pp-weeks__track fade-in" id="ppWeeks">
+          <div class="pp-weeks__seg" style="--w: 12.5%">
+            <b>Sem 1</b><span>Excavación</span>
+          </div>
+          <div class="pp-weeks__seg" style="--w: 25%">
+            <b>Sem 2 y 3</b><span>Enfierradura</span>
+          </div>
+          <div class="pp-weeks__seg" style="--w: 25%">
+            <b>Sem 4 y 5</b><span>Hormigonado y curado</span>
+          </div>
+          <div class="pp-weeks__seg" style="--w: 25%">
+            <b>Sem 6 y 7</b><span>Terminaciones</span>
+          </div>
+          <div class="pp-weeks__seg pp-weeks__seg--final" style="--w: 12.5%">
+            <b>Sem 8</b><span>Llenado y entrega</span>
+          </div>
+        </div>
+        <p class="pp-weeks__note fade-in">* Plazos referenciales para una piscina familiar de hormigón; se confirman en la visita técnica.</p>
+      </div>
+    </section>
+
+    <!-- ================================================
          QUÉ INCLUYE — TARJETAS
     ================================================ -->
     <section class="pp-feats" id="incluye" aria-labelledby="incluye-heading">
       <div class="container">
         <div class="section-header fade-in">
-          <span class="section-label">Todo incluido</span>
           <h2 class="section-title" id="incluye-heading">Una piscina <span class="text-accent">completa</span></h2>
           <p class="section-subtitle">No entregamos solo un hoyo con agua: cada proyecto incluye estructura, equipamiento y respaldo.</p>
         </div>
@@ -273,7 +307,7 @@
             <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
             <h3 class="pool-feat__title">Seguridad integrada</h3>
             <p class="pool-feat__text">Alarmas de inmersión, cámaras y protección perimetral para piscinas
-              residenciales y comunitarias — somos expertos en seguridad.</p>
+              residenciales y comunitarias: somos expertos en seguridad.</p>
           </article>
 
           <article class="pool-feat fade-in">
@@ -298,10 +332,91 @@
             <span class="pools__other-seal" aria-hidden="true"><i class="fa-solid fa-circle-check"></i> Proyecto entregado</span>
           </div>
           <div class="pools__other-text">
-            <span class="section-label">Más trabajos</span>
             <h3 class="pools__other-title">Otro proyecto entregado</h3>
-            <p class="pools__other-desc">Una piscina distinta, terminada en otra obra de la región — una muestra de la variedad de proyectos que realizamos con el mismo estándar de calidad.</p>
+            <p class="pools__other-desc">Una piscina distinta, terminada en otra obra de la región, una muestra de la variedad de proyectos que realizamos con el mismo estándar de calidad.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         ARMA TU PISCINA — PRE-COTIZADOR SIN PRECIOS
+    ================================================ -->
+    <section class="pp-builder" id="arma-tu-piscina" aria-labelledby="ppbuilder-heading">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 class="section-title" id="ppbuilder-heading">Arma <span class="text-accent">tu piscina</span></h2>
+          <p class="section-subtitle">Elige forma, tamaño y extras: tu pedido llega armado por WhatsApp. Sin precios online ni compromiso, se cotiza midiendo tu terreno.</p>
+        </div>
+
+        <div class="builder__grid">
+          <div class="builder__controls fade-in">
+
+            <div class="builder__group">
+              <span class="builder__label"><i class="fa-solid fa-shapes" aria-hidden="true"></i> Forma</span>
+              <div class="builder__chips" id="pbForma">
+                <button type="button" class="builder__chip is-on" data-val="Rectangular"><i class="fa-solid fa-vector-square" aria-hidden="true"></i> Rectangular</button>
+                <button type="button" class="builder__chip" data-val="Orgánica / curva"><i class="fa-solid fa-circle-notch" aria-hidden="true"></i> Orgánica / curva</button>
+                <button type="button" class="builder__chip" data-val="Con zona de niños"><i class="fa-solid fa-child-reaching" aria-hidden="true"></i> Con zona de niños</button>
+              </div>
+            </div>
+
+            <div class="builder__group">
+              <span class="builder__label"><i class="fa-solid fa-ruler-combined" aria-hidden="true"></i> Tamaño aproximado</span>
+              <div class="builder__chips" id="pbSize">
+                <button type="button" class="builder__chip is-on" data-val="3×6 m">3×6 m</button>
+                <button type="button" class="builder__chip" data-val="4×8 m">4×8 m</button>
+                <button type="button" class="builder__chip" data-val="5×10 m">5×10 m</button>
+                <button type="button" class="builder__chip" data-val="A medida"><i class="fa-solid fa-pen-ruler" aria-hidden="true"></i> A medida</button>
+              </div>
+              <p class="builder__hint">¿No estás seguro? Elige "A medida": lo definimos midiendo tu terreno.</p>
+            </div>
+
+            <div class="builder__group">
+              <span class="builder__label"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Extras</span>
+              <div class="builder__switches" id="pbExtras">
+                <label class="builder__switch">
+                  <input type="checkbox" data-item="Iluminación LED">
+                  <span class="builder__switch-ui" aria-hidden="true"></span>
+                  <span class="builder__switch-tx"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Iluminación LED</span>
+                </label>
+                <label class="builder__switch">
+                  <input type="checkbox" data-item="Temperado (bomba de calor)">
+                  <span class="builder__switch-ui" aria-hidden="true"></span>
+                  <span class="builder__switch-tx"><i class="fa-solid fa-temperature-arrow-up" aria-hidden="true"></i> Temperado</span>
+                </label>
+                <label class="builder__switch">
+                  <input type="checkbox" data-item="Hidromasaje / jets">
+                  <span class="builder__switch-ui" aria-hidden="true"></span>
+                  <span class="builder__switch-tx"><i class="fa-solid fa-hot-tub-person" aria-hidden="true"></i> Hidromasaje</span>
+                </label>
+                <label class="builder__switch">
+                  <input type="checkbox" data-item="Automatización y limpieza">
+                  <span class="builder__switch-ui" aria-hidden="true"></span>
+                  <span class="builder__switch-tx"><i class="fa-solid fa-gears" aria-hidden="true"></i> Automatización y limpieza</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <aside class="builder__ticket fade-in" aria-label="Resumen de tu piscina">
+            <div class="builder__ticket-top">
+              <span><i class="fa-solid fa-file-invoice" aria-hidden="true"></i> PRE-COTIZACIÓN</span>
+              <span class="builder__ticket-id">SETROF · PISCINAS</span>
+            </div>
+            <div class="builder__ticket-body">
+              <p class="builder__ticket-prop">Piscina: <b id="pbTicketProp">Rectangular · 3×6 m</b></p>
+              <ul id="pbTicketList" role="list" aria-live="polite"></ul>
+              <p class="builder__ticket-empty" id="pbTicketEmpty">Sin extras por ahora: la base incluye estructura de hormigón, filtrado y terminaciones.</p>
+            </div>
+            <div class="builder__ticket-foot">
+              <p class="builder__ticket-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Sin precios online: medimos tu terreno y cotizamos en una visita gratis, sin compromiso.</p>
+              <a href="#" class="btn btn--whatsapp btn--full" id="pbWa" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Enviar pre-cotización
+              </a>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -396,7 +511,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-  <script src="assets/js/main.js?v=38"></script>
+  <script src="assets/js/main.js?v=42"></script>
 
 </body>
 
