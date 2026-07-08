@@ -9,9 +9,7 @@
      |___|  |____|
 ========================================================== */
 
-/* ---- Custom Properties ---- */
 :root {
-  /* Fondos claros (tema blanco) */
   --bg:        #ffffff;
   --bg-1:      #f6f9fd;
   --bg-2:      #eaf1f9;
@@ -31,17 +29,14 @@
   --blue-glow:   rgba(14, 165, 233, .30);
   --blue-soft:   rgba(14, 165, 233, .09);
 
-  /* Texto (oscuro sobre blanco) */
   --text:      #0f1b2e;
   --text-soft: #45536b;
   --text-dim:  #6b7890;
   --white:     #0c1626;   /* texto de énfasis (títulos) sobre fondo claro */
 
-  /* WhatsApp */
   --wa:        #25D366;
   --wa-dark:   #1da851;
 
-  /* Tipografía */
   --ff-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --ff-title:   'Manrope', sans-serif;
   --ff-body:    'Inter', sans-serif;
@@ -64,7 +59,6 @@
   --hh: 84px;
 }
 
-/* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: var(--hh); }
 body {
@@ -95,7 +89,6 @@ a   { text-decoration: none; color: inherit; transition: var(--ease-f); }
 button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
 ::selection { background: var(--blue); color: #fff; }
 
-/* ---- Focus visible ---- */
 a:focus-visible, button:focus-visible,
 input:focus-visible, select:focus-visible, textarea:focus-visible {
   outline: 2px solid var(--blue-light);
@@ -103,10 +96,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   border-radius: 6px;
 }
 
-/* ---- Layout ---- */
 .container { max-width: var(--w); margin: 0 auto; padding: 0 28px; }
 
-/* ---- Tipografía compartida ---- */
 .section-label {
   display: inline-flex;
   align-items: center;
@@ -154,7 +145,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .section-header { text-align: center; margin-bottom: 64px; }
 .section-header .section-subtitle { margin: 0 auto; }
 
-/* ---- Botones ---- */
 .btn {
   position: relative;
   display: inline-flex;
@@ -212,7 +202,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 }
 .btn--full { width: 100%; justify-content: center; }
 
-/* ---- Fade-in (gateado por .anim-ready: ver nota en JS) ---- */
 .anim-ready .fade-in {
   opacity: 0;
   transform: translateY(34px);
@@ -228,12 +217,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .anim-ready .hero__title  { opacity: 0; transform: translateY(38px); }
 .anim-ready .hero__visual { opacity: 0; transform: scale(.92); }
 
-
-/* ==========================================================
-   INTRO CINEMATOGRÁFICO
-   Solo visible si <html> tiene .intro-play (lo añade el script
-   del <head> si no hay reduced-motion y no se ha visto en la sesión).
-========================================================== */
 .intro { display: none; }
 html.intro-play body { overflow: hidden; }
 html.intro-play .intro {
@@ -345,10 +328,6 @@ html.intro-play .intro__sub,
 html.intro-play .intro__tag,
 html.intro-play .intro__skip { opacity: 0; }
 
-
-/* ==========================================================
-   HEADER / NAV
-========================================================== */
 .header {
   position: fixed;
   inset: 0 0 auto 0;
@@ -447,7 +426,50 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .nav__toggle { display: none; color: var(--white); font-size: 1.4rem; padding: 8px; border-radius: var(--r); }
 
-/*  */
+.nav__item--drop { position: relative; }
+.nav__caret { font-size: .6rem; margin-left: 5px; opacity: .65; transition: transform .25s ease; }
+.nav__item--drop:hover .nav__caret,
+.nav__item--drop:focus-within .nav__caret { transform: rotate(180deg); opacity: 1; }
+.nav__dropdown {
+  position: absolute; top: calc(100% + 12px); left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 218px; padding: 8px;
+  display: flex; flex-direction: column; gap: 2px;
+  background: rgba(255, 255, 255, .97);
+  backdrop-filter: saturate(160%) blur(18px);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  border: 1px solid var(--border); border-radius: 14px;
+  box-shadow: 0 22px 46px rgba(16, 35, 70, .18);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease, visibility .25s;
+  z-index: 1200;
+}
+.nav__dropdown::before {
+  content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 12px;
+}
+.nav__dropdown::after {
+  content: ''; position: absolute; top: -6px; left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px; height: 12px; background: rgba(255, 255, 255, .97);
+  border-left: 1px solid var(--border); border-top: 1px solid var(--border);
+  border-radius: 3px 0 0 0;
+}
+.nav__item--drop:hover .nav__dropdown,
+.nav__item--drop:focus-within .nav__dropdown {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav__droplink {
+  display: flex; align-items: center; gap: 11px;
+  padding: 10px 14px; border-radius: 9px;
+  font-family: var(--ff-title); font-size: .82rem; font-weight: 600;
+  color: var(--text-soft); white-space: nowrap;
+  transition: background .2s ease, color .2s ease;
+}
+.nav__droplink i { width: 16px; text-align: center; color: var(--blue); font-size: .8rem; }
+.nav__droplink:hover { background: var(--glass-2); color: var(--white); }
+.nav__droplink:hover i { color: var(--blue-deep); }
+
 .nav__badge-new {
   display: inline-block;
   margin-left: 4px;
@@ -482,10 +504,6 @@ html.intro-play .intro__skip { opacity: 0; }
   transform: translateY(-1px);
 }
 
-
-/* ==========================================================
-   HERO
-========================================================== */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -524,7 +542,6 @@ html.intro-play .intro__skip { opacity: 0; }
   gap: 0;
 }
 
-/* Encabezado centrado */
 .hero__head { display: flex; flex-direction: column; align-items: center; }
 .hero__eyebrow {
   display: inline-flex; align-items: center; gap: 9px;
@@ -703,7 +720,6 @@ html.intro-play .intro__skip { opacity: 0; }
   100% { transform: translate(0, 0)        scale(1);   opacity: 1; }
 }
 
-/* Acciones (botones) bajo la escena */
 .hero__actions {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;
   margin-top: clamp(16px, 2.6vh, 30px);
@@ -743,7 +759,6 @@ html.intro-play .intro__skip { opacity: 0; }
   background: radial-gradient(circle, var(--blue-glow) 0%, transparent 65%);
   filter: blur(46px); z-index: -1; pointer-events: none;
 }
-/* Pantalla recesada dentro del marco */
 .hero__monitor-screen {
   position: relative;
   border-radius: 8px;
@@ -758,7 +773,6 @@ html.intro-play .intro__skip { opacity: 0; }
     repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.16) 2px 4px);
   mix-blend-mode: screen; opacity: .55;
 }
-/* Barbilla inferior del monitor */
 .hero__monitor-chin {
   position: relative; height: 24px;
   display: flex; align-items: center; justify-content: center;
@@ -773,7 +787,6 @@ html.intro-play .intro__skip { opacity: 0; }
   width: 7px; height: 7px; border-radius: 50%;
   background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,.95);
 }
-/* Barra superior (software CCTV) */
 .hero__monitor-top {
   display: flex; align-items: center; gap: 10px;
   padding: 10px 13px;
@@ -872,7 +885,6 @@ html.intro-play .intro__skip { opacity: 0; }
   font-variant-numeric: tabular-nums;
 }
 
-/* Barras de señal */
 .hero__sig {
   position: absolute; z-index: 3; bottom: 8px; right: 8px;
   display: flex; gap: 2px; align-items: flex-end;
@@ -897,9 +909,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .hero__feed.is-motion .hero__motion { display: inline-flex; }
 .hero__feed.is-motion { outline: 2px solid rgba(245,158,11,.75); outline-offset: -2px; }
 
-/* ==========================================================
-   CTA DEL HERO — botón estilo panel NVR
-========================================================== */
 .hero__cta {
   position: relative;
   display: inline-flex; align-items: center; gap: 12px;
@@ -950,7 +959,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .hero__cta::before { animation: none; }
   .hero__cta-led { animation: none; }
 }
-/* REC */
 .hero__rec {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 4px 10px;
@@ -1041,10 +1049,6 @@ html.intro-play .intro__skip { opacity: 0; }
   border: 2px solid #fff;
 }
 
-
-/* ==========================================================
-   QUICK SERVICES
-========================================================== */
 .quick-services { padding: 20px 0 var(--section); }
 .quick-services__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
 .qs-card {
@@ -1087,10 +1091,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .qs-card__text { font-size: .84rem; color: var(--text-dim); line-height: 1.55; }
 
-
-/* ==========================================================
-   ABOUT
-========================================================== */
 .about { padding: var(--section) 0; }
 .about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
 .about__para { color: var(--text-soft); font-size: 1.05rem; line-height: 1.85; margin-bottom: 18px; }
@@ -1117,10 +1117,6 @@ html.intro-play .intro__skip { opacity: 0; }
   color: var(--text-soft);
 }
 
-
-/* ==========================================================
-   POR QUÉ ELEGIRNOS
-========================================================== */
 .why { padding: var(--section) 0; }
 .why__grid {
   display: grid;
@@ -1180,10 +1176,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .why__stat-divider { height: 1px; background: var(--border); }
 
-
-/* ==========================================================
-   SECTORES
-========================================================== */
 .sectors { padding: var(--section) 0; }
 .sectors .section-header { margin-bottom: 48px; }
 .sectors__grid {
@@ -1221,10 +1213,6 @@ html.intro-play .intro__skip { opacity: 0; }
   color: var(--white); letter-spacing: .08em;
 }
 
-
-/* ==========================================================
-   SERVICIOS DETALLADOS
-========================================================== */
 .services { padding: var(--section) 0; }
 .services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .svc-card {
@@ -1285,10 +1273,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .svc-card__list li::before { content: '\2713'; color: var(--blue-light); font-weight: 700; flex-shrink: 0; }
 
-
-/* ==========================================================
-   GALERÍA — mosaico
-========================================================== */
 .gallery { padding: var(--section) 0; }
 .gallery__grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 250px; gap: 16px; }
 .gallery__cell {
@@ -1305,10 +1289,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .gallery__cell:hover::after { opacity: 1; }
 .gallery__cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
 
-
-/* ==========================================================
-   PISCINAS
-========================================================== */
 .pools { position: relative; padding: var(--section) 0; }
 .pools::before {
   content: ''; position: absolute; top: -160px; right: -160px;
@@ -1375,10 +1355,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .pools__cta-text { font-family: var(--ff-display); font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 500; color: var(--white); margin-bottom: 22px; }
 .pools__cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-
-/* ==========================================================
-   CONTACTO
-========================================================== */
 .contact { padding: var(--section) 0; }
 .contact__grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; align-items: start; }
 .contact__info-title { font-family: var(--ff-title); font-size: 1.15rem; font-weight: 800; color: var(--white); margin-bottom: 26px; }
@@ -1453,10 +1429,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .form__select option { background: var(--panel); color: var(--white); }
 .form__note { font-size: .8rem; color: var(--text-dim); text-align: center; margin-top: 16px; line-height: 1.5; }
 
-
-/* ==========================================================
-   FOOTER
-========================================================== */
 .footer { background: transparent; padding-top: 30px; }
 .footer__bar {
   display: grid; grid-template-columns: auto 1fr auto;
@@ -1491,10 +1463,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .footer__copy-bar { padding: 18px 0; border-top: 1px solid var(--border); }
 .footer__copy-bar p { font-size: .78rem; color: var(--text-dim); text-align: center; }
 
-
-/* ==========================================================
-   WHATSAPP FLOTANTE
-========================================================== */
 .wa-float {
   position: fixed; bottom: 28px; right: 28px; z-index: 998;
   width: 62px; height: 62px; border-radius: 50%;
@@ -1527,10 +1495,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .wa-float:hover .wa-float__tip { opacity: 1; }
 
-
-/* ==========================================================
-   MODAL LIGHTBOX (PISCINAS)
-========================================================== */
 .pool-modal {
   position: fixed; inset: 0; z-index: 2000;
   background: rgba(5, 7, 13, .9);
@@ -1558,10 +1522,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .pool-modal__info { padding: 28px 32px; }
 .pool-modal__info p { font-family: var(--ff-title); font-size: 1.05rem; font-weight: 600; color: var(--white); line-height: 1.6; text-align: center; }
 
-
-/* ==========================================================
-   MICRO-INTERACCIONES 3D (solo dispositivos con hover real)
-========================================================== */
 @media (hover: hover) and (pointer: fine) {
   .qs-card, .svc-card, .pool-feat { transform-style: preserve-3d; }
   .qs-card:hover, .svc-card:hover { transform: translateY(-8px) perspective(1000px) rotateX(3deg); }
@@ -1570,10 +1530,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .pools__gallery-cell:hover img { transform: scale(1.07); }
 }
 
-
-/* ==========================================================
-   RESPONSIVE — Tablet (≤ 1024px)
-========================================================== */
 @media (max-width: 1024px) {
   :root { --section: clamp(72px, 9vw, 110px); }
 
@@ -1595,10 +1551,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .pools__gallery { min-height: 380px; }
 }
 
-
-/* ==========================================================
-   RESPONSIVE — Mobile (≤ 768px)
-========================================================== */
 @media (max-width: 768px) {
   :root { --section: 64px; --hh: 64px; }
 
@@ -1620,6 +1572,20 @@ html.intro-play .intro__skip { opacity: 0; }
   .nav__search { width: 42px; height: 42px; font-size: .95rem; }
   .nav__toggle { display: flex; }
   .nav__logo-img { height: 44px; }
+
+  .nav__caret { display: none; }
+  .nav__dropdown {
+    position: static; transform: none; min-width: 0; margin: 2px 0 8px;
+    padding: 0; gap: 2px;
+    opacity: 1; visibility: visible; pointer-events: auto;
+    background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none;
+    border: none; box-shadow: none; z-index: auto;
+  }
+  .nav__dropdown::before, .nav__dropdown::after { display: none; }
+  .nav__droplink {
+    justify-content: center; padding: 11px 16px; font-size: .8rem;
+    color: var(--text-soft);
+  }
 
   .hero { padding: calc(var(--hh) + 40px) 0 66px; min-height: auto; }
   /* Móvil: órbita y planetas de fondo fuera; monitor arriba + 2 planetas y flechas debajo */
@@ -1681,10 +1647,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .intro__skip { bottom: 22px; right: 20px; }
 }
 
-
-/* ==========================================================
-   RESPONSIVE — Mobile S (≤ 480px)
-========================================================== */
 @media (max-width: 480px) {
   .quick-services__grid { grid-template-columns: 1fr; }
   .sectors__grid { grid-template-columns: 1fr; }
@@ -1696,13 +1658,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .pool-modal__info p { font-size: .92rem; }
 }
 
-
-/* ==========================================================
-   PREFERS-REDUCED-MOTION — accesibilidad
-   Sin .anim-ready ni .intro-play (no se añaden en este modo),
-   el contenido queda visible y el intro se omite. Aquí además
-   apagamos las animaciones continuas y transiciones largas.
-========================================================== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .001ms !important;
@@ -1713,10 +1668,6 @@ html.intro-play .intro__skip { opacity: 0; }
   html { scroll-behavior: auto !important; }
 }
 
-
-/* ==========================================================
-   UTILIDADES
-========================================================== */
 .sr-only {
   position: absolute !important;
   width: 1px; height: 1px;
@@ -1728,11 +1679,6 @@ html.intro-play .intro__skip { opacity: 0; }
 /* El atributo hidden siempre gana, aunque la clase defina display */
 [hidden] { display: none !important; }
 
-
-/* ==========================================================
-   HUD DEL VISOR — superposición tipo lente de cámara
-   Fijo, sin capturar clicks (pointer-events:none).
-========================================================== */
 .hud {
   position: fixed;
   inset: 0;
@@ -1761,7 +1707,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .hud--focus .hud__corner--bl { bottom: 46px; left: 40px; }
 .hud--focus .hud__corner--br { bottom: 46px; right: 40px; }
 
-/* Indicador REC */
 .hud__rec {
   position: absolute;
   top: 100px; right: 70px;
@@ -1823,11 +1768,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .hud__vignette { box-shadow: inset 0 0 70px 0 rgba(16, 35, 70, .06); }
 }
 
-
-/* ==========================================================
-   HERO — kicker de ubicación (Región de Coquimbo)
-   (reemplaza la antigua pastilla .hero__badge)
-========================================================== */
 .hero__geo {
   display: inline-flex;
   align-items: center;
@@ -1861,10 +1801,6 @@ html.intro-play .intro__skip { opacity: 0; }
   color: var(--text-soft);
 }
 
-
-/* ==========================================================
-   PISCINAS — secuencia "proceso de construcción" (pinned)
-========================================================== */
 .pools__process {
   position: relative;
   width: 100%;
@@ -1899,7 +1835,6 @@ html.intro-play .intro__skip { opacity: 0; }
   pointer-events: none;
 }
 
-/* Lectura del paso (estilo HUD) */
 .pools__readout {
   position: absolute;
   left: clamp(24px, 6vw, 90px);
@@ -1937,7 +1872,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .pools__readout-fx { will-change: transform, opacity; }
 
-/* Barra de progreso de pasos */
 .pools__progress {
   position: absolute;
   right: clamp(24px, 6vw, 90px);
@@ -2009,13 +1943,6 @@ html.intro-play .intro__skip { opacity: 0; }
 /* HUD: "tirón" extra de autofocus al bloquear un servicio/paso */
 .hud--snap .hud__corner { border-color: rgba(255, 255, 255, .95); }
 
-
-/* ==========================================================
-   SERVICIOS — "LENTE DE CÁMARA" que enfoca
-   Fallback (sin JS / reduced-motion / móvil): 5 tarjetas visibles.
-   Modo cine (html.anim-ready + desktop): escena anclada con lente
-   que rota/enfoca y revela un servicio por bloqueo de foco.
-========================================================== */
 .lens-scene { position: relative; }
 .lens { display: none; }
 .lens__readout, .lens__progress { display: none; }
@@ -2082,7 +2009,6 @@ html.intro-play .intro__skip { opacity: 0; }
   mask: radial-gradient(circle, transparent 78%, #000 79%, #000 86%, transparent 87%);
 }
 
-/* Palas del diafragma (iris) */
 .lens__iris {
   position: absolute; inset: 17%; border-radius: 50%;
   background:
@@ -2128,13 +2054,11 @@ html.intro-play .intro__skip { opacity: 0; }
   will-change: transform, opacity;
 }
 
-/* Retícula del visor (cruz central) */
 .lens__reticle { position: absolute; inset: 30%; pointer-events: none; }
 .lens__reticle::before, .lens__reticle::after { content: ''; position: absolute; background: rgba(125, 211, 252, .35); }
 .lens__reticle::before { left: 50%; top: -8%; bottom: -8%; width: 1px; transform: translateX(-50%); }
 .lens__reticle::after { top: 50%; left: -8%; right: -8%; height: 1px; transform: translateY(-50%); }
 
-/* Destello al bloquear el foco */
 .lens__glint {
   position: absolute; inset: 28%; border-radius: 50%;
   background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.95), rgba(34, 211, 238,.45) 42%, transparent 72%);
@@ -2159,7 +2083,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 @keyframes recBlinkGreen { 0%, 49% { opacity: 1; } 50%, 100% { opacity: .15; } }
 
-/* Etiqueta inferior tipo cámara */
 .lens__label {
   position: absolute; bottom: 6%; left: 50%; transform: translateX(-50%);
   z-index: 5;
@@ -2228,10 +2151,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .svc-lens-wrap { grid-template-columns: 1fr; padding: 0 22px; gap: 18px; }
 }
 
-
-/* ==========================================================
-   ICONOS DE LÍNEA PROFESIONALES (reemplazan los glifos sólidos)
-========================================================== */
 .svc-lens__icon svg,
 .qs-card__icon svg {
   width: 30px; height: 30px;
@@ -2240,17 +2159,12 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .qs-card:hover .qs-card__icon svg { color: #fff; }
 
-/* Iconos de "Quiénes somos" */
 .about__icon-cell svg { width: 32px; height: 32px; color: var(--blue-light); display: block; transition: var(--ease); }
 .about__icon-cell:hover svg { transform: scale(1.12); }
 
 /* Iconos de las tarjetas de Piscinas (heredan color del contenedor) */
 .pool-feat__icon svg { width: 26px; height: 26px; display: block; }
 
-
-/* ==========================================================
-   PISCINAS — "Otro proyecto entregado" (fuera de la secuencia)
-========================================================== */
 .pools__other {
   position: relative; z-index: 1;
   display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: center;
@@ -2291,11 +2205,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .pools__other-media img { height: 240px; }
 }
 
-
-/* ==========================================================
-   DEMO EN VIVO — "ASÍ LLEGA LA ALERTA A TU CELULAR"
-   Banda oscura (estética NVR) con teléfono dibujado en CSS.
-========================================================== */
 .livedemo {
   position: relative;
   padding: var(--section) 0;
@@ -2372,7 +2281,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .livedemo__btn > i { color: #fde68a; }
 .livedemo__note { margin-top: 14px; font-size: .78rem; color: rgba(148, 163, 184, .75); }
 
-/* Teléfono dibujado */
 .livedemo__phone-col { display: flex; flex-direction: column; align-items: center; gap: 18px; }
 .livedemo__phone {
   position: relative;
@@ -2486,10 +2394,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .livedemo__steps { max-width: 420px; margin: 0 auto 34px; text-align: left; }
 }
 
-
-/* ==========================================================
-   TEST DE SEGURIDAD — DIAGNÓSTICO INTERACTIVO
-========================================================== */
 .quiz { padding: var(--section) 0; }
 .quiz__card {
   max-width: 780px; margin: 0 auto;
@@ -2575,7 +2479,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .quiz__back:hover { color: var(--blue); background: var(--blue-soft); }
 
-/* Resultado del diagnóstico */
 .quiz__result { text-align: center; }
 .quiz__result-tag {
   display: inline-block;
@@ -2637,10 +2540,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .quiz__top-scan { display: none; }
 }
 
-
-/* ==========================================================
-   ARMA TU SISTEMA — PRE-COTIZADOR (SIN PRECIOS)
-========================================================== */
 .builder { padding: var(--section) 0; background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg) 100%); }
 .builder__grid {
   display: grid; grid-template-columns: 1.15fr .85fr;
@@ -2794,10 +2693,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .builder__range output { text-align: left; }
 }
 
-
-/* ==========================================================
-   HERO — acceso al test de seguridad (link fantasma bajo el CTA)
-========================================================== */
 .hero__cta-test {
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: 16px;
@@ -2811,10 +2706,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .hero__cta-test:hover { color: var(--blue-deep); border-color: var(--blue); background: var(--blue-soft); }
 .hero__cta-test:hover i { transform: translateX(4px); }
 
-
-/* ==========================================================
-   HERO — CAM 02 clicable hacia la demo de alerta
-========================================================== */
 .hero__feed-go { position: absolute; inset: 0; z-index: 5; display: block; cursor: pointer; }
 .hero__feed-go-tip {
   position: absolute; left: 50%; bottom: 8px;
@@ -2836,17 +2727,9 @@ html.intro-play .intro__skip { opacity: 0; }
   transform: translateX(-50%) translateY(0);
 }
 
-
-/* ==========================================================
-   HERO — ticker de eventos en el pie del monitor NVR
-========================================================== */
 .hero__ticker { display: inline-block; transition: opacity .35s ease; }
 .hero__ticker.is-fade { opacity: 0; }
 
-
-/* ==========================================================
-   DEMO — comparador de tiempo de reacción
-========================================================== */
 .livedemo__compare {
   position: relative; z-index: 1;
   margin-top: clamp(48px, 7vw, 84px);
@@ -2900,10 +2783,6 @@ html.intro-play .intro__skip { opacity: 0; }
   font-size: .82rem; color: rgba(148, 163, 184, .85); line-height: 1.6;
 }
 
-
-/* ==========================================================
-   CONTACTO — soporte para clientes existentes
-========================================================== */
 .contact__client {
   display: flex; flex-direction: column; gap: 10px;
   margin-top: 16px; padding-top: 18px;
@@ -2925,10 +2804,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .contact__client-btn i { color: var(--blue); }
 .contact__client-btn:hover { border-color: var(--blue); color: var(--blue-deep); background: var(--blue-soft); }
 
-
-/* ==========================================================
-   GALERÍA — modo visión nocturna (IR)
-========================================================== */
 .gallery__night { display: flex; justify-content: center; margin: -28px 0 36px; }
 .gallery__night-btn {
   display: inline-flex; align-items: center; gap: 10px;
@@ -2963,7 +2838,6 @@ html.intro-play .intro__skip { opacity: 0; }
     repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0 2px, rgba(0, 20, 8, .22) 2px 4px),
     radial-gradient(120% 100% at 50% 50%, transparent 55%, rgba(0, 10, 4, .5));
 }
-/* Etiqueta IR en cada cámara */
 .gallery__cell::before {
   content: 'CAM · IR';
   position: absolute; top: 10px; left: 10px; z-index: 2;
@@ -2977,12 +2851,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .gallery--night .gallery__cell::before { opacity: 1; }
 
-
-/* ==========================================================
-   PÁGINA PISCINAS (/piscinas) — tema acuático
-   Misma navbar, tipografías y componentes del sitio principal;
-   acento cambia de azul marino a aqua/cian (agua).
-========================================================== */
 .page-pools {
   --aqua:      #0e7490;
   --aqua-mid:  #06b6d4;
@@ -3008,7 +2876,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .page-pools ::selection { background: var(--aqua-mid); color: #fff; }
 
-/* ---- HERO ---- */
 .pp-hero {
   position: relative;
   min-height: 92vh;
@@ -3104,7 +2971,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .pp-hero__waves { position: absolute; left: 0; right: 0; bottom: -1px; z-index: 2; pointer-events: none; }
 .pp-hero__waves svg { display: block; width: 100%; height: clamp(60px, 9vw, 130px); }
 
-/* ---- PROCESO: regla de profundidad ---- */
 .pp-process {
   padding: var(--section) 0;
   background: linear-gradient(180deg, #ffffff 0%, #ecfeff 100%);
@@ -3179,7 +3045,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .pp-step:nth-child(even) .pp-step__body { order: 1; justify-self: end; text-align: right; }
 .pp-step:nth-child(even) .pp-step__body p { margin-left: auto; }
 
-/* ---- TARJETAS "QUÉ INCLUYE" (reusa .pool-feat con acento aqua) ---- */
 .pp-feats { padding: var(--section) 0 0; }
 .pp-feats .pools__features { margin-top: 0; }
 .page-pools .pool-feat__icon {
@@ -3194,11 +3059,9 @@ html.intro-play .intro__skip { opacity: 0; }
   box-shadow: 0 10px 24px rgba(6, 182, 212, .45);
 }
 
-/* ---- OTRO PROYECTO ---- */
 .pp-other { padding: var(--section) 0 0; }
 .pp-other .pools__other { margin-top: 0; }
 
-/* ---- CTA FINAL ---- */
 .pp-cta { padding: var(--section) 0; }
 .pp-cta__card {
   position: relative; overflow: hidden;
@@ -3251,7 +3114,6 @@ html.intro-play .intro__skip { opacity: 0; }
 }
 .pp-cta__note i { margin-right: 6px; }
 
-/* ---- Responsive piscinas ---- */
 @media (max-width: 860px) {
   .pp-hero { padding-bottom: 100px; }
   .pp-steps { padding-left: 56px; }
@@ -3278,10 +3140,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .pp-hero__ghost { width: 100%; justify-content: center; }
 }
 
-
-/* ==========================================================
-   PISCINAS — cuenta regresiva al verano (hero)
-========================================================== */
 .pp-count {
   display: inline-flex; align-items: center; gap: 10px;
   margin-top: 26px; padding: 10px 20px;
@@ -3295,10 +3153,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .pp-count i { color: #fde68a; }
 .pp-count b { color: #fde68a; font-size: 1.1em; font-variant-numeric: tabular-nums; }
 
-
-/* ==========================================================
-   PISCINAS — ondas de agua al hacer clic en el hero
-========================================================== */
 .pp-ripple {
   position: absolute; z-index: 2;
   pointer-events: none;
@@ -3320,10 +3174,6 @@ html.intro-play .intro__skip { opacity: 0; }
   to { width: 190px; height: 190px; opacity: 0; }
 }
 
-
-/* ==========================================================
-   PISCINAS — timeline "¿Cuánto demora?" (8 semanas)
-========================================================== */
 .pp-weeks {
   padding: var(--section) 0;
   background: linear-gradient(180deg, #ecfeff 0%, #ffffff 100%);
@@ -3372,10 +3222,6 @@ html.intro-play .intro__skip { opacity: 0; }
   .pp-weeks__seg::before { margin-bottom: 8px; }
 }
 
-
-/* ==========================================================
-   PISCINAS — "Arma tu piscina" (overrides aqua del cotizador)
-========================================================== */
 .pp-builder { padding: var(--section) 0 0; }
 .page-pools .builder__label i { color: var(--aqua); }
 .page-pools .builder__chip i { color: var(--aqua); }
@@ -3395,11 +3241,6 @@ html.intro-play .intro__skip { opacity: 0; }
 .page-pools .builder__ticket-top i { color: #67e8f9; }
 .page-pools .builder__ticket-note i { color: #67e8f9; }
 
-
-/* ==========================================================
-   DEMO — cámara en vivo dentro del teléfono
-   Aparece deslizándose desde abajo tras las alertas.
-========================================================== */
 .livedemo__live {
   position: absolute; left: 10px; right: 10px; bottom: 12px;
   height: 150px;

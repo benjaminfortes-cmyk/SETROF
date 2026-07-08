@@ -10,25 +10,19 @@
 (function () {
   'use strict';
 
-  /* =========================================================
-   LÓGICA BASE 
-  ========================================================= */
   const header = document.getElementById('header');
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let lenis = null; // se asigna más abajo si procede
 
-  /* ---- Año del copyright ---- */
   const copyYear = document.getElementById('copyYear');
   if (copyYear) copyYear.textContent = new Date().getFullYear();
 
-  /* ---- Header ---- */
   const onScroll = () => header.classList.toggle('header--scrolled', window.scrollY > 60);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ---- MenU mobile ---- */
   navToggle.addEventListener('click', () => {
     const open = navMenu.classList.toggle('nav__menu--open');
     navToggle.setAttribute('aria-expanded', open);
@@ -42,7 +36,6 @@
     });
   });
 
-  /* ---- Link activo en nav ---- */
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav__link:not(.nav__link--cta)');
   const setActive = () => {
@@ -53,7 +46,6 @@
   setActive();
   window.addEventListener('scroll', setActive, { passive: true });
 
-  /* ---- Formulario abre WhatsApp  ---- */
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -78,7 +70,6 @@
     });
   }
 
-  /* ---- box para Piscinas (solo si la página tiene el modal) ---- */
   const poolModal = document.getElementById('poolModal');
   const modalImg = document.getElementById('modalImg');
   const modalText = document.getElementById('modalText');
@@ -109,11 +100,6 @@
     });
   }
 
-
-  /* =========================================================
-         GUARDA DE ANIMACIONES
-  
-  ========================================================= */
   const hasGSAP = !!(window.gsap && window.ScrollTrigger);
   if (prefersReduced || !hasGSAP) {
     document.documentElement.classList.remove('anim-ready', 'intro-play'); // todo visible
@@ -127,11 +113,6 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
-
-  /* =========================================================
-     3) solo dpccesktop con rueda
-     táctil 
-  ========================================================= */
   if (typeof Lenis !== 'undefined') {
     lenis = new Lenis({
       duration: 1.1,
@@ -159,10 +140,6 @@
     });
   }
 
-
-  /* =========================================================
-     3.5) EL VISOR 
-  ========================================================= */
   const hudEl = document.getElementById('hud');
   const hudTime = document.getElementById('hudTime');
   const hudStatus = document.getElementById('hudStatus');
@@ -270,12 +247,6 @@
     renderSvc();
   }
 
-  /* =========================================================
-     Scroll animado del HERO — SOLO móvil.
-     Usa transforms inline por JS, así se ve aunque el teléfono
-     tenga "Reducir movimiento" activado (que apaga las
-     animaciones CSS) o aunque GSAP no aplique en móvil.
-  ========================================================= */
   if (window.matchMedia('(max-width: 768px)').matches) {
     const mMon   = document.querySelector('.hero__monitor');
     const mL     = document.querySelector('.hero__svc-slot--left');
@@ -303,10 +274,6 @@
     animHeroScroll();
   }
 
-
-  /* =========================================================
-     4) HERO  entrada escalonada
-  ========================================================= */
   const heroTextTl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out', duration: 0.9 } });
   heroTextTl
     .to('.hero__geo',      { opacity: 1, y: 0 })
@@ -331,7 +298,6 @@
     gsap.to('.hero__text',         { yPercent: -8,  opacity: 0.55, ease: 'none', scrollTrigger: stOpts });
   });
 
-  /* Parallax de mouse*/
   mm.add('(min-width: 1025px) and (pointer: fine)', () => {
     const visual = document.querySelector('.hero__visual');
     const blob1 = document.querySelector('.hero__blob--1');
@@ -351,10 +317,6 @@
     return () => window.removeEventListener('mousemove', onMove);
   });
 
-
-  /* =========================================================
-     5) REVEALS tarjetas en stagger 
-  ========================================================= */
   const groupSelectors = [
     '.quick-services__grid .fade-in',
     '.sectors__grid .fade-in',
@@ -376,7 +338,6 @@
     });
   });
 
-  /* Los encabezados se "reenfocan */
   gsap.utils.toArray('.fade-in').forEach(el => {
     if (grouped.has(el)) return;
     if (el.classList.contains('section-header')) {
@@ -396,10 +357,6 @@
     }
   });
 
-
-  /* =========================================================
-     6) CONTADORES de estadísticas 
-  ========================================================= */
   gsap.utils.toArray('.why__stat-num').forEach(el => {
     const raw = el.textContent.trim();
     const match = raw.match(/^(\D*)(\d+)(\D*)$/);
@@ -418,10 +375,6 @@
     });
   });
 
-
-  /* =========================================================
-     7) PISCINAS 
-  ========================================================= */
   mm.add('(min-width: 769px)', () => {
     gsap.fromTo('.pools__hero',
       { yPercent: 6 },
@@ -432,10 +385,6 @@
     );
   });
 
-
-  /* =========================================================
-     7.5) PISCINAS — secuencia "proceso de construcción
-  ========================================================= */
   const poolSteps = gsap.utils.toArray('.pools__step');
   if (poolSteps.length) {
     const poolImgs = poolSteps.map(s => s.querySelector('img'));
@@ -462,7 +411,6 @@
       if (stepDescEl && img) stepDescEl.textContent = img.getAttribute('data-description');
     };
 
-    /* --- DESKTOP  --- */
     mm.add('(min-width: 769px)', () => {
       lastIdx = -1;
       const render = (p) => {
@@ -525,10 +473,6 @@
     });
   }
 
-
-  /* =========================================================
-     7.6) SERVICIOS lente de cámara que enfoca 
-  ========================================================= */
   const svcEls = gsap.utils.toArray('.svc-lens');
   if (svcEls.length) {
     const svcNameEl = document.getElementById('svcName');
@@ -549,7 +493,6 @@
       if (hudEl) { hudEl.classList.add('hud--snap'); setTimeout(() => hudEl.classList.remove('hud--snap'), 240); }
     };
 
-    /* --- DESKTOP / TABLET --- */
     mm.add('(min-width: 769px)', () => {
       lastS = -1;
       const render = (p) => {
@@ -570,12 +513,10 @@
           }
         });
 
-        // Anillo de foco
         let fscale = 1 + (1 - f) * 0.42;
         if (t > 0.38 && t < 0.52) fscale *= 1 + 0.05 * Math.sin((t - 0.38) / 0.14 * Math.PI);
         if (lensFocus) gsap.set(lensFocus, { scale: fscale, opacity: 0.3 + f * 0.7 });
 
-        // Destello al bloquear el foco
         let glintO = 0;
         if (t > 0.34 && t < 0.54) glintO = Math.sin((t - 0.34) / 0.2 * Math.PI) * 0.85;
         if (lensGlint) gsap.set(lensGlint, { opacity: glintO });
@@ -624,10 +565,6 @@
     });
   }
 
-
-  /* =========================================================
-     8) INTRO CINE + arranque del hero
-  ========================================================= */
   const introEl = document.getElementById('intro');
   const shouldPlayIntro = document.documentElement.classList.contains('intro-play') && !!introEl;
 
@@ -711,7 +648,6 @@
           .to('.intro',        { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 'exit+=1.15');
       }
 
-      /* --- Saltar intro  --- */
       const skip = () => { if (!done) tl.progress(1); };
       const onKey = (e) => {
         if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
@@ -750,18 +686,10 @@
     startHeroDirect();
   }
 
-
-  /* Refresca medidas tras cargar imágenes */
   window.addEventListener('load', () => ScrollTrigger.refresh());
 
 })();
 
-
-/* =========================================================================
-   MÓDULOS INTERACTIVOS — demo de alerta · test de seguridad · arma tu sistema
-   IIFE independiente del bloque anterior: funciona aunque GSAP no cargue
-   o el usuario tenga "reducir movimiento" activado.
-========================================================================= */
 (function () {
   'use strict';
 
@@ -774,9 +702,6 @@
   /* API compartida: el test usa esto para pre-cargar el cotizador */
   var builderAPI = null;
 
-  /* =========================================================
-     0.1) HERO — ticker de eventos en el pie del monitor NVR
-  ========================================================= */
   (function () {
     var tk = document.getElementById('heroTicker');
     if (!tk) return;
@@ -799,9 +724,6 @@
     }, 3600);
   })();
 
-  /* =========================================================
-     0.2) DEMO — comparador de tiempo de reacción (al entrar en vista)
-  ========================================================= */
   (function () {
     var cmp = document.getElementById('reactCompare');
     if (!cmp) return;
@@ -814,9 +736,6 @@
     io.observe(cmp);
   })();
 
-  /* =========================================================
-     0.3) GALERÍA — modo visión nocturna (IR)
-  ========================================================= */
   (function () {
     var btn = document.getElementById('nightToggle');
     var gal = document.getElementById('galeria');
@@ -832,9 +751,6 @@
     });
   })();
 
-  /* =========================================================
-     1) DEMO EN VIVO — "Así llega la alerta a tu celular"
-  ========================================================= */
   (function () {
     var btn = document.getElementById('demoTrigger');
     var phone = document.getElementById('demoPhone');
@@ -934,9 +850,6 @@
     });
   })();
 
-  /* =========================================================
-     2) TEST DE SEGURIDAD — diagnóstico en 5 preguntas
-  ========================================================= */
   (function () {
     var body = document.getElementById('quizBody');
     if (!body) return;
@@ -1086,9 +999,6 @@
     });
   })();
 
-  /* =========================================================
-     3) ARMA TU SISTEMA — pre-cotizador sin precios
-  ========================================================= */
   (function () {
     var list = document.getElementById('bTicketList');
     if (!list) return;
@@ -1198,11 +1108,6 @@
 
     render();
   })();
-
-  /* =========================================================
-     4) PÁGINA PISCINAS — módulos exclusivos de /piscinas
-     (guardados por elemento: no corren en la página principal)
-  ========================================================= */
 
   /* 4.1 Cuenta regresiva al verano (21 de diciembre) */
   (function () {
