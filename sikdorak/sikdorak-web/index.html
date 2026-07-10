@@ -7,6 +7,18 @@
 <meta property="og:title" content="Sikdorak 식도락 · Carta">
 <meta property="og:description" content="맛있는 음식을 맛 보는 즐거움 — El placer de probar comida deliciosa. Carta digital del restaurante coreano Sikdorak.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://setrof.cl/sikdorak/sikdorak-web/index.html">
+<meta property="og:image" content="https://setrof.cl/sikdorak/sikdorak-web/img/logo.jpg">
+<meta property="og:image:secure_url" content="https://setrof.cl/sikdorak/sikdorak-web/img/logo.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta property="og:image:alt" content="Logo Sikdorak · Restaurante coreano">
+<meta property="og:site_name" content="Sikdorak 식도락">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sikdorak 식도락 · Carta">
+<meta name="twitter:description" content="El placer de probar comida deliciosa. Carta digital del restaurante coreano Sikdorak.">
+<meta name="twitter:image" content="https://setrof.cl/sikdorak/sikdorak-web/img/logo.jpg">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#EFEFED">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10 72 L50 22 L90 72' fill='none' stroke='%231C1712' stroke-width='14' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -114,6 +126,24 @@ nav.cats::-webkit-scrollbar{display:none}
 }
 .cat:hover{transform:translateY(-1px)}
 .cat.active{background:var(--ink);color:var(--paper)}
+
+/* botón hamburguesa (solo móvil) */
+.menu-toggle{
+  display:none;
+  flex:none;margin-left:auto;
+  width:44px;height:38px;
+  flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  border:1.5px solid var(--ink);border-radius:10px;
+  background:transparent;
+}
+.menu-toggle span{
+  display:block;width:20px;height:2px;border-radius:2px;
+  background:var(--ink);
+  transition:transform .28s ease,opacity .2s ease;
+}
+.topbar.open .menu-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.topbar.open .menu-toggle span:nth-child(2){opacity:0}
+.topbar.open .menu-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* ---------- héroe ---------- */
 .hero{
@@ -537,6 +567,114 @@ footer{
 }
 .foot-meta .credit b{color:var(--tan)}
 
+/* ---------- botón "agregar" en la tarjeta ---------- */
+.add-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--font-display);
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:.44rem .95rem;
+  border:1.5px solid var(--ink);border-radius:999px;
+  background:var(--paper);
+  transition:background .15s,color .15s,transform .15s;
+  white-space:nowrap;flex:none;
+}
+.add-btn:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px)}
+.add-btn .plus{font-size:1.05rem;line-height:0;font-weight:700}
+.add-btn.added{background:var(--green);border-color:var(--green);color:#fff}
+
+/* ---------- botón flotante "mi pedido" ---------- */
+.cart-fab{
+  position:fixed;right:1.15rem;bottom:1.15rem;z-index:1200;
+  display:none;align-items:center;gap:.6rem;
+  font-family:var(--font-display);
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:.85rem 1.25rem;
+  background:var(--ink);color:var(--paper);
+  border-radius:999px;
+  box-shadow:0 12px 26px -10px rgba(28,23,18,.65);
+  transition:transform .18s;
+}
+.cart-fab.show{display:inline-flex}
+.cart-fab:hover{transform:translateY(-2px)}
+.cart-fab .fab-count{
+  background:var(--red);color:#fff;
+  min-width:1.45rem;height:1.45rem;border-radius:999px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:.82rem;padding:0 .35rem;
+}
+.cart-fab.bump{animation:fabBump .4s ease}
+@keyframes fabBump{0%,100%{transform:none}30%{transform:scale(1.13)}}
+
+/* ---------- panel del carrito ---------- */
+.cart-overlay{
+  position:fixed;inset:0;z-index:1300;
+  background:rgba(28,23,18,.42);
+  opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;
+}
+.cart-overlay.open{opacity:1;visibility:visible}
+.cart-panel{
+  position:fixed;top:0;right:0;z-index:1400;
+  width:min(420px,100%);height:100%;
+  background:var(--paper);
+  border-left:1.5px solid var(--ink);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.cart-panel.open{transform:none}
+.cart-head{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1.3rem 1.3rem 1rem;border-bottom:1.5px solid var(--ink);
+}
+.cart-title{font-family:var(--font-display);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:1.05rem}
+.cart-title .kr{font-family:var(--font-kr);font-size:.72rem;color:var(--ink-soft);letter-spacing:.24em;margin-left:.4rem}
+.cart-close{width:38px;height:38px;border:1.5px solid var(--ink);border-radius:10px;font-size:1rem;display:flex;align-items:center;justify-content:center;flex:none}
+.cart-close:hover{background:var(--ink);color:var(--paper)}
+.cart-note{padding:.85rem 1.3rem;font-size:.78rem;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+.cart-list{flex:1;overflow-y:auto;padding:.4rem 1.3rem}
+.cart-empty{padding:3rem 1rem;text-align:center;color:var(--ink-soft)}
+.cart-empty .kr{font-family:var(--font-kr);font-size:1.8rem;display:block;margin-bottom:.5rem;color:var(--ink)}
+
+.cline{display:flex;gap:.8rem;align-items:flex-start;padding:1rem 0;border-bottom:1px dashed var(--line)}
+.cline-main{flex:1;min-width:0}
+.cline-name{font-family:var(--font-display);font-weight:700;font-size:.92rem;letter-spacing:.04em;text-transform:uppercase;line-height:1.25}
+.cline-opt{font-size:.76rem;color:var(--ink-soft);margin-top:.15rem}
+.cline-opt::before{content:"↳ ";color:var(--tan)}
+.cline-price{font-size:.78rem;color:var(--ink-soft);margin-top:.25rem}
+.cline-right{display:flex;flex-direction:column;align-items:flex-end;gap:.55rem;flex:none}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
+.qty button{width:30px;height:28px;font-size:1.05rem;line-height:0;display:flex;align-items:center;justify-content:center}
+.qty button:hover{background:var(--ink);color:var(--paper)}
+.qty span{min-width:1.7rem;text-align:center;font-size:.85rem;font-weight:700}
+.cline-remove{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);text-decoration:underline}
+
+.cart-foot{border-top:1.5px solid var(--ink);padding:1.1rem 1.3rem 1.3rem;background:var(--paper-2)}
+.cart-total{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1rem}
+.cart-total .t-label{font-family:var(--font-display);letter-spacing:.16em;text-transform:uppercase;font-size:.78rem;color:var(--ink-soft)}
+.cart-total .t-val{font-family:var(--font-display);font-weight:700;font-size:1.45rem}
+.cart-actions{display:flex;gap:.6rem}
+.cart-btn{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--font-display);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:.85rem 1rem;border-radius:999px;border:1.5px solid var(--ink);
+  transition:transform .15s,box-shadow .15s,background .15s,color .15s;
+}
+.cart-btn.primary{background:var(--ink);color:var(--paper)}
+.cart-btn.primary:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 0 var(--tan)}
+.cart-btn.ghost{background:transparent}
+.cart-btn.ghost:hover{background:var(--ink);color:var(--paper)}
+
+/* toast de aviso */
+.toast{
+  position:fixed;left:50%;bottom:5.5rem;transform:translateX(-50%) translateY(20px);
+  z-index:1500;
+  background:var(--ink);color:var(--paper);
+  font-size:.82rem;padding:.7rem 1.2rem;border-radius:999px;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+  max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
 @media (max-width:640px){
   .filters{top:52px}
   .sec-kr{display:none}
@@ -544,6 +682,34 @@ footer{
   .hero-beta{top:72px;right:5%}
   .foot-meta{text-align:left}
   section.menu-sec{scroll-margin-top:132px}
+
+  /* la barra de categorías pasa a menú hamburguesa */
+  .menu-toggle{display:flex}
+  nav.cats{
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:.5rem;
+    padding:1rem 1.1rem 1.2rem;
+    background:var(--paper);
+    border-bottom:1.5px solid var(--ink);
+    box-shadow:0 14px 24px -14px rgba(28,23,18,.5);
+    max-height:72vh;overflow-y:auto;
+    display:none;
+  }
+  .topbar.open nav.cats{display:flex}
+  nav.cats .cat{
+    width:100%;text-align:center;
+    padding:.68rem .75rem;font-size:.84rem;
+  }
+
+  /* el carrito se convierte en hoja inferior */
+  .cart-panel{
+    width:100%;height:88vh;top:auto;bottom:0;right:0;
+    border-left:0;border-top:1.5px solid var(--ink);
+    border-radius:20px 20px 0 0;
+    transform:translateY(100%);
+  }
+  .cart-panel.open{transform:none}
+  .cart-fab{right:1rem;bottom:1rem}
 }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
@@ -565,6 +731,9 @@ footer{
       <span class="brand-name">SIKDORAK</span>
       <span class="brand-kr">식도락</span>
     </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de categorías" aria-expanded="false" aria-controls="catNav">
+      <span></span><span></span><span></span>
+    </button>
     <nav class="cats" id="catNav" aria-label="Categorías de la carta"></nav>
   </div>
 </header>
@@ -676,6 +845,29 @@ footer{
     </div>
   </div>
 </footer>
+
+<!-- =============== CARRITO · MI PEDIDO =============== -->
+<button class="cart-fab" id="cartFab" aria-label="Ver mi pedido">
+  <span>Mi pedido</span>
+  <span class="fab-count" id="fabCount">0</span>
+</button>
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-panel" id="cartPanel" aria-label="Mi pedido" aria-hidden="true">
+  <div class="cart-head">
+    <div class="cart-title">Mi pedido <span class="kr" lang="ko">내 주문</span></div>
+    <button class="cart-close" id="cartClose" aria-label="Cerrar">✕</button>
+  </div>
+  <p class="cart-note">Tu recordatorio personal — guarda lo que te gusta mientras miras la carta y muéstraselo a tu mesero al ordenar.</p>
+  <div class="cart-list" id="cartList"></div>
+  <div class="cart-foot" id="cartFoot">
+    <div class="cart-total"><span class="t-label">Total estimado</span><span class="t-val" id="cartTotal">$0</span></div>
+    <div class="cart-actions">
+      <button class="cart-btn ghost" id="cartClear">Vaciar</button>
+      <button class="cart-btn primary" id="cartShare">Compartir</button>
+    </div>
+  </div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <!-- IMGDATA -->
 <script>
@@ -911,12 +1103,32 @@ MENU.forEach(sec => {
       ${opts}
       <div class="item-foot">
         <span class="price">${clp(it.p)}${it.priceExtra ? ` <small>${esc(it.priceExtra)}</small>` : ""}</span>
+        ${it.out ? "" : `<button class="add-btn" data-name="${esc(it.n)}"><span class="plus" aria-hidden="true">+</span>Agregar</button>`}
       </div>
       </div>`;
     grid.appendChild(card);
   });
   main.appendChild(s);
 });
+
+/* =====================  MENÚ HAMBURGUESA (móvil)  ===================== */
+const topbar = document.querySelector(".topbar");
+const menuToggle = document.getElementById("menuToggle");
+function closeMenu(){
+  topbar.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded","false");
+}
+menuToggle.addEventListener("click", () => {
+  const open = topbar.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+});
+/* al elegir una categoría se cierra el menú */
+nav.addEventListener("click", e => { if (e.target.closest(".cat")) closeMenu(); });
+/* cerrar al tocar fuera o con Escape */
+document.addEventListener("click", e => {
+  if (topbar.classList.contains("open") && !e.target.closest(".topbar")) closeMenu();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
 
 /* opciones seleccionables (salsas, sabores): un solo activo por grupo */
 main.addEventListener("click", e => {
@@ -1027,6 +1239,139 @@ bellBtn.addEventListener("click", () => {
   bellTimer = steps.map((s, i) => setTimeout(() => s.classList.add("lit"), 150 + i * 550));
   bellTimer.push(setTimeout(() => steps.forEach(s => s.classList.remove("lit")), 4200));
 });
+
+/* =====================  CARRITO · MI PEDIDO  ===================== */
+/* índice de precios por nombre de plato */
+const ITEM_INFO = {};
+MENU.forEach(sec => sec.items.forEach(it => { ITEM_INFO[it.n] = {price:it.p, kr:it.kr||""}; }));
+
+const CART_KEY = "sikdorak_pedido_v1";
+let cart = [];
+try{ cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch(_){ cart = []; }
+
+const fab      = document.getElementById("cartFab");
+const fabCount = document.getElementById("fabCount");
+const overlay  = document.getElementById("cartOverlay");
+const panel    = document.getElementById("cartPanel");
+const listEl   = document.getElementById("cartList");
+const totalEl  = document.getElementById("cartTotal");
+const footEl   = document.getElementById("cartFoot");
+const toastEl  = document.getElementById("toast");
+
+function saveCart(){ try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(_){} }
+function cartCount(){ return cart.reduce((n,l)=>n+l.qty,0); }
+function cartSum(){ return cart.reduce((s,l)=>{ const info=ITEM_INFO[l.name]; return s + (info?info.price:0)*l.qty; },0); }
+
+let toastTimer;
+function toast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toastEl.classList.remove("show"), 1900);
+}
+
+function addToCart(name, opt){
+  const line = cart.find(l => l.name===name && (l.opt||"")===(opt||""));
+  if (line) line.qty++;
+  else cart.push({name, opt: opt||"", qty:1});
+  saveCart(); updateFab(); renderCart();
+}
+function setQty(i, delta){
+  cart[i].qty += delta;
+  if (cart[i].qty <= 0) cart.splice(i,1);
+  saveCart(); updateFab(); renderCart();
+}
+
+function updateFab(){
+  const n = cartCount();
+  fabCount.textContent = n;
+  fab.classList.toggle("show", n>0);
+  if (n>0){ fab.classList.remove("bump"); void fab.offsetWidth; fab.classList.add("bump"); }
+  if (n===0) closeCart();
+}
+
+function renderCart(){
+  if (!cart.length){
+    listEl.innerHTML = `<div class="cart-empty"><span class="kr" lang="ko">비어 있어요</span>Aún no has guardado nada.<br>Toca “Agregar” en los platos que te gusten.</div>`;
+    footEl.style.display = "none";
+    return;
+  }
+  footEl.style.display = "";
+  listEl.innerHTML = cart.map((l,i)=>{
+    const info = ITEM_INFO[l.name] || {price:0};
+    return `<div class="cline">
+      <div class="cline-main">
+        <div class="cline-name">${esc(l.name)}</div>
+        ${l.opt ? `<div class="cline-opt">${esc(l.opt)}</div>` : ""}
+        <div class="cline-price">${clp(info.price)} c/u</div>
+      </div>
+      <div class="cline-right">
+        <div class="qty">
+          <button data-act="dec" data-i="${i}" aria-label="Quitar uno">−</button>
+          <span>${l.qty}</span>
+          <button data-act="inc" data-i="${i}" aria-label="Agregar uno">+</button>
+        </div>
+        <button class="cline-remove" data-act="rm" data-i="${i}">Quitar</button>
+      </div>
+    </div>`;
+  }).join("");
+  totalEl.textContent = clp(cartSum());
+}
+
+/* agregar desde las tarjetas (captura la salsa/sabor elegido si lo hay) */
+main.addEventListener("click", e => {
+  const add = e.target.closest(".add-btn");
+  if (!add) return;
+  const card = add.closest(".item");
+  const sel  = card.querySelector('.item-opts button.opt[aria-pressed="true"]');
+  const opt  = sel ? sel.textContent.trim() : "";
+  addToCart(add.dataset.name, opt);
+  const prev = add.innerHTML;
+  add.classList.add("added");
+  add.innerHTML = '<span class="plus" aria-hidden="true">✓</span>Agregado';
+  setTimeout(()=>{ add.classList.remove("added"); add.innerHTML = prev; }, 1100);
+});
+
+/* stepper y quitar dentro del panel */
+listEl.addEventListener("click", e => {
+  const b = e.target.closest("button[data-act]");
+  if (!b) return;
+  const i = +b.dataset.i;
+  if (b.dataset.act === "inc") setQty(i, 1);
+  else if (b.dataset.act === "dec") setQty(i, -1);
+  else if (b.dataset.act === "rm"){ cart.splice(i,1); saveCart(); updateFab(); renderCart(); }
+});
+
+/* abrir / cerrar */
+function openCart(){ renderCart(); overlay.classList.add("open"); panel.classList.add("open"); panel.setAttribute("aria-hidden","false"); }
+function closeCart(){ overlay.classList.remove("open"); panel.classList.remove("open"); panel.setAttribute("aria-hidden","true"); }
+fab.addEventListener("click", openCart);
+overlay.addEventListener("click", closeCart);
+document.getElementById("cartClose").addEventListener("click", closeCart);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeCart(); });
+
+/* vaciar */
+document.getElementById("cartClear").addEventListener("click", () => {
+  cart = []; saveCart(); updateFab(); renderCart();
+});
+
+/* compartir el pedido (Web Share; si no, lo copia) */
+document.getElementById("cartShare").addEventListener("click", async () => {
+  if (!cart.length) return;
+  const lines = cart.map(l => {
+    const info = ITEM_INFO[l.name] || {price:0};
+    return `• ${l.qty}× ${l.name}${l.opt ? " ("+l.opt+")" : ""} — ${clp(info.price*l.qty)}`;
+  });
+  const text = `Mi pedido en Sikdorak 식도락:\n${lines.join("\n")}\n\nTotal estimado: ${clp(cartSum())}`;
+  try{
+    if (navigator.share){ await navigator.share({title:"Mi pedido · Sikdorak", text}); }
+    else { await navigator.clipboard.writeText(text); toast("Pedido copiado ✓"); }
+  }catch(_){/* cancelado */}
+});
+
+/* estado inicial */
+updateFab();
+renderCart();
 </script>
 </body>
 </html>
