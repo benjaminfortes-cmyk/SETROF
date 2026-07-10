@@ -118,22 +118,35 @@
     width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-right: 0.3em;
     flex-shrink: 0;
   }
-  .head__chips { display: flex; justify-content: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
-  .chip {
-    display: inline-flex; align-items: center; gap: 9px;
-    font-size: 0.88rem; font-weight: 700; color: #2b3c53;
-    background: #fff; border: 1px solid var(--line);
-    border-radius: 999px; padding: 8px 18px 8px 10px;
-    box-shadow: 0 4px 12px -8px rgba(7,22,48,0.15);
+  /* checklist del hero: cada check se dibuja solo, en secuencia, al cargar */
+  .head__checks {
+    display: flex; justify-content: center; align-items: center;
+    gap: 10px 30px; flex-wrap: wrap;
+    margin-top: 26px;
   }
-  .chip i {
-    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
-    display: grid; place-items: center;
-    background: var(--wsp-bg);
+  .head__checks span {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.93rem; font-weight: 600; color: #2b3c53;
+    opacity: 0; transform: translateY(7px);
+    animation: checkItemIn .5s ease forwards;
   }
-  .chip i svg { width: 14px; height: 14px; stroke: var(--wsp-deep); }
-  .chip--blue i { background: #e0f2fe; }
-  .chip--blue i svg { stroke: var(--brand); }
+  .head__checks svg { width: 16px; height: 16px; stroke: var(--wsp-deep); flex-shrink: 0; }
+  .head__checks path {
+    stroke-dasharray: 21; stroke-dashoffset: 21;
+    animation: checkDraw .4s ease-out forwards;
+  }
+  .head__checks span:nth-child(1) { animation-delay: .35s; }
+  .head__checks span:nth-child(2) { animation-delay: .65s; }
+  .head__checks span:nth-child(3) { animation-delay: .95s; }
+  .head__checks span:nth-child(1) path { animation-delay: .6s; }
+  .head__checks span:nth-child(2) path { animation-delay: .9s; }
+  .head__checks span:nth-child(3) path { animation-delay: 1.2s; }
+  @keyframes checkItemIn { to { opacity: 1; transform: none; } }
+  @keyframes checkDraw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .head__checks span { animation: none; opacity: 1; transform: none; }
+    .head__checks path { animation: none; stroke-dashoffset: 0; }
+  }
 
   .domainbar {
     display: inline-flex; align-items: center; gap: 9px;
@@ -794,53 +807,27 @@
     display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     gap: 20px; align-items: stretch;
   }
+  /* logos limpios, sin cajas, a todo color */
   .tcard {
-    position: relative;
-    display: flex; flex-direction: column; align-items: center; gap: 14px;
-    padding: 26px 20px 20px;
-    background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
-    box-shadow: 0 4px 16px -10px rgba(7,22,48,0.08);
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    padding: 14px 16px;
   }
-  .tcard:hover {
-    transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--brand) 42%, var(--line));
-    box-shadow: 0 24px 44px -22px rgba(7,22,48,0.32);
-  }
-  .tcard__logo { flex: 1; width: 100%; min-height: 108px; display: grid; place-items: center; }
+  .tcard__logo { flex: 1; width: 100%; min-height: 92px; display: grid; place-items: center; }
   .tcard__logo img {
-    max-height: 78px; max-width: 84%; width: auto; object-fit: contain;
-    filter: saturate(1.02);
+    max-height: 74px; max-width: 82%; width: auto; object-fit: contain;
+    transition: transform .22s ease;
   }
-  .tcard__name { font-size: 0.82rem; font-weight: 700; color: var(--navy); text-align: center; line-height: 1.35; }
-  /* tarjeta invitación — gancho de venta */
-  .tcard--next {
-    justify-content: center; text-align: center; gap: 10px;
-    border: 2px dashed color-mix(in srgb, var(--wsp) 48%, var(--line));
-    background: linear-gradient(165deg, var(--wsp-bg), #fff 85%);
-    color: var(--wsp-deep);
-  }
-  .tcard--next:hover {
-    border-color: var(--wsp);
-    box-shadow: 0 24px 44px -22px rgba(23,163,74,0.4);
-  }
-  .tcard--next .tcard__plus {
-    display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
-    background: #fff; border: 1px solid var(--wsp-line); color: var(--wsp);
-    box-shadow: 0 8px 18px -10px rgba(23,163,74,0.5);
-  }
-  .tcard--next .tcard__plus svg { width: 18px; height: 18px; }
-  .tcard--next b { font-size: 0.98rem; color: var(--wsp-deep); font-weight: 800; }
-  .tcard--next span { font-size: 0.76rem; color: #3f7a54; line-height: 1.4; }
+  .tcard:hover .tcard__logo img { transform: scale(1.06); }
+  .tcard__name { font-size: 0.8rem; font-weight: 700; color: var(--navy); text-align: center; line-height: 1.35; }
   .trust__note {
     margin: 30px auto 0; text-align: center; max-width: 560px;
     font-size: 0.82rem; color: var(--muted);
   }
   .trust__note b { color: var(--wsp-deep); font-weight: 700; }
   @media (max-width: 640px) {
-    .trust__grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-    .tcard { padding: 22px 14px 16px; }
-    .tcard__logo { min-height: 88px; }
+    .trust__grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .tcard { padding: 10px 8px; }
+    .tcard__logo { min-height: 78px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -883,11 +870,11 @@
       </div>
       <h1>Tu competencia ya está en Google.<br><em>Es hora de superarla.</em></h1>
       <p><svg class="verified" viewBox="0 0 24 24" fill="#0ea5e9" role="img" aria-label="Verificado"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg>Tener tu propia página web profesionaliza tu negocio: tus clientes te perciben distinto, confían más y te toman en serio. Ese dominio está libre y nosotros la construimos por ti. Pago único, sin mensualidades.</p>
-      <div class="head__chips">
-        <span class="chip"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i> Pago único</span>
-        <span class="chip chip--blue"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg></i> Dominio 1.<sup>er</sup> año incluido</span>
-        <span class="chip chip--blue"><i><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></i> Optimizada para celular</span>
-      </div>
+      <p class="head__checks">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Dominio 1er año incluido</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Optimizada para celular</span>
+      </p>
     </div>
 
     <section class="trust" id="clientes" aria-label="Clientes que confiaron en nosotros">
@@ -916,12 +903,6 @@
           <div class="tcard__logo"><img src="assets/img/logo.webp" alt="Setrof Seguridad" loading="lazy" /></div>
           <span class="tcard__name">Setrof Seguridad</span>
         </article>
-
-        <a class="tcard tcard--next" data-wa="Hola! Vi los trabajos que ya tienen en línea y quiero mi propia página web." href="#" target="_blank" rel="noopener">
-          <span class="tcard__plus" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
-          <b>Tu negocio, aquí</b>
-          <span>En línea en pocos días. Escríbenos y partimos.</span>
-        </a>
 
       </div>
       <p class="trust__note">Cada proyecto con su <b>propio dominio</b>, publicado y funcionando hoy.</p>
