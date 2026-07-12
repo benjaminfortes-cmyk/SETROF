@@ -392,13 +392,14 @@
   .features li { display: flex; gap: 11px; font-size: 0.93rem; color: #2b3c53; line-height: 1.45; }
   .features li strong { color: var(--navy); font-weight: 700; }
   .features .tick {
-    flex-shrink: 0; width: 19px; height: 19px; margin-top: 3px; border-radius: 50%;
-    background: var(--tint); display: grid; place-items: center;
+    flex-shrink: 0; width: 19px; height: 19px; margin-top: 2px;
+    display: grid; place-items: center;
+    color: var(--accent);
   }
-  .features .tick svg { width: 10px; height: 10px; stroke: var(--accent); }
+  .features .tick svg { width: 18px; height: 18px; }
   .features li.no { color: #9aa8ba; }
-  .features li.no .tick { background: #f0f3f7; }
-  .features li.no .tick svg { stroke: #b3bfce; }
+  .features li.no .tick { background: #f0f3f7; border-radius: 50%; }
+  .features li.no .tick svg { width: 10px; height: 10px; stroke: #b3bfce; }
 
   .plan__addon {
     margin-top: 20px; padding: 13px 15px; border-radius: 12px;
@@ -690,28 +691,45 @@
   .saving { margin-top: 96px; }
   .saving .head { margin: 0 auto 36px; }
   .saving .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
-  .saving__card {
-    max-width: 780px; margin: 0 auto;
+  .saving__card { max-width: 860px; margin: 0 auto; }
+  .saving__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: stretch; }
+  .saving__col {
     background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
-    padding: 34px 36px 26px; box-shadow: 0 4px 16px -10px rgba(7,22,48,0.08);
+    padding: 28px 30px;
+    box-shadow: 0 4px 16px -10px rgba(7,22,48,0.08);
   }
-  .saving__row + .saving__row { margin-top: 26px; }
-  .saving__label {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
-    font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: 9px;
+  .saving__col--ours {
+    border: 2px solid var(--wsp);
+    background: #fbfffc;
+    box-shadow: 0 24px 48px -26px rgba(18,138,62,0.45);
   }
-  .saving__num { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; letter-spacing: -0.02em; white-space: nowrap; }
+  .saving__col-name {
+    display: block; min-height: 44px;
+    font-size: 0.92rem; font-weight: 700; color: var(--muted); line-height: 1.45;
+  }
+  .saving__col--ours .saving__col-name { color: var(--wsp-deep); }
+  .saving__num {
+    display: block; margin-top: 12px;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 2.4rem; letter-spacing: -0.02em; line-height: 1; white-space: nowrap;
+  }
   .saving__num--rival { color: #d43a3a; }
   .saving__num--ours { color: var(--wsp-deep); }
-  .saving__track { height: 14px; border-radius: 999px; background: var(--mist); border: 1px solid var(--line); overflow: hidden; }
-  .saving__fill { display: block; height: 100%; width: 0; border-radius: 999px; transition: width 1.3s cubic-bezier(.2,.8,.3,1); }
-  .saving__fill--rival { background: linear-gradient(90deg, #f89b9b, #e05252); }
-  .saving__fill--ours { background: linear-gradient(90deg, #22c05c, var(--wsp-deep)); }
-  .saving.is-on .saving__fill--rival { width: 100%; }
-  .saving.is-on .saving__fill--ours { width: 33.4%; }
-  .saving__note { display: block; margin-top: 7px; font-size: .8rem; color: var(--muted); }
+  .saving__col-per { display: block; margin-top: 6px; font-size: 0.8rem; color: var(--muted); }
+  .saving__col ul {
+    list-style: none;
+    margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line);
+    display: flex; flex-direction: column; gap: 11px;
+  }
+  .saving__col li {
+    display: flex; align-items: flex-start; gap: 9px;
+    font-size: 0.88rem; color: #33445a; line-height: 1.5;
+  }
+  .saving__col li svg { flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px; }
+  .saving__x { color: #d43a3a; }
+  .saving__ok { color: var(--wsp-deep); }
   .saving__punch {
-    margin-top: 28px; text-align: center;
+    margin-top: 24px; text-align: center;
     font-size: 1.05rem; font-weight: 800; color: var(--navy);
     background: var(--wsp-bg); border: 1px solid var(--wsp-line); border-radius: 14px;
     padding: 14px 18px;
@@ -719,11 +737,11 @@
   .saving__punch b { color: var(--wsp-deep); font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; }
   .saving__punch svg { width: 19px; height: 19px; vertical-align: -4px; margin-right: 5px; color: var(--wsp-deep); }
   .saving__fine { display: block; margin-top: 12px; text-align: center; font-size: .72rem; color: #93a3b8; }
-  @media (max-width: 520px) {
-    .saving__card { padding: 24px 18px 20px; }
-    .saving__label { flex-direction: column; gap: 2px; }
+  @media (max-width: 700px) {
+    .saving__cols { grid-template-columns: 1fr; }
+    .saving__col { padding: 24px 20px; }
+    .saving__col-name { min-height: 0; }
   }
-  @media (prefers-reduced-motion: reduce) { .saving__fill { transition: none; } }
 
   .extras { margin-top: 96px; }
   .extras .head { margin: 0 auto 40px; }
@@ -788,7 +806,8 @@
 
   @media (max-width: 900px) {
     .plan { grid-template-columns: 1fr; }
-    .plan__preview { border-left: none; border-bottom: 1px solid var(--line); order: -1; min-height: 230px; }
+    /* En móvil: primero el precio y el detalle del plan, el demo real abajo */
+    .plan__preview { border-left: none; border-top: 1px solid var(--line); min-height: 230px; }
     .extras__grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {
@@ -851,8 +870,8 @@
     border-radius: 18px; overflow: hidden;
     box-shadow: 0 24px 54px -28px rgba(7,22,48,0.45);
   }
-  .scale__item { background: #4a9df0; transition: filter .2s ease; }
-  .scale__item:nth-of-type(even) { background: #1465c4; }
+  .scale__item { background: #0284c7; transition: filter .2s ease; }
+  .scale__item:nth-of-type(even) { background: #0e2c52; }
   .scale__item.scale__item--top { background: linear-gradient(120deg, #1ba54e, #128a3e); }
   .scale__item:hover { filter: brightness(1.06); }
   .scale__item summary {
@@ -939,18 +958,15 @@
   .invites__type svg { width: 16px; height: 16px; color: var(--violet); flex-shrink: 0; }
   .invites__list {
     list-style: none; display: flex; flex-direction: column; gap: 10px;
-    max-width: 430px; margin: 0 auto 26px; text-align: left;
+    max-width: 440px; margin: 0 auto 26px; text-align: left;
   }
   .invites__list li {
-    position: relative; padding-left: 26px;
+    display: flex; align-items: flex-start; gap: 10px;
     font-size: 0.92rem; color: #2b3c53; line-height: 1.5;
   }
-  .invites__list li::before {
-    content: "✓"; position: absolute; left: 0; top: 0;
-    width: 18px; height: 18px; border-radius: 50%;
-    background: #f0eaff; color: var(--violet);
-    font-size: 0.68rem; font-weight: 800;
-    display: grid; place-items: center;
+  .invites__list li svg {
+    flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;
+    color: var(--violet);
   }
   .invites__btn { font-size: 1rem; padding: 13px 30px; }
 
@@ -993,8 +1009,8 @@
     border-radius: 18px; overflow: hidden;
     box-shadow: 0 24px 54px -28px rgba(7,22,48,0.45);
   }
-  .faq__item { background: #4a9df0; transition: filter .2s ease; }
-  .faq__item:nth-of-type(even) { background: #1465c4; }
+  .faq__item { background: #0284c7; transition: filter .2s ease; }
+  .faq__item:nth-of-type(even) { background: #0e2c52; }
   .faq__item:hover { filter: brightness(1.06); }
   .faq__item summary {
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -1242,11 +1258,11 @@
             <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio y hosting del 1.er año incluidos</div>
             <div class="plan__divider"></div>
             <ul class="features">
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Landing de 1 página:</strong> toda la información de tu negocio estilo landing page (quién eres, qué ofreces y cómo contactarte, en una sola página)</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Diseño personalizado a tu gusto</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Optimizada para celular</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Pedidos por contacto directo:</strong> botón de WhatsApp que abre la conversación contigo</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Dominio y hosting incluidos el primer año</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>Landing de 1 página:</strong> toda la información de tu negocio estilo landing page (quién eres, qué ofreces y cómo contactarte, en una sola página)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span>Diseño personalizado a tu gusto</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span>Optimizada para celular</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>Pedidos por contacto directo:</strong> botón de WhatsApp que abre la conversación contigo</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span>Dominio y hosting incluidos el primer año</span></li>
               <li class="no"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5" stroke-width="2" stroke-linecap="round"/></svg></span> <span>Sin acompañamiento ni cambios</span></li>
               <li class="no"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5" stroke-width="2" stroke-linecap="round"/></svg></span> <span>Sin catálogo ni carrito</span></li>
             </ul>
@@ -1294,13 +1310,13 @@
             <div class="plan__divider"></div>
             <p class="plan__lead">Trae todo lo que ya viste en el Plan Básico y le suma:</p>
             <ul class="features">
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Derecho a 2 pestañas incluidas:</strong> por ejemplo Inicio + Catálogo, tú eliges cómo organizar tu página</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Catálogo de productos con fotos</strong></span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Carrito modo WhatsApp:</strong> el cliente arma su pedido, se suma el total y se envía directo a tu WhatsApp</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>SEO básico:</strong> tu página optimizada para ganar visibilidad en Google</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Conexión con redes (Instagram, Facebook)</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Diseño profesional y personalizado</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Garantía:</strong> cambios durante 1 mes completo tras la entrega</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>Derecho a 2 pestañas incluidas:</strong> por ejemplo Inicio + Catálogo, tú eliges cómo organizar tu página</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>Catálogo de productos con fotos</strong></span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>Carrito modo WhatsApp:</strong> el cliente arma su pedido, se suma el total y se envía directo a tu WhatsApp</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>SEO básico:</strong> tu página optimizada para ganar visibilidad en Google</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span>Conexión con redes (Instagram, Facebook)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span>Diseño profesional y personalizado</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>Garantía:</strong> cambios durante 1 mes completo tras la entrega</span></li>
             </ul>
             <div class="plan__addon">
               <span class="plan__addon-price">+ $10.000</span>
@@ -1372,12 +1388,12 @@
             <div class="plan__divider"></div>
             <p class="plan__lead">Parte del Plan Potencial completo y le agrega:</p>
             <ul class="features">
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Pago online real:</strong> tus clientes pagan con tarjeta dentro de la web (Webpay / MercadoPago)</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Catálogo más grande</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>SEO más avanzado</strong> (mayor visibilidad en Google)</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Estadísticas de visitas (Google Analytics)</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Hasta 10 correos corporativos</strong> con tu dominio (<span id="proMail">contacto@tunegocio.cl</span>)</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Soporte prioritario</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>Pago online real:</strong> tus clientes pagan con tarjeta dentro de la web (Webpay / MercadoPago)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span>Catálogo más grande</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>SEO más avanzado</strong> (mayor visibilidad en Google)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span>Estadísticas de visitas (Google Analytics)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span><strong>Hasta 10 correos corporativos</strong> con tu dominio (<span id="proMail">contacto@tunegocio.cl</span>)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></span> <span>Soporte prioritario</span></li>
             </ul>
             <div class="plan__addon">
               <span class="plan__addon-price">+ $20.000/mes</span>
@@ -1464,23 +1480,32 @@
         <p>Otras plataformas te cobran todos los meses, para siempre. Aquí pagas una vez y la página es tuya.</p>
       </div>
       <div class="saving__card">
-        <div class="saving__row">
-          <div class="saving__label">
-            <span>Plataformas de arriendo mensual (Wix, Shopify u otras)*</span>
+        <div class="saving__cols">
+
+          <div class="saving__col">
+            <span class="saving__col-name">Plataformas de arriendo mensual (Wix, Shopify u otras)*</span>
             <b class="saving__num saving__num--rival" id="rivalNum" data-total="180000">$180.000</b>
+            <span class="saving__col-per">el primer año</span>
+            <ul>
+              <li><svg class="saving__x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> Cerca de $15.000 todos los meses</li>
+              <li><svg class="saving__x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> Lo pagas cada año, para siempre</li>
+              <li><svg class="saving__x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> La página nunca es realmente tuya</li>
+            </ul>
           </div>
-          <div class="saving__track"><i class="saving__fill saving__fill--rival"></i></div>
-          <span class="saving__note">~$15.000 al mes · lo pagas todos los años, para siempre</span>
-        </div>
-        <div class="saving__row">
-          <div class="saving__label">
-            <span>Setrof · Plan Potencial</span>
+
+          <div class="saving__col saving__col--ours">
+            <span class="saving__col-name">Setrof · Plan Potencial</span>
             <b class="saving__num saving__num--ours" id="oursNum" data-total="59990">$59.990</b>
+            <span class="saving__col-per">una sola vez</span>
+            <ul>
+              <li><svg class="saving__ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Pago único: la página es tuya</li>
+              <li><svg class="saving__ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Desde el 2.º año solo $15.000 de renovación</li>
+              <li><svg class="saving__ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Dominio y hosting del 1.er año incluidos</li>
+            </ul>
           </div>
-          <div class="saving__track"><i class="saving__fill saving__fill--ours"></i></div>
-          <span class="saving__note">Una sola vez · desde el 2.º año solo $15.000 de renovación de dominio</span>
+
         </div>
-        <p class="saving__punch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg> Te ahorras más de <b>$120.000</b> solo el primer año</p>
+        <p class="saving__punch"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Te ahorras más de <b>$120.000</b> solo el primer año</p>
         <small class="saving__fine">*Precio referencial del año 1 con planes básicos de esas plataformas en Chile.</small>
       </div>
     </section>
@@ -1502,10 +1527,10 @@
           <span class="invites__type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></svg> Eventos</span>
         </div>
         <ul class="invites__list">
-          <li>Diseño interactivo que se abre como una página, con animaciones</li>
-          <li>Cuenta regresiva, mapa del lugar y datos del evento</li>
-          <li>Confirmación de asistencia directo a tu WhatsApp</li>
-          <li>Cartas y partes digitales de todo tipo, a pedido</li>
+          <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Diseño interactivo que se abre como una página, con animaciones</li>
+          <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Cuenta regresiva, mapa del lugar y datos del evento</li>
+          <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Confirmación de asistencia directo a tu WhatsApp</li>
+          <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Cartas y partes digitales de todo tipo, a pedido</li>
         </ul>
         <a class="btn-wsp invites__btn" data-wa="Hola! Quiero cotizar una invitación digital." href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
