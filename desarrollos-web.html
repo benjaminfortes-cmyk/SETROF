@@ -40,6 +40,7 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
+    overflow-x: clip;
   }
   /* Blueprint grid backdrop, fading toward the fold */
   body::before {
@@ -727,6 +728,15 @@
   .extras { margin-top: 96px; }
   .extras .head { margin: 0 auto 40px; }
   .extras .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+  .head__opt {
+    display: inline-block; vertical-align: middle;
+    margin-left: 10px; padding: 5px 16px; border-radius: 999px;
+    font-family: 'Manrope', sans-serif; font-size: 0.82rem; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--wsp-deep); background: var(--wsp-bg);
+    border: 1.5px solid var(--wsp-line);
+    transform: translateY(-4px);
+  }
   .extras__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
   .panel {
     background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
@@ -830,11 +840,227 @@
     .tcard__logo { min-height: 78px; }
   }
 
+  /* ============ Tu web escala contigo ============ */
+  .scale { margin-top: 96px; }
+  .scale .head { margin: 0 auto 42px; }
+  .scale .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+
+  /* Barras de niveles en bloque, colores alternados; el que quiere abre */
+  .scale__list {
+    max-width: 900px; margin: 0 auto;
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 24px 54px -28px rgba(7,22,48,0.45);
+  }
+  .scale__item { background: #4a9df0; transition: filter .2s ease; }
+  .scale__item:nth-of-type(even) { background: #1465c4; }
+  .scale__item.scale__item--top { background: linear-gradient(120deg, #1ba54e, #128a3e); }
+  .scale__item:hover { filter: brightness(1.06); }
+  .scale__item summary {
+    display: flex; align-items: center; gap: 16px;
+    padding: 21px 26px; cursor: pointer; list-style: none;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(1.02rem, 2vw, 1.22rem); letter-spacing: 0.02em;
+    color: #fff;
+  }
+  .scale__item summary::-webkit-details-marker { display: none; }
+  .scale__item summary::after {
+    content: "+"; margin-left: auto; flex-shrink: 0;
+    width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #fff; color: #0a2242;
+    font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1.15rem; line-height: 1;
+    box-shadow: 0 6px 14px -6px rgba(7,22,48,0.45);
+    transition: transform .25s ease;
+  }
+  .scale__item[open] summary::after { transform: rotate(45deg); }
+  .scale__badge {
+    flex-shrink: 0;
+    width: 30px; height: 30px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem;
+    color: #fff;
+    background: rgba(255,255,255,0.22);
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.55);
+  }
+  .scale__item > p {
+    padding: 2px 26px 20px 72px;
+    font-size: 0.95rem; color: rgba(255,255,255,0.94); line-height: 1.65;
+  }
+  @media (max-width: 520px) {
+    .scale__item summary { padding: 17px 18px; }
+    .scale__item > p { padding: 0 18px 16px; }
+  }
+
+  /* Franja de tecnología (grandes marcas) */
+  .tech {
+    max-width: 720px; margin: 40px auto 0; padding: 18px 26px;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: 0 4px 16px -10px rgba(7,22,48,0.08);
+    text-align: center;
+  }
+  .tech__eyebrow { display: none; }
+  .tech p { font-size: 0.92rem; color: #33445a; line-height: 1.6; }
+  .tech b { color: var(--navy); font-weight: 800; }
+
+  /* Aviso de precios de lanzamiento sobre los planes */
+  .browser__launch {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: fit-content; margin: 0 auto 12px; padding: 6px 18px;
+    background: #fdf3dc; border: 1px solid #ecd9a8; border-radius: 999px;
+    font-size: 0.8rem; font-weight: 800; color: #8a5f0a;
+  }
+  .browser__launch svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ============ Invitaciones digitales ============ */
+  .invites { margin-top: 96px; }
+  .invites .head { margin: 0 auto 38px; }
+  /* La barra del hero, versión morada: el enlace del evento se escribe solo */
+  .invites .domainbar { margin-bottom: 28px; }
+  .domainbar--violet .domainbar__lock { color: var(--violet); }
+  .domainbar--violet .domainbar__caret { background: var(--violet); }
+  .domainbar--violet .domainbar__check {
+    color: #6d28d9;
+    background: #f0eaff;
+    border-color: #d8c9ff;
+  }
+  .invites .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+  .invites__card {
+    max-width: 640px; margin: 0 auto; text-align: center;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+    padding: 32px 34px; box-shadow: 0 4px 16px -10px rgba(7,22,48,0.08);
+  }
+  .invites__types { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+  .invites__type {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px; border-radius: 999px;
+    background: var(--mist); border: 1px solid var(--line);
+    font-size: 0.86rem; font-weight: 700; color: var(--navy);
+  }
+  .invites__type svg { width: 16px; height: 16px; color: var(--violet); flex-shrink: 0; }
+  .invites__list {
+    list-style: none; display: flex; flex-direction: column; gap: 10px;
+    max-width: 430px; margin: 0 auto 26px; text-align: left;
+  }
+  .invites__list li {
+    position: relative; padding-left: 26px;
+    font-size: 0.92rem; color: #2b3c53; line-height: 1.5;
+  }
+  .invites__list li::before {
+    content: "✓"; position: absolute; left: 0; top: 0;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #f0eaff; color: var(--violet);
+    font-size: 0.68rem; font-weight: 800;
+    display: grid; place-items: center;
+  }
+  .invites__btn { font-size: 1rem; padding: 13px 30px; }
+
+  /* ============ Quiénes somos ============ */
+  .who { margin-top: 96px; }
+  .who .head { margin: 0 auto 38px; }
+  .who .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+  .who__card {
+    position: relative; overflow: hidden;
+    max-width: 680px; margin: 0 auto; text-align: center;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+    padding: 34px 38px; box-shadow: 0 4px 16px -10px rgba(7,22,48,0.08);
+  }
+  .who__card::before {  /* escudo ULS como marca de agua */
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background: url("assets/img/colaboraciones.png") center 42%/min(58%, 340px) no-repeat;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+  .who__card > * { position: relative; z-index: 1; }
+  .who__card > p { font-size: 1rem; color: #2b3c53; line-height: 1.7; }
+  .who__card > p + p { margin-top: 14px; }
+  .who__card strong { color: var(--navy); font-weight: 800; }
+  .who__chips { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 22px 0; }
+  .who__chips span {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 999px;
+    background: var(--mist); border: 1px solid var(--line); color: var(--brand);
+  }
+  .who__proof { font-size: 0.86rem; color: var(--muted); }
+
+  /* ============ Preguntas frecuentes ============ */
+  .faq { margin-top: 96px; }
+  .faq .head { margin: 0 auto 38px; }
+  .faq .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+  /* Mismo estilo de barras que "Tu web escala contigo" */
+  .faq__list {
+    max-width: 900px; margin: 0 auto;
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 24px 54px -28px rgba(7,22,48,0.45);
+  }
+  .faq__item { background: #4a9df0; transition: filter .2s ease; }
+  .faq__item:nth-of-type(even) { background: #1465c4; }
+  .faq__item:hover { filter: brightness(1.06); }
+  .faq__item summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 19px 26px; cursor: pointer; list-style: none;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(0.98rem, 1.9vw, 1.14rem); letter-spacing: 0.02em;
+    color: #fff;
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary::after {
+    content: "+"; flex-shrink: 0;
+    width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #fff; color: #0a2242;
+    font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1.15rem; line-height: 1;
+    box-shadow: 0 6px 14px -6px rgba(7,22,48,0.45);
+    transition: transform .25s ease;
+  }
+  .faq__item[open] summary::after { transform: rotate(45deg); }
+  .faq__item p {
+    padding: 2px 26px 20px;
+    font-size: 0.95rem; color: rgba(255,255,255,0.94); line-height: 1.65;
+  }
+  @media (max-width: 520px) {
+    .faq__item summary { padding: 16px 18px; }
+    .faq__item p { padding: 0 18px 16px; }
+  }
+  .faq__cta {
+    display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;
+    margin-top: 34px; text-align: center;
+    font-weight: 700; color: var(--navy);
+  }
+
+  /* ============ Bandas de fondo: cada sección se distingue de la anterior ============ */
+  .band {
+    margin: 0 calc(50% - 50vw);
+    padding: 74px 26px 82px;
+  }
+  .band--white {
+    background: #fff;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .band--tint {
+    background: linear-gradient(180deg, #e9f2fc 0%, #f4f9ff 100%);
+  }
+  .band .trust__grid,
+  .band .extras__grid { max-width: var(--maxw); margin-left: auto; margin-right: auto; }
+  .trydom { margin-top: 64px; }
+
+  /* Los demos muestran que cada plan trae el anterior completo */
+  .pv__inherit {
+    display: inline-flex; align-items: center; gap: 6px;
+    width: fit-content;
+    font-size: 0.68rem; font-weight: 800; color: var(--wsp-deep);
+    background: var(--wsp-bg); border: 1px dashed var(--wsp-line);
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .pv__inherit svg { width: 11px; height: 11px; flex-shrink: 0; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .browser { animation: none; opacity: 1; translate: 0 0; }
     .plan { animation: none; }
     .plan__preview::after, .pv__wsp, .pv__bars i, .browser__url .caret, .browser__hint svg { animation: none; }
+    .scale__step:hover { transform: none; }
   }
 </style>
 </head>
@@ -847,13 +1073,12 @@
       </a>
       <nav class="topnav" aria-label="Secciones">
         <a href="#planes">Planes</a>
+        <a href="#escala">Escalabilidad</a>
         <a href="#clientes">Clientes</a>
         <a href="#ahorro">Ahorro</a>
-        <a href="#extras">Servicios extra</a>
         <a href="#renovacion">Plan Tranquilidad</a>
+        <a href="#faq">Preguntas</a>
         <a href="/">Volver al inicio</a>
-        <a href="the world is yours/index.html">beta cliente</a>
-        <a href="sikdorak/sikdorak-web/index.html">beta cliente 2</a>
       </nav>
       <a class="btn-wsp" data-wa="Hola! Quiero cotizar una página web." href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
@@ -874,12 +1099,41 @@
       <p><svg class="verified" viewBox="0 0 24 24" fill="#0ea5e9" role="img" aria-label="Verificado"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg>Tener tu propia página web profesionaliza tu negocio: tus clientes te perciben distinto, confían más y te toman en serio. Ese dominio está libre y nosotros la construimos por ti. Pago único, sin mensualidades.</p>
       <p class="head__checks">
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Dominio 1er año incluido</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Dominio y hosting 1er año incluidos</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Optimizada para celular</span>
       </p>
     </div>
 
-    <section class="trust" id="clientes" aria-label="Clientes que confiaron en nosotros">
+    <section class="scale" id="escala" aria-label="Tu web escala contigo">
+      <div class="head">
+        <h1>Tu web <em>escala contigo</em></h1>
+        <p>Parte simple hoy y suma funciones cuando tu negocio lo pida. Cada nivel se construye sobre el anterior: nunca vuelves a partir de cero.</p>
+      </div>
+      <div class="scale__list">
+        <details class="scale__item">
+          <summary><span class="scale__badge" aria-hidden="true">1</span> Lanza tu página web</summary>
+          <p>Tu negocio en línea con dominio propio, hosting, diseño móvil y pedidos por contacto directo.</p>
+        </details>
+        <details class="scale__item">
+          <summary><span class="scale__badge" aria-hidden="true">2</span> Muestra tus productos</summary>
+          <p>Tus productos con fotos y precios, listos para que tus clientes elijan y te escriban.</p>
+        </details>
+        <details class="scale__item">
+          <summary><span class="scale__badge" aria-hidden="true">3</span> Vende y cobra en línea</summary>
+          <p>Carrito vía WhatsApp y pago con tarjeta dentro de tu página, con Webpay.</p>
+        </details>
+        <details class="scale__item scale__item--top">
+          <summary><span class="scale__badge" aria-hidden="true">4</span> Automatiza tu negocio</summary>
+          <p>Sistemas hechos a tu medida y automatizaciones de todo tipo, escalables para cualquier empresa. Nos moldeamos a tus necesidades.</p>
+        </details>
+      </div>
+      <div class="tech">
+        <span class="tech__eyebrow">Tecnología</span>
+        <p>Construimos con la misma tecnología web que usan las grandes marcas del comercio electrónico, como <b>Nike</b>, <b>Adidas</b> y <b>Apple</b>, para vender online.</p>
+      </div>
+    </section>
+
+    <section class="trust band band--white" id="clientes" aria-label="Clientes que confiaron en nosotros">
       <div class="head">
         <h1>Confiaron en <em>nosotros</em></h1>
         <p>Negocios y equipos reales que ya diseñamos, publicamos y dejamos funcionando en línea. Tú puedes ser el próximo.</p>
@@ -932,6 +1186,7 @@
 
     <section class="browser" aria-label="Planes disponibles">
 
+      <p class="browser__launch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg> Precios de lanzamiento, luego subirán</p>
       <p class="browser__hint">
         Selecciona cualquiera de los 3 planes disponibles
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v11M3.5 8.5L8 13l4.5-4.5"/></svg>
@@ -984,14 +1239,14 @@
             <span class="plan__tier">Plan Básico</span>
             <h3 class="plan__name">Para empezar</h3>
             <div class="plan__price"><span class="amount">$45.990</span></div>
-            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
+            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio y hosting del 1.er año incluidos</div>
             <div class="plan__divider"></div>
             <ul class="features">
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Landing de 1 página:</strong> toda la información de tu negocio estilo landing page (quién eres, qué ofreces y cómo contactarte, en una sola página)</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Diseño personalizado a tu gusto</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Optimizada para celular</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Botón de WhatsApp</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Dominio incluido el primer año</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Pedidos por contacto directo:</strong> botón de WhatsApp que abre la conversación contigo</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Dominio y hosting incluidos el primer año</span></li>
               <li class="no"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5" stroke-width="2" stroke-linecap="round"/></svg></span> <span>Sin acompañamiento ni cambios</span></li>
               <li class="no"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M3.5 3.5l5 5M8.5 3.5l-5 5" stroke-width="2" stroke-linecap="round"/></svg></span> <span>Sin catálogo ni carrito</span></li>
             </ul>
@@ -1035,9 +1290,9 @@
             <span class="plan__tier">Plan Potencial · El más elegido</span>
             <h3 class="plan__name">El más completo</h3>
             <div class="plan__price"><span class="amount">$59.990</span></div>
-            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
+            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio y hosting del 1.er año incluidos</div>
             <div class="plan__divider"></div>
-            <p class="plan__lead">Todo lo del Plan Básico, más:</p>
+            <p class="plan__lead">Trae todo lo que ya viste en el Plan Básico y le suma:</p>
             <ul class="features">
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Derecho a 2 pestañas incluidas:</strong> por ejemplo Inicio + Catálogo, tú eliges cómo organizar tu página</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Catálogo de productos con fotos</strong></span></li>
@@ -1061,6 +1316,15 @@
             <div class="pv">
               <div class="pv__domain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="js-pvdomain">tunegocio.cl</span></div>
               <div class="pv__bar" aria-hidden="true"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
+              <div class="pv__inherit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Incluye todo el Plan Básico</div>
+              <div class="pv__colors" role="group" aria-label="Elige el color de tu página">
+                <span class="pv__colors-label">Tu color</span>
+                <button type="button" class="pv__color is-on" data-color="#0ea5e9" style="--c:#0ea5e9" aria-label="Azul"></button>
+                <button type="button" class="pv__color" data-color="#17a34a" style="--c:#17a34a" aria-label="Verde"></button>
+                <button type="button" class="pv__color" data-color="#7c5cff" style="--c:#7c5cff" aria-label="Violeta"></button>
+                <button type="button" class="pv__color" data-color="#d9950f" style="--c:#d9950f" aria-label="Dorado"></button>
+                <button type="button" class="pv__color" data-color="#e11d48" style="--c:#e11d48" aria-label="Rojo"></button>
+              </div>
               <div class="pv__shop" role="group" aria-label="Demo del catálogo: agrega productos al pedido">
                 <button type="button" class="pv__prod" data-price="7990">
                   <span class="pv__prod-img" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
@@ -1104,15 +1368,15 @@
             <span class="plan__tier">Plan Pro</span>
             <h3 class="plan__name">Para vender online</h3>
             <div class="plan__price"><span class="amount">$299.990</span></div>
-            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio del 1.er año incluido</div>
+            <div class="plan__meta"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Pago único · dominio y hosting del 1.er año incluidos</div>
             <div class="plan__divider"></div>
-            <p class="plan__lead">Todo lo del Plan Potencial, más:</p>
+            <p class="plan__lead">Parte del Plan Potencial completo y le agrega:</p>
             <ul class="features">
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Pago online real:</strong> tus clientes pagan con tarjeta dentro de la web (Webpay / MercadoPago)</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Catálogo más grande</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>SEO más avanzado</strong> (mayor visibilidad en Google)</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Estadísticas de visitas (Google Analytics)</span></li>
-              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Correo profesional (<span id="proMail">contacto@tunegocio.cl</span>)</span></li>
+              <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><strong>Hasta 10 correos corporativos</strong> con tu dominio (<span id="proMail">contacto@tunegocio.cl</span>)</span></li>
               <li><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5l2.4 2.4L9.5 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span>Soporte prioritario</span></li>
             </ul>
             <div class="plan__addon">
@@ -1129,6 +1393,15 @@
             <div class="pv">
               <div class="pv__domain"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span class="js-pvdomain">tunegocio.cl</span></div>
               <div class="pv__bar" aria-hidden="true"><i class="pv__logo"></i><span class="pv__links"><i></i><i></i><i></i></span></div>
+              <div class="pv__inherit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Incluye Básico y Potencial completos</div>
+              <div class="pv__colors" role="group" aria-label="Elige el color de tu página">
+                <span class="pv__colors-label">Tu color</span>
+                <button type="button" class="pv__color is-on" data-color="#0ea5e9" style="--c:#0ea5e9" aria-label="Azul"></button>
+                <button type="button" class="pv__color" data-color="#17a34a" style="--c:#17a34a" aria-label="Verde"></button>
+                <button type="button" class="pv__color" data-color="#7c5cff" style="--c:#7c5cff" aria-label="Violeta"></button>
+                <button type="button" class="pv__color" data-color="#d9950f" style="--c:#d9950f" aria-label="Dorado"></button>
+                <button type="button" class="pv__color" data-color="#e11d48" style="--c:#e11d48" aria-label="Rojo"></button>
+              </div>
               <div class="pv__shop" role="group" aria-label="Demo de compra: elige productos y paga con tarjeta">
                 <button type="button" class="pv__prod" data-price="7990">
                   <span class="pv__prod-img" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
@@ -1185,7 +1458,7 @@
       </div>
     </section>
 
-    <section class="saving" id="ahorro" aria-label="Comparación de ahorro">
+    <section class="saving band band--tint" id="ahorro" aria-label="Comparación de ahorro">
       <div class="head">
         <h1>Pago único vs <em>arriendo mensual</em></h1>
         <p>Otras plataformas te cobran todos los meses, para siempre. Aquí pagas una vez y la página es tuya.</p>
@@ -1205,35 +1478,136 @@
             <b class="saving__num saving__num--ours" id="oursNum" data-total="59990">$59.990</b>
           </div>
           <div class="saving__track"><i class="saving__fill saving__fill--ours"></i></div>
-          <span class="saving__note">Una sola vez · desde el 2.º año solo $10.000 de renovación de dominio</span>
+          <span class="saving__note">Una sola vez · desde el 2.º año solo $15.000 de renovación de dominio</span>
         </div>
         <p class="saving__punch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg> Te ahorras más de <b>$120.000</b> solo el primer año</p>
         <small class="saving__fine">*Precio referencial del año 1 con planes básicos de esas plataformas en Chile.</small>
       </div>
     </section>
 
-    <section class="extras" id="extras">
+    <section class="invites band band--white" id="invitaciones" aria-label="Invitaciones digitales">
       <div class="head">
-        <h1>Plan Tranquilidad y <em>servicios extra</em></h1>
+        <div class="domainbar domainbar--violet" aria-hidden="true">
+          <svg class="domainbar__lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span class="domainbar__scheme">https://</span><span class="domainbar__type" id="inviteType"></span><span class="domainbar__caret"></span>
+          <span class="domainbar__check" id="inviteCheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> lista para enviar</span>
+        </div>
+        <h1>Invitaciones <em>digitales interactivas</em></h1>
+        <p>No solo páginas para negocios: creamos invitaciones y cartas digitales para cumpleaños, matrimonios y todo tipo de eventos, con su propio enlace para compartir por WhatsApp.</p>
+      </div>
+      <div class="invites__card">
+        <div class="invites__types">
+          <span class="invites__type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/></svg> Cumpleaños</span>
+          <span class="invites__type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Matrimonios</span>
+          <span class="invites__type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></svg> Eventos</span>
+        </div>
+        <ul class="invites__list">
+          <li>Diseño interactivo que se abre como una página, con animaciones</li>
+          <li>Cuenta regresiva, mapa del lugar y datos del evento</li>
+          <li>Confirmación de asistencia directo a tu WhatsApp</li>
+          <li>Cartas y partes digitales de todo tipo, a pedido</li>
+        </ul>
+        <a class="btn-wsp invites__btn" data-wa="Hola! Quiero cotizar una invitación digital." href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
+          Quiero una invitación
+        </a>
+      </div>
+    </section>
+
+    <section class="who band band--tint" id="quienes" aria-label="Quiénes somos">
+      <div class="head">
+        <h1>Ingeniería detrás de <em>cada página</em></h1>
+      </div>
+      <div class="who__card">
+        <p>Somos un equipo joven de la <strong>Universidad de La Serena</strong>, estudiantes de Ingeniería Civil Industrial con formación en programación, automatizaciones, economía, contabilidad, marketing y gestión de proyectos.</p>
+        <p>Esa mezcla hace la diferencia: no solo construimos tu página, también entendemos cómo se mueve tu rubro, tus números y tus procesos. Cada web que entregamos está pensada para vender, no solo para verse bien.</p>
+        <div class="who__chips">
+          <span>Programación</span>
+          <span>Automatizaciones</span>
+          <span>Economía</span>
+          <span>Contabilidad</span>
+          <span>Marketing</span>
+          <span>Inteligencia de negocios</span>
+          <span>Gestión de proyectos</span>
+        </div>
+        <p class="who__proof">Nuestro respaldo es simple: proyectos reales publicados y funcionando, como los que viste más arriba.</p>
+      </div>
+    </section>
+
+    <section class="extras band band--white" id="extras">
+      <div class="head">
+        <h1>Plan Tranquilidad y <em>servicios extra</em> <span class="head__opt">opcional</span></h1>
       </div>
       <div class="extras__grid">
 
         <div class="panel panel--dark" id="renovacion">
-          <h3>Plan Tranquilidad <small>(opcional · tu página siempre al día)</small></h3>
-          <div class="panel__row"><span class="panel__price">$9.990/mes</span> <span>Todo incluido: renovación del dominio, cambios de contenido una vez al mes y soporte prioritario por WhatsApp</span></div>
-          <div class="panel__row"><span class="panel__price">$49.990/año</span> <span>El mismo plan pagando el año completo de una vez (te ahorras más de la mitad)</span></div>
+          <h3>Plan Tranquilidad <small>(opcional · un equipo encargado directamente de tus procesos)</small></h3>
+          <div class="panel__row"><span class="panel__price">$5.000/mes</span> <span><strong>Solo stock:</strong> actualización mensual de tu catálogo, cambio de imágenes, precios y productos</span></div>
+          <div class="panel__row"><span class="panel__price">$9.990/mes</span> <span><strong>Acompañamiento completo:</strong> todo tipo de cambios cada mes, de diseño, contenido y stock, con soporte por WhatsApp</span></div>
+          <div class="panel__row"><span class="panel__price">$49.990/año</span> <span><strong>Anual:</strong> pagas una sola vez y estamos contigo todo el año para diseño, stock y cualquier cambio (te ahorras más de la mitad)</span></div>
           <div class="note">Es 100% opcional: si no lo tomas, tu página sigue en línea igual. Solo necesitas renovar el dominio en enero.</div>
         </div>
 
         <div class="panel">
           <h3>Servicios extra <small>(se pagan solo si los pides)</small></h3>
-          <div class="panel__row"><span class="panel__price">$10.000</span> <span>En enero · renovación del dominio, mantiene tu página en línea (incluida en el Plan Tranquilidad)</span></div>
+          <div class="panel__row"><span class="panel__price">$15.000</span> <span>En enero · renovación anual del dominio, mantiene tu página en línea</span></div>
           <div class="panel__row"><span class="panel__price">$15.000</span> <span><strong>Convierte tu página en una app (PWA):</strong> tus clientes la instalan con su propio ícono en el celular y el computador, y la abren como cualquier aplicación</span></div>
-          <div class="panel__row"><span class="panel__price">$20.000</span> Ventana de 2 días con cambios ilimitados de contenido (para actualizar varias cosas de una vez)</div>
+          <div class="panel__row"><span class="panel__price">$20.000</span> <span><strong>Ventana de cambios:</strong> si no contrataste ningún plan, tienes 2 días con cambios ilimitados de contenido para actualizar varias cosas de una vez</span></div>
           <div class="note">El extra de $20.000 incluye cambios de textos, fotos, precios y productos. No incluye rediseño completo ni funciones nuevas (eso se cotiza aparte).</div>
         </div>
 
       </div>
+    </section>
+
+    <section class="faq band band--tint" id="faq" aria-label="Preguntas frecuentes">
+      <div class="head">
+        <h1>Preguntas <em>frecuentes</em></h1>
+      </div>
+      <div class="faq__list">
+
+        <details class="faq__item" open>
+          <summary>¿Cuánto demora mi página?</summary>
+          <p>Depende del alcance de cada proyecto, pero verás avances muy rápido: te vamos mostrando la página mientras se construye, para que opines desde el primer día.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Debo pagar una mensualidad?</summary>
+          <p>No, y eso es lo mejor: nuestros planes son de pago único. La página queda publicada, funcionando y es tuya. Si quieres acompañamiento continuo existe el Plan Tranquilidad, que es muy económico y 100% opcional.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Cómo se paga?</summary>
+          <p>Aceptamos todo tipo de pagos y nunca te pediremos un anticipo: pagas cuando tu página está lista y funcionando. Trabajamos resultado por resultado, porque la confianza es lo más importante.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Por qué elegirnos?</summary>
+          <p>Somos estudiantes de Ingeniería Civil Industrial de la Universidad de La Serena, con formación en programación, automatizaciones, economía, contabilidad, marketing y gestión de proyectos, y con proyectos reales publicados que puedes visitar hoy. Además estos son precios de lanzamiento: más adelante subirán, así que es un buen momento para partir.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Puedo partir simple y escalar después?</summary>
+          <p>Sí, esa es justamente la idea. Partes con una landing y, cuando tu negocio crezca, sumamos catálogo, carrito, pagos online o sistemas a medida sin rehacer tu página desde cero.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Qué necesito para empezar?</summary>
+          <p>Solo tu idea. Con el nombre de tu negocio, tus fotos y tus datos de contacto nosotros armamos el resto, y te guiamos paso a paso por WhatsApp durante todo el proceso.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿El dominio queda a mi nombre?</summary>
+          <p>Sí. El dominio se registra en NIC Chile (los .cl oficiales) y queda asociado a tu negocio. El primer año va incluido en tu plan y la renovación cuesta $15.000 al año.</p>
+        </details>
+
+      </div>
+      <p class="faq__cta">
+        ¿Te quedó otra duda?
+        <a class="btn-wsp" data-wa="Hola! Tengo una duda sobre los planes de páginas web." href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
+          Pregúntanos directo
+        </a>
+      </p>
     </section>
   </main>
 
@@ -1262,43 +1636,49 @@
     }
     refreshWaLinks();
 
-    const domEl = document.getElementById("domainType");
-    const domCheck = document.getElementById("domainCheck");
-    if (domEl && domCheck) {
-      const domains = ["tu-restaurante.cl", "tu-barberia.cl", "tu-ferreteria.cl", "tu-gimnasio.cl", "tu-negocio.cl"];
+    // Barra que escribe direcciones sola (hero y invitaciones comparten la lógica)
+    function typewriterBar(typeId, checkId, words) {
+      const el = document.getElementById(typeId);
+      const check = document.getElementById(checkId);
+      if (!el || !check) return;
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        domEl.textContent = "tu-negocio.cl";
-        domCheck.classList.add("is-on");
-      } else {
-        let di = 0, ci = 0, deleting = false;
-        const step = () => {
-          const word = domains[di];
-          if (!deleting) {
-            ci++;
-            domEl.textContent = word.slice(0, ci);
-            if (ci === word.length) {
-              domCheck.classList.add("is-on");
-              deleting = true;
-              setTimeout(step, 2000);
-              return;
-            }
-            setTimeout(step, 85);
-          } else {
-            domCheck.classList.remove("is-on");
-            ci--;
-            domEl.textContent = word.slice(0, ci);
-            if (ci === 0) {
-              deleting = false;
-              di = (di + 1) % domains.length;
-              setTimeout(step, 400);
-              return;
-            }
-            setTimeout(step, 38);
-          }
-        };
-        step();
+        el.textContent = words[words.length - 1];
+        check.classList.add("is-on");
+        return;
       }
+      let di = 0, ci = 0, deleting = false;
+      const step = () => {
+        const word = words[di];
+        if (!deleting) {
+          ci++;
+          el.textContent = word.slice(0, ci);
+          if (ci === word.length) {
+            check.classList.add("is-on");
+            deleting = true;
+            setTimeout(step, 2000);
+            return;
+          }
+          setTimeout(step, 85);
+        } else {
+          check.classList.remove("is-on");
+          ci--;
+          el.textContent = word.slice(0, ci);
+          if (ci === 0) {
+            deleting = false;
+            di = (di + 1) % words.length;
+            setTimeout(step, 400);
+            return;
+          }
+          setTimeout(step, 38);
+        }
+      };
+      step();
     }
+
+    typewriterBar("domainType", "domainCheck",
+      ["tu-restaurante.cl", "tu-barberia.cl", "tu-ferreteria.cl", "tu-gimnasio.cl", "tu-negocio.cl"]);
+    typewriterBar("inviteType", "inviteCheck",
+      ["cumple-de-emma.cl", "nuestra-boda.cl", "baby-shower-vale.cl", "tu-evento.cl"]);
 
     const paths = { basico: "", potencial: "/catalogo", pro: "/pago" };
     let currentPlan = "potencial";
@@ -1517,12 +1897,14 @@
       }));
     }
 
+    // El color elegido pinta los tres demos a la vez: tu marca te sigue de plan en plan
     const colorBtns = Array.from(document.querySelectorAll(".pv__color"));
-    const basicoPreview = document.querySelector("#panel-basico .plan__preview");
-    if (colorBtns.length && basicoPreview) {
+    const previews = Array.from(document.querySelectorAll(".plan__preview"));
+    if (colorBtns.length && previews.length) {
       colorBtns.forEach(btn => btn.addEventListener("click", () => {
-        colorBtns.forEach(b => b.classList.toggle("is-on", b === btn));
-        basicoPreview.style.setProperty("--accent", btn.dataset.color);
+        const c = btn.dataset.color;
+        colorBtns.forEach(b => b.classList.toggle("is-on", b.dataset.color === c));
+        previews.forEach(pv => pv.style.setProperty("--accent", c));
       }));
     }
 

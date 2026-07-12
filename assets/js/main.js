@@ -106,8 +106,6 @@
     document.body.style.overflow = '';
     const introFallback = document.getElementById('intro');
     if (introFallback) introFallback.style.display = 'none';
-    const hudFallback = document.getElementById('hud');
-    if (hudFallback) hudFallback.classList.add('is-on'); // visor estático
     return;
   }
 
@@ -157,16 +155,23 @@
   }
 
   const hudLabels = {
-    inicio: 'SECTOR 01 · INICIO', servicios: 'SECTOR 02 · SERVICIOS',
-    'demo-alerta': 'SECTOR 03 · DEMO EN VIVO', nosotros: 'SECTOR 04 · NOSOTROS',
-    'por-que': 'SECTOR 05 · CONFIANZA', 'test-seguridad': 'SECTOR 06 · DIAGNÓSTICO',
-    galeria: 'SECTOR 07 · GALERÍA',
-    'arma-tu-sistema': 'SECTOR 08 · COTIZADOR', contacto: 'SECTOR 09 · CONTACTO'
+    inicio: 'SECTOR 01 · INICIO', servicios: 'SECTOR 02 · SERVICIOS'
   };
   sections.forEach((sec) => {
     const setLbl = () => { if (hudStatus && hudLabels[sec.id]) hudStatus.textContent = hudLabels[sec.id]; };
     ScrollTrigger.create({ trigger: sec, start: 'top 55%', end: 'bottom 55%', onEnter: setLbl, onEnterBack: setLbl });
   });
+
+  /* El HUD solo acompaña a las dos primeras secciones (inicio y servicios);
+     al llegar a "Nosotros" se apaga y vuelve al subir. */
+  if (hudEl && document.getElementById('nosotros')) {
+    ScrollTrigger.create({
+      trigger: '#nosotros',
+      start: 'top 65%',
+      end: 'max',
+      onToggle: (self) => hudEl.classList.toggle('hud--off', self.isActive)
+    });
+  }
 
   /* Typewriter de coordenadas GPS del hero */
   const geoEl = document.getElementById('geoCoords');
@@ -699,9 +704,6 @@
     return 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(texto);
   };
 
-  /* API compartida: el test usa esto para pre-cargar el cotizador */
-  var builderAPI = null;
-
   (function () {
     var tk = document.getElementById('heroTicker');
     if (!tk) return;
@@ -724,40 +726,13 @@
     }, 3600);
   })();
 
-  (function () {
-    var cmp = document.getElementById('reactCompare');
-    if (!cmp) return;
-    if (!('IntersectionObserver' in window)) { cmp.classList.add('is-in'); return; }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { cmp.classList.add('is-in'); io.disconnect(); }
-      });
-    }, { threshold: 0.4 });
-    io.observe(cmp);
-  })();
 
+  /* Teléfono de la sección Nosotros: las alertas del sistema llegan en bucle */
   (function () {
-    var btn = document.getElementById('nightToggle');
-    var gal = document.getElementById('galeria');
-    if (!btn || !gal) return;
-    var tx = document.getElementById('nightToggleTx');
-    var icon = btn.querySelector('i');
-    btn.addEventListener('click', function () {
-      var on = gal.classList.toggle('gallery--night');
-      btn.classList.toggle('is-on', on);
-      btn.setAttribute('aria-pressed', String(on));
-      if (tx) tx.textContent = on ? 'Ver con luz normal' : 'Ver en visión nocturna';
-      if (icon) icon.className = on ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-    });
-  })();
+    var phone = document.getElementById('aboutPhone');
+    var notifs = document.getElementById('aboutNotifs');
+    if (!phone || !notifs) return;
 
-  (function () {
-    var btn = document.getElementById('demoTrigger');
-    var phone = document.getElementById('demoPhone');
-    var notifs = document.getElementById('demoNotifs');
-    if (!btn || !phone || !notifs) return;
-
-    var btnTx = document.getElementById('demoTriggerTx');
     var ckBig = document.getElementById('phoneClock');
     var ckSm = document.getElementById('phoneClockSm');
     var dateEl = document.getElementById('phoneDate');
@@ -787,216 +762,45 @@
       return n;
     };
 
-    /* Cámara en vivo dentro del teléfono (aparece tras las alertas) */
-    var liveCard = document.getElementById('demoLive');
-    var liveTs = document.getElementById('demoLiveTs');
-    var liveTimer = null;
-    var tickLive = function () {
-      if (!liveTs) return;
-      var d = new Date();
-      liveTs.textContent = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
-    };
+    /* Secuencia de eventos del sistema; se repite en bucle */
+    var FEED = [
+      { mod: 'pnotif--alert', icon: 'fa-solid fa-triangle-exclamation', title: 'Movimiento detectado', sub: 'CAM 02 · Muro Norte', thumb: 'assets/img/proyecto-3.webp', buzz: true },
+      { mod: 'pnotif--rec', icon: 'fa-solid fa-video', title: 'Grabando evento', sub: 'Clip guardado en el sistema' },
+      { icon: 'fa-solid fa-shield-halved', title: 'Sistema armado', sub: 'Todos los sensores en línea' },
+      { mod: 'pnotif--alert', icon: 'fa-solid fa-bolt', title: 'Cerco perimetral', sub: 'Pulso verificado · Sector Sur', buzz: true },
+      { mod: 'pnotif--rec', icon: 'fa-solid fa-circle-check', title: 'Evento verificado', sub: 'Sin novedad · CAM 04' },
+      { icon: 'fa-solid fa-warehouse', title: 'Portón cerrado', sub: 'Acceso principal asegurado' }
+    ];
 
-    var busy = false;
-    btn.addEventListener('click', function () {
-      if (busy) return;
-      busy = true;
-      btn.classList.add('is-busy');
-      if (btnTx) btnTx.textContent = 'Detectando…';
-      notifs.innerHTML = '';
-      if (liveCard) liveCard.classList.remove('is-on');
-      if (liveTimer) { clearInterval(liveTimer); liveTimer = null; }
-
-      var now = new Date();
-      var hhmmss = pad2(now.getHours()) + ':' + pad2(now.getMinutes()) + ':' + pad2(now.getSeconds());
-
-      /* 1: llega la alerta de movimiento (con vibración del teléfono) */
-      setTimeout(function () {
-        phone.classList.add('is-buzz');
-        notifs.appendChild(buildNotif({
-          mod: 'pnotif--alert',
-          icon: 'fa-solid fa-triangle-exclamation',
-          title: '⚠ Movimiento detectado',
-          sub: 'CAM 02 · Muro Norte · ' + hhmmss,
-          thumb: 'assets/img/proyecto-3.webp'
-        }));
-        setTimeout(function () { phone.classList.remove('is-buzz'); }, 600);
-      }, 800);
-
-      /* 2: confirmación de grabación */
-      setTimeout(function () {
-        notifs.appendChild(buildNotif({
-          mod: 'pnotif--rec',
-          icon: 'fa-solid fa-video',
-          title: 'Grabando evento',
-          sub: 'Clip guardado · revisa la app'
-        }));
-      }, 2300);
-
-      /* 3: se abre la cámara en vivo abajo en la pantalla */
-      setTimeout(function () {
-        if (liveCard) {
-          tickLive();
-          liveTimer = setInterval(tickLive, 1000);
-          liveCard.classList.add('is-on');
-        }
-      }, 3400);
-
-      setTimeout(function () {
-        busy = false;
-        btn.classList.remove('is-busy');
-        if (btnTx) btnTx.textContent = 'Repetir simulación';
-      }, 4200);
-    });
-  })();
-
-  (function () {
-    var body = document.getElementById('quizBody');
-    if (!body) return;
-
-    var steps = Array.prototype.slice.call(body.querySelectorAll('.quiz__step'));
-    var result = document.getElementById('quizResult');
-    var stepLbl = document.getElementById('quizStepLbl');
-    var segs = Array.prototype.slice.call(document.querySelectorAll('#quizProgress i'));
-    var backBtn = document.getElementById('quizBack');
-    var finishBtn = document.getElementById('quizFinish');
-    var scoreNum = document.getElementById('quizScoreNum');
-    var meterFill = document.getElementById('quizMeterFill');
-    var levelEl = document.getElementById('quizLevel');
-    var weakEl = document.getElementById('quizWeak');
-    var recEl = document.getElementById('quizRec');
-    var waBtn = document.getElementById('quizWa');
-    var restart = document.getElementById('quizRestart');
-    var sectorInput = document.getElementById('quizSector');
-    var buildBtn = document.getElementById('quizBuild');
-
-    var answers = [];  /* por paso: { name, area, score, label } */
     var idx = 0;
-    var lastDiag = null;  /* configuración sugerida para el cotizador */
-
-    var recMap = {
-      'Cámaras': 'Un kit de cámaras con acceso desde tu celular te da ojos en tu propiedad las 24 horas, desde cualquier lugar.',
-      'Perímetro': 'Un cerco eléctrico perimetral disuade y detiene un robo antes de que llegue a tu puerta.',
-      'Alarma': 'Una alarma con sensores reacciona en el segundo exacto y activa la sirena ante cualquier apertura o movimiento.',
-      'Alertas al celular': 'Con monitoreo remoto, cada evento llega como notificación a tu celular en segundos, estés donde estés.'
+    var push = function () {
+      var opts = FEED[idx % FEED.length];
+      idx++;
+      notifs.insertBefore(buildNotif(opts), notifs.firstChild);
+      while (notifs.children.length > 3) notifs.removeChild(notifs.lastChild);
+      if (opts.buzz) {
+        phone.classList.add('is-buzz');
+        setTimeout(function () { phone.classList.remove('is-buzz'); }, 600);
+      }
     };
 
-    var show = function (i) {
-      idx = i;
-      result.hidden = true;
-      steps.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
-      segs.forEach(function (seg, k) { seg.classList.toggle('is-on', k <= Math.min(i, segs.length - 1)); });
-      if (stepLbl) stepLbl.textContent = (i < 5) ? 'PREGUNTA ' + (i + 1) + ' / 5' : 'ÚLTIMO PASO';
-      if (backBtn) backBtn.hidden = (i === 0);
-    };
+    /* Con movimiento reducido: tres notificaciones estáticas, sin bucle */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      push(); push(); push();
+      return;
+    }
 
-    steps.forEach(function (step, sIdx) {
-      step.querySelectorAll('.quiz__opt').forEach(function (opt) {
-        opt.addEventListener('click', function () {
-          step.querySelectorAll('.quiz__opt').forEach(function (o) { o.classList.remove('is-sel'); });
-          opt.classList.add('is-sel');
-          answers[sIdx] = {
-            name: step.getAttribute('data-name') || '',
-            area: step.getAttribute('data-area') || '',
-            score: parseInt(opt.getAttribute('data-score') || '-1', 10),
-            label: opt.getAttribute('data-label') || opt.textContent.trim()
-          };
-          setTimeout(function () { show(sIdx + 1); }, 260);
-        });
-      });
-    });
-
-    if (backBtn) backBtn.addEventListener('click', function () {
-      if (idx > 0) show(idx - 1);
-    });
-
-    /* Cuenta animada del puntaje (sin GSAP) */
-    var animScore = function (to) {
-      var t0 = null, dur = 1100;
-      var frame = function (t) {
-        if (!t0) t0 = t;
-        var p = Math.min(1, (t - t0) / dur);
-        var e = 1 - Math.pow(1 - p, 3);
-        if (scoreNum) scoreNum.textContent = Math.round(to * e);
-        if (meterFill) meterFill.style.width = (to * e) + '%';
-        if (p < 1) requestAnimationFrame(frame);
-      };
-      requestAnimationFrame(frame);
-    };
-
-    if (finishBtn) finishBtn.addEventListener('click', function () {
-      var scored = answers.filter(function (a) { return a && a.area; });
-      var total = scored.reduce(function (s, a) { return s + Math.max(0, a.score); }, 0);
-
-      var weak = null;
-      scored.forEach(function (a) { if (!weak || a.score < weak.score) weak = a; });
-
-      var lvl, cls;
-      if (total < 35)      { lvl = 'Nivel crítico';       cls = 'lv-1'; }
-      else if (total < 65) { lvl = 'Nivel vulnerable';    cls = 'lv-2'; }
-      else if (total < 85) { lvl = 'Protección parcial';  cls = 'lv-3'; }
-      else                 { lvl = 'Propiedad blindada';  cls = 'lv-4'; }
-
-      var blindada = total >= 85;
-      var weakName = blindada || !weak ? 'Sin puntos críticos' : weak.area;
-      var recText = blindada || !weak
-        ? 'Tu propiedad está bien cubierta. Un chequeo preventivo anual mantiene todo funcionando cuando más lo necesitas.'
-        : recMap[weak.area];
-
-      steps.forEach(function (s) { s.classList.remove('is-active'); });
-      segs.forEach(function (seg) { seg.classList.add('is-on'); });
-      if (stepLbl) stepLbl.textContent = 'INFORME LISTO';
-      if (backBtn) backBtn.hidden = true;
-
-      result.classList.remove('lv-1', 'lv-2', 'lv-3', 'lv-4');
-      result.classList.add(cls);
-      if (levelEl) levelEl.textContent = lvl;
-      if (weakEl) weakEl.textContent = weakName;
-      if (recEl) recEl.textContent = recText;
-      result.hidden = false;
-      animScore(total);
-
-      /* Configuración sugerida según lo que le falta (pre-carga el cotizador) */
-      var byArea = {};
-      scored.forEach(function (a) { byArea[a.area] = a.score; });
-      lastDiag = {
-        prop: answers[0] ? answers[0].label : null,
-        cams: (byArea['Cámaras'] < 25) ? 4 : 0,
-        cerco: (byArea['Perímetro'] < 25) ? 50 : 0,
-        alarma: byArea['Alarma'] < 25,
-        monitoreo: byArea['Alertas al celular'] < 25
-      };
-      if (buildBtn) buildBtn.hidden = blindada;
-
-      /* Mensaje de WhatsApp con el diagnóstico completo */
-      var sector = sectorInput ? sectorInput.value.trim() : '';
-      var lines = [
-        '¡Hola SETROF! Hice el *test de seguridad* en el sitio web.',
-        '',
-        '*Resultado: ' + total + '% · ' + lvl + '*',
-        '*Punto débil: ' + weakName + '*',
-        ''
-      ];
-      answers.forEach(function (a) {
-        if (a) lines.push('• ' + (a.name || 'Dato') + ': ' + a.label);
-      });
-      if (sector) lines.push('• Sector: ' + sector);
-      lines.push('', 'Quiero la *visita técnica gratis* para reforzar mi seguridad.');
-      if (waBtn) waBtn.href = waLink(lines.join('\n'));
-    });
-
-    if (restart) restart.addEventListener('click', function () {
-      answers = [];
-      body.querySelectorAll('.quiz__opt').forEach(function (o) { o.classList.remove('is-sel'); });
-      if (sectorInput) sectorInput.value = '';
-      show(0);
-    });
-
-    /* "Armar el sistema que me falta": pre-carga el cotizador y baja hasta él */
-    if (buildBtn) buildBtn.addEventListener('click', function () {
-      if (builderAPI && lastDiag) builderAPI.prefill(lastDiag);
-      /* la navegación al ancla #arma-tu-sistema la maneja el enlace */
-    });
+    /* El bucle solo corre mientras el teléfono está en pantalla */
+    var timer = null;
+    var start = function () { if (!timer) { push(); timer = setInterval(push, 3400); } };
+    var stop = function () { if (timer) { clearInterval(timer); timer = null; } };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) start(); else stop(); });
+      }, { threshold: 0.25 }).observe(phone);
+    } else {
+      start();
+    }
   })();
 
   (function () {
@@ -1067,7 +871,7 @@
 
     var setCams = function (n) {
       cams = Math.max(0, Math.min(16, n));
-      if (camNum) camNum.textContent = cams;
+      if (camNum) camNum.textContent = pad2(cams);
       if (camHint) camHint.textContent = camHints(cams);
       render();
     };
@@ -1080,31 +884,6 @@
     });
 
     toggles.forEach(function (t) { t.addEventListener('change', render); });
-
-    /* API para que el test pre-cargue el cotizador con lo que le falta */
-    builderAPI = {
-      prefill: function (cfg) {
-        if (cfg.prop) {
-          var match = null;
-          chips.forEach(function (c) { if (c.getAttribute('data-val') === cfg.prop) match = c; });
-          if (match) {
-            chips.forEach(function (c) { c.classList.remove('is-on'); });
-            match.classList.add('is-on');
-            prop = cfg.prop;
-          }
-        }
-        if (typeof cfg.cams === 'number' && cfg.cams > 0) setCams(cfg.cams);
-        if (typeof cfg.cerco === 'number' && cfg.cerco > 0 && cerco) {
-          cerco.value = cfg.cerco;
-          if (cercoOut) cercoOut.textContent = cfg.cerco + ' m';
-        }
-        var alarma = document.getElementById('bAlarma');
-        var monitoreo = document.getElementById('bMonitoreo');
-        if (cfg.alarma && alarma) alarma.checked = true;
-        if (cfg.monitoreo && monitoreo) monitoreo.checked = true;
-        render();
-      }
-    };
 
     render();
   })();

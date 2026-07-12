@@ -68,15 +68,25 @@
     "image": "https://setrof.cl/assets/img/logo.png",
     "logo": "https://setrof.cl/assets/img/logo.png",
     "telephone": "+56974054542",
+    "email": "mforttes8364@gmail.com",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "La Serena",
       "addressRegion": "Región de Coquimbo",
       "addressCountry": "CL"
     },
+    "geo": { "@type": "GeoCoordinates", "latitude": -29.9027, "longitude": -71.2519 },
     "areaServed": [
       { "@type": "City", "name": "La Serena" },
       { "@type": "City", "name": "Coquimbo" }
+    ],
+    "serviceType": [
+      "Sistemas de alarma",
+      "Cámaras de seguridad CCTV",
+      "Automatización de portones",
+      "Cercos eléctricos",
+      "Mantenimiento de seguridad",
+      "Construcción de piscinas"
     ],
     "openingHoursSpecification": [
       {
@@ -103,36 +113,7 @@
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=43">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "SETROF SEGURIDAD",
-    "description": "Empresa especializada en diseño, instalación y mantenimiento de sistemas integrales de seguridad y construcción de piscinas en La Serena y Coquimbo, Chile.",
-    "telephone": "+56974054542",
-    "email": "mforttes8364@gmail.com",
-    "url": "https://setrof.cl/",
-    "image": "https://setrof.cl/assets/img/logo.png",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "La Serena",
-      "addressRegion": "Coquimbo",
-      "addressCountry": "CL"
-    },
-    "geo": { "@type": "GeoCoordinates", "latitude": -29.9027, "longitude": -71.2519 },
-    "areaServed": ["La Serena", "Coquimbo", "Región de Coquimbo"],
-    "serviceType": [
-      "Sistemas de alarma",
-      "Cámaras de seguridad CCTV",
-      "Automatización de portones",
-      "Cercos eléctricos",
-      "Mantenimiento de seguridad",
-      "Construcción de piscinas"
-    ]
-  }
-  </script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=44">
 </head>
 
 <body>
@@ -232,11 +213,6 @@
             <span class="hero__cta-text">Cotiza gratis ahora</span>
             <i class="fa-brands fa-whatsapp hero__cta-icon" aria-hidden="true"></i>
           </a>
-
-          <a class="hero__cta-test" href="#test-seguridad">
-            ¿Qué tan protegido estás? Haz el test de 30 segundos
-            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-          </a>
         </div>
 
         <div class="hero__visual hero__stage" id="heroStage">
@@ -276,9 +252,6 @@
                 <span class="hero__motion" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i> MOVIMIENTO</span>
                 <span class="hero__feed-ts js-nvr-clock">--:--:--</span>
                 <span class="hero__sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-                <a class="hero__feed-go" href="#demo-alerta" aria-label="Ver la demo: así llega la alerta a tu celular">
-                  <span class="hero__feed-go-tip"><i class="fa-solid fa-play" aria-hidden="true"></i> Mira qué pasa cuando detectamos algo</span>
-                </a>
               </figure>
               <figure class="hero__feed">
                 <img src="assets/img/proyecto-5.webp" alt="" loading="lazy">
@@ -431,83 +404,6 @@
       </div>
     </section>
 
-    <section class="livedemo" id="demo-alerta" aria-labelledby="livedemo-heading">
-      <div class="livedemo__bg" aria-hidden="true"></div>
-      <div class="container livedemo__grid">
-
-        <div class="livedemo__copy fade-in">
-          <h2 class="section-title" id="livedemo-heading">
-            Así llega la alerta <em>a tu celular</em>
-          </h2>
-          <p class="livedemo__para">
-            Cuando algo cruza tu perímetro no te enteras al día siguiente: te enteras en segundos.
-            Presiona el botón y mira exactamente lo que recibirías en tu teléfono.
-          </p>
-          <ul class="livedemo__steps" role="list">
-            <li><i aria-hidden="true">1</i><span><b>Detección:</b> la cámara o el sensor capta el movimiento</span></li>
-            <li><i aria-hidden="true">2</i><span><b>Grabación:</b> el sistema guarda el clip del evento</span></li>
-            <li><i aria-hidden="true">3</i><span><b>Alerta:</b> la notificación llega a tu celular, estés donde estés</span></li>
-          </ul>
-          <button type="button" class="livedemo__btn" id="demoTrigger">
-            <span class="livedemo__btn-led" aria-hidden="true"></span>
-            <span id="demoTriggerTx">Simular robo</span>
-          </button>
-          <p class="livedemo__note">Simulación segura: no se activa ninguna alarma real.</p>
-        </div>
-
-        <div class="livedemo__phone-col fade-in">
-          <div class="livedemo__phone" id="demoPhone" role="img" aria-label="Teléfono mostrando la notificación de alerta del sistema SETROF">
-            <span class="livedemo__speaker" aria-hidden="true"></span>
-            <div class="livedemo__screen" id="demoScreen">
-              <div class="livedemo__statusbar" aria-hidden="true">
-                <span id="phoneClockSm">--:--</span>
-                <span class="livedemo__statusicons">
-                  <i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-three-quarters"></i>
-                </span>
-              </div>
-              <div class="livedemo__lock" aria-hidden="true">
-                <span class="livedemo__lock-clock" id="phoneClock">--:--</span>
-                <span class="livedemo__lock-date" id="phoneDate"></span>
-              </div>
-              <div class="livedemo__notifs" id="demoNotifs" aria-live="polite"></div>
-
-              <div class="livedemo__live" id="demoLive" aria-hidden="true">
-                <img src="assets/img/proyecto-3.webp" alt="" loading="lazy">
-                <span class="livedemo__live-tag"><i></i> EN VIVO</span>
-                <span class="livedemo__live-cam">CAM 02 · MURO NORTE</span>
-                <span class="livedemo__live-ts" id="demoLiveTs">--:--:--</span>
-              </div>
-            </div>
-          </div>
-          <p class="livedemo__phone-cap"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Notificación real del sistema de monitoreo SETROF</p>
-        </div>
-
-      </div>
-
-      <div class="container">
-        <div class="livedemo__compare fade-in" id="reactCompare">
-          <h3 class="livedemo__compare-title">¿Cuánto tardarías en enterarte de un robo?</h3>
-
-          <div class="livedemo__compare-row">
-            <div class="livedemo__compare-head">
-              <span class="livedemo__compare-name"><i class="fa-solid fa-house-circle-xmark" aria-hidden="true"></i> Sin sistema de seguridad</span>
-              <b class="livedemo__compare-val">Horas… o al volver</b>
-            </div>
-            <div class="livedemo__compare-track"><i class="livedemo__compare-fill livedemo__compare-fill--slow"></i></div>
-          </div>
-
-          <div class="livedemo__compare-row">
-            <div class="livedemo__compare-head">
-              <span class="livedemo__compare-name livedemo__compare-name--setrof"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Con SETROF</span>
-              <b class="livedemo__compare-val livedemo__compare-val--setrof">Segundos</b>
-            </div>
-            <div class="livedemo__compare-track"><i class="livedemo__compare-fill livedemo__compare-fill--fast"></i></div>
-          </div>
-
-          <p class="livedemo__compare-note">Sin monitoreo, un robo se descubre al volver a la propiedad. Con alerta al celular, reaccionas mientras está ocurriendo.</p>
-        </div>
-      </div>
-    </section>
 
     <section class="about" id="nosotros" aria-labelledby="about-heading">
       <div class="container">
@@ -531,33 +427,25 @@
             </a>
           </div>
 
-          <div class="about__visual-col fade-in" aria-hidden="true">
-            <div class="about__icon-grid">
-              <div class="about__icon-cell">
-                <img src="assets/img/camara.webp" alt="Cámaras de seguridad SETROF" loading="lazy">
-                <span>CCTV</span>
-              </div>
-              <div class="about__icon-cell">
-                <img src="assets/img/cerco-sf.webp" alt="Cerco eléctrico SETROF" loading="lazy">
-                <span>Cercos</span>
-              </div>
-              <div class="about__icon-cell">
-                <img src="assets/img/alarma-sf.webp" alt="Sistema de alarma SETROF" loading="lazy">
-                <span>Alarmas</span>
-              </div>
-              <div class="about__icon-cell">
-                <img src="assets/img/piscina-sf.webp" alt="Piscina SETROF" loading="lazy">
-                <span>Piscinas</span>
-              </div>
-              <div class="about__icon-cell">
-                <img src="assets/img/porton-sf.webp" alt="Portón automático SETROF" loading="lazy">
-                <span>Accesos</span>
-              </div>
-              <div class="about__icon-cell">
-                <img src="assets/img/mantenimiento-sf.webp" alt="Mantenimiento SETROF" loading="lazy">
-                <span>Mantención</span>
+          <div class="about__visual-col about__phone-col fade-in">
+            <div class="aphone" id="aboutPhone" role="img"
+              aria-label="Teléfono mostrando las alertas del sistema de monitoreo SETROF">
+              <span class="aphone__speaker" aria-hidden="true"></span>
+              <div class="aphone__screen">
+                <div class="aphone__statusbar" aria-hidden="true">
+                  <span id="phoneClockSm">--:--</span>
+                  <span class="aphone__statusicons">
+                    <i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-three-quarters"></i>
+                  </span>
+                </div>
+                <div class="aphone__lock" aria-hidden="true">
+                  <span class="aphone__lock-clock" id="phoneClock">--:--</span>
+                  <span class="aphone__lock-date" id="phoneDate"></span>
+                </div>
+                <div class="aphone__notifs" id="aboutNotifs" aria-hidden="true"></div>
               </div>
             </div>
+            <p class="aphone__cap"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Así llegan las alertas de tu sistema a tu celular, en segundos</p>
           </div>
         </div>
       </div>
@@ -602,109 +490,6 @@
       </div>
     </section>
 
-    <section class="quiz" id="test-seguridad" aria-labelledby="quiz-heading">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title" id="quiz-heading">¿Qué tan protegida está <span class="text-accent">tu propiedad?</span></h2>
-          <p class="section-subtitle">Responde 5 preguntas y descubre tu nivel de protección, tu punto débil y qué te conviene reforzar primero.</p>
-        </div>
-
-        <div class="quiz__card fade-in">
-          <div class="quiz__top">
-            <span class="quiz__top-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> DIAGNÓSTICO SETROF</span>
-            <span class="quiz__top-step" id="quizStepLbl">PREGUNTA 1 / 5</span>
-            <span class="quiz__top-scan" aria-hidden="true"><span></span> SCAN</span>
-          </div>
-          <div class="quiz__progress" aria-hidden="true" id="quizProgress">
-            <i class="is-on"></i><i></i><i></i><i></i><i></i>
-          </div>
-
-          <div class="quiz__body" id="quizBody">
-
-            <div class="quiz__step is-active" data-name="Propiedad">
-              <h3 class="quiz__q">¿Qué quieres proteger?</h3>
-              <div class="quiz__opts">
-                <button type="button" class="quiz__opt" data-label="Casa"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span>Casa</span></button>
-                <button type="button" class="quiz__opt" data-label="Negocio o local"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg></span><span>Negocio o local</span></button>
-                <button type="button" class="quiz__opt" data-label="Parcela o terreno"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17Z"/><path d="M12 22v-3"/></svg></span><span>Parcela o terreno</span></button>
-                <button type="button" class="quiz__opt" data-label="Condominio o edificio"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span><span>Condominio o edificio</span></button>
-              </div>
-            </div>
-
-            <div class="quiz__step" data-name="Cámaras" data-area="Cámaras">
-              <h3 class="quiz__q">¿Tienes cámaras de seguridad?</h3>
-              <div class="quiz__opts">
-                <button type="button" class="quiz__opt" data-score="25" data-label="Sí, y las veo desde el celular"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 19v-4"/><path d="M7 19h5"/><rect width="6" height="10" x="16" y="12" rx="2"/></svg></span><span>Sí, y las veo desde el celular</span></button>
-                <button type="button" class="quiz__opt" data-score="12" data-label="Sí, pero antiguas o sin app"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.75 12h3.632a1 1 0 0 1 .894 1.447l-2.034 4.069a1 1 0 0 1-1.708.134l-2.124-2.97"/><path d="M17.106 9.053a1 1 0 0 1 .447 1.341l-3.106 6.211a1 1 0 0 1-1.342.447L3.61 12.3a2.92 2.92 0 0 1-1.3-3.91L3.69 5.6a2.92 2.92 0 0 1 3.92-1.3z"/><path d="M2 19h3.76a2 2 0 0 0 1.8-1.1L9 15"/><path d="M2 21v-4"/><path d="M7 9h.01"/></svg></span><span>Sí, pero antiguas o sin app</span></button>
-                <button type="button" class="quiz__opt" data-score="0" data-label="No tengo"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.66 6H14a2 2 0 0 1 2 2v2.5l5.248-3.062A.5.5 0 0 1 22 7.87v8.196"/><path d="M16 16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2"/><line x1="2" x2="22" y1="2" y2="22"/></svg></span><span>No tengo</span></button>
-              </div>
-            </div>
-
-            <div class="quiz__step" data-name="Perímetro" data-area="Perímetro">
-              <h3 class="quiz__q">¿Cómo está protegido tu perímetro?</h3>
-              <div class="quiz__opts">
-                <button type="button" class="quiz__opt" data-score="25" data-label="Con cerco eléctrico"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span><span>Con cerco eléctrico</span></button>
-                <button type="button" class="quiz__opt" data-score="10" data-label="Solo reja o pandereta"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/></svg></span><span>Solo reja o pandereta</span></button>
-                <button type="button" class="quiz__opt" data-score="0" data-label="Sin cierre completo"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20H2"/><path d="M11 4.562v16.157a1 1 0 0 0 1.242.97L19 20V5.562a2 2 0 0 0-1.515-1.94l-4-1A2 2 0 0 0 11 4.562Z"/><path d="M11 4H8a2 2 0 0 0-2 2v14"/><path d="M14 12h.01"/><path d="M22 20h-3"/></svg></span><span>Sin cierre completo</span></button>
-              </div>
-            </div>
-
-            <div class="quiz__step" data-name="Alarma" data-area="Alarma">
-              <h3 class="quiz__q">¿Tienes alarma con sensores?</h3>
-              <div class="quiz__opts">
-                <button type="button" class="quiz__opt" data-score="25" data-label="Sí, y funciona bien"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M22 8c0-2.3-.8-4.3-2-6"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/></svg></span><span>Sí, y funciona bien</span></button>
-                <button type="button" class="quiz__opt" data-score="10" data-label="Sí, pero falla o no la uso"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M17 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 .258-1.742"/><path d="m2 2 20 20"/><path d="M8.668 3.01A6 6 0 0 1 18 8c0 2.687.77 4.653 1.707 6.05"/></svg></span><span>Sí, pero falla o no la uso</span></button>
-                <button type="button" class="quiz__opt" data-score="0" data-label="No tengo"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></span><span>No tengo</span></button>
-              </div>
-            </div>
-
-            <div class="quiz__step" data-name="Alertas" data-area="Alertas al celular">
-              <h3 class="quiz__q">Si algo pasara ahora mismo, ¿te enterarías?</h3>
-              <div class="quiz__opts">
-                <button type="button" class="quiz__opt" data-score="25" data-label="Sí, me llega una alerta al celular"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg></span><span>Sí, me llega una alerta al celular</span></button>
-                <button type="button" class="quiz__opt" data-score="10" data-label="Solo si un vecino o alguien me avisa"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Solo si un vecino o alguien me avisa</span></button>
-                <button type="button" class="quiz__opt" data-score="0" data-label="No me enteraría hasta llegar"><span class="quiz__opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg></span><span>No me enteraría hasta llegar</span></button>
-              </div>
-            </div>
-
-            <div class="quiz__step quiz__step--final" data-name="Sector">
-              <h3 class="quiz__q">Último dato: ¿en qué sector estás?</h3>
-              <p class="quiz__hint">Opcional: nos ayuda a confirmar cobertura y coordinar la visita técnica gratis.</p>
-              <input type="text" id="quizSector" class="form__input" placeholder="Ej: Las Compañías, La Serena" autocomplete="off">
-              <button type="button" class="btn btn--primary btn--full" id="quizFinish">
-                Ver mi resultado <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              </button>
-            </div>
-
-            <div class="quiz__result" id="quizResult" hidden aria-live="polite">
-              <span class="quiz__result-tag">Informe · Nivel de protección</span>
-              <div class="quiz__gauge"><b id="quizScoreNum">0</b><span>%</span></div>
-              <div class="quiz__meter"><i id="quizMeterFill"></i></div>
-              <p class="quiz__level" id="quizLevel"></p>
-              <div class="quiz__weak">
-                <span>Tu punto débil</span>
-                <b id="quizWeak"></b>
-              </div>
-              <p class="quiz__rec" id="quizRec"></p>
-              <div class="quiz__result-btns">
-                <a href="#" id="quizWa" class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">
-                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Enviar diagnóstico · visita gratis
-                </a>
-                <a href="#arma-tu-sistema" id="quizBuild" class="btn btn--primary">
-                  <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Armar el sistema que me falta
-                </a>
-                <button type="button" class="quiz__restart" id="quizRestart"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Repetir test</button>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="quiz__foot">
-            <button type="button" class="quiz__back" id="quizBack" hidden><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Anterior</button>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section class="sectors" id="sectores" aria-labelledby="sectors-heading" hidden style="display:none">
       <div class="container">
@@ -749,13 +534,6 @@
         <div class="section-header fade-in">
           <h2 class="section-title" id="gallery-heading">Galería de Proyectos</h2>
           <p class="section-subtitle">Muestras reales de trabajos ejecutados en la región</p>
-        </div>
-
-        <div class="gallery__night fade-in">
-          <button type="button" class="gallery__night-btn" id="nightToggle" aria-pressed="false">
-            <i class="fa-solid fa-moon" aria-hidden="true"></i>
-            <span id="nightToggleTx">Ver en visión nocturna</span>
-          </button>
         </div>
 
         <div class="gallery__grid">
@@ -805,7 +583,7 @@
               <span class="builder__label"><i class="fa-solid fa-video" aria-hidden="true"></i> Cámaras de seguridad</span>
               <div class="builder__stepper">
                 <button type="button" id="bCamMinus" aria-label="Quitar una cámara"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
-                <b id="bCamNum">0</b>
+                <b id="bCamNum">00</b>
                 <button type="button" id="bCamPlus" aria-label="Agregar una cámara"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
                 <span class="builder__stepper-hint" id="bCamHint">Sin cámaras</span>
               </div>
@@ -1034,7 +812,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-  <script src="assets/js/main.js?v=42"></script>
+  <script src="assets/js/main.js?v=43"></script>
 
 </body>
 
