@@ -2943,3 +2943,42 @@ html.intro-play .intro__skip { opacity: 0; }
 .page-pools .builder__ticket-top i { color: #67e8f9; }
 .page-pools .builder__ticket-note i { color: #67e8f9; }
 
+
+/* ============ Footer profesional en columnas: marca, menu, soporte y medios de pago ============ */
+.footer__bar { grid-template-columns: 1.5fr 0.9fr 1.3fr 1.3fr; align-items: flex-start; }
+.footer__col--brand .footer__logo { height: 52px; }
+.footer__tagline {
+  margin: 16px 0 20px; max-width: 300px;
+  font-size: .92rem; line-height: 1.7; color: rgba(255,255,255,.85);
+}
+.footer__title { font-size: 1.02rem; font-weight: 700; color: #fff; margin-bottom: 16px; }
+.footer__links { display: flex; flex-direction: column; gap: 11px; }
+.footer__links a, .footer__links .footer__plain {
+  color: rgba(255,255,255,.82); font-size: .9rem; transition: color .2s ease;
+}
+.footer__links a:hover { color: #fff; }
+.footer__links i { margin-right: 7px; color: rgba(255,255,255,.65); font-size: .85rem; }
+.footer__pays { display: flex; flex-wrap: wrap; gap: 8px; max-width: 300px; }
+.pay {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; border-radius: 8px; padding: 7px 13px;
+  font-size: .78rem; font-weight: 800; color: #10233f;
+  box-shadow: 0 4px 12px rgba(2,10,30,.25);
+}
+.pay i { color: #10233f; font-size: .85rem; }
+.pay--visa { color: #1A1F71; font-style: italic; font-weight: 900; letter-spacing: .06em; }
+.pay--mp { color: #009EE3; font-weight: 800; }
+.pay__mc { display: inline-flex; align-items: center; }
+.pay__mc i { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+.pay__mc i:first-child { background: #EB001B; }
+.pay__mc i:last-child { background: #F79E1B; margin-left: -6px; mix-blend-mode: multiply; }
+@media (max-width: 900px) {
+  .footer__bar { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .footer__bar { text-align: left; }
+  .footer__col--brand .footer__social { justify-content: flex-start; }
+}
+@media (max-width: 540px) {
+  .footer__bar { grid-template-columns: 1fr; }
+}
