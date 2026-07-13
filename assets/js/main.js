@@ -23,34 +23,42 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  const dropItem = document.querySelector('.nav__item--drop');
-  const dropToggle = document.getElementById('navDropToggle');
-  const closeDropdown = () => {
-    if (!dropItem) return;
-    dropItem.classList.remove('nav__item--open');
-    if (dropToggle) dropToggle.setAttribute('aria-expanded', 'false');
+  const dropItems = document.querySelectorAll('.nav__item--drop');
+  const closeDropdowns = () => {
+    dropItems.forEach(item => {
+      item.classList.remove('nav__item--open');
+      const t = item.querySelector('.nav__drop-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
   };
 
   navToggle.addEventListener('click', () => {
     const open = navMenu.classList.toggle('nav__menu--open');
     navToggle.setAttribute('aria-expanded', open);
     navToggle.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-    if (!open) closeDropdown();
+    if (!open) closeDropdowns();
   });
   navMenu.querySelectorAll('.nav__link, .nav__droplink').forEach(link => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('nav__menu--open');
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.querySelector('i').className = 'fa-solid fa-bars';
-      closeDropdown();
+      closeDropdowns();
     });
   });
-  if (dropToggle && dropItem) {
-    dropToggle.addEventListener('click', () => {
-      const open = dropItem.classList.toggle('nav__item--open');
-      dropToggle.setAttribute('aria-expanded', open);
+  // Acordeón de submenús: solo uno abierto a la vez
+  dropItems.forEach(item => {
+    const toggle = item.querySelector('.nav__drop-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('nav__item--open');
+      closeDropdowns();
+      if (!wasOpen) {
+        item.classList.add('nav__item--open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
     });
-  }
+  });
 
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav__link:not(.nav__link--cta)');
@@ -605,7 +613,83 @@
     ScrollTrigger.refresh();
   };
 
+  /* Intro cinematográfica con VIDEO del logo (assets/video/intro-setrof.mp4).
+     La escena GSAP anterior sigue abajo como runIntroLegacy(): para volver a ella,
+     restaurar el HTML comentado del intro en index.html y llamar runIntroLegacy(). */
   const runIntro = () => {
+    try {
+      window.scrollTo(0, 0);
+      if (lenis) lenis.stop();
+
+      const video = document.getElementById('introVideo');
+      const heroVisual = document.querySelector('.hero__visual');
+      gsap.set(heroVisual, { scale: 1 });
+
+      let done = false;
+      const exitIntro = () => {
+        if (done) return; done = true;
+        clearInterval(watchdog);
+        removeSkip();
+        gsap.timeline({ onComplete: () => { finishIntro(); typeGeo(); } })
+          .to('.intro', { opacity: 0, duration: 0.65, ease: 'power2.inOut' }, 0)
+          .to(heroVisual, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.1)
+          .call(revealHUD, null, 0.1)
+          .call(() => heroTextTl.play(0), null, 0.15);
+      };
+
+      video.addEventListener('ended', exitIntro);
+      video.addEventListener('error', exitIntro);
+      // Si el navegador pausa el autoplay (ventana de fondo, ahorro de energía), reintenta
+      video.addEventListener('pause', () => {
+        if (!done && !video.ended) {
+          const retry = video.play();
+          if (retry && retry.catch) retry.catch(() => {});
+        }
+      });
+      // El atributo autoplay ya inicia el video; este play() es solo refuerzo.
+      // Si su promesa se rechaza NO salimos: el watchdog detecta si de verdad no avanza.
+      const playPromise = video.play();
+      if (playPromise && playPromise.catch) playPromise.catch(() => {});
+      // Watchdog: si el video no avanza (autoplay bloqueado, ahorro de energía,
+      // datos lentos), no dejamos la pantalla pegada: salimos al hero.
+      let lastT = -1, stalledTicks = 0;
+      const watchdog = setInterval(() => {
+        if (done) { clearInterval(watchdog); return; }
+        if (video.currentTime === lastT) { stalledTicks++; } else { stalledTicks = 0; lastT = video.currentTime; }
+        if (stalledTicks >= 3) exitIntro();
+      }, 1000);
+      setTimeout(exitIntro, 12000); // red de seguridad absoluta
+
+      const skip = () => exitIntro();
+      const onKey = (e) => {
+        if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
+      };
+      const isTouch = window.matchMedia('(pointer: coarse)').matches;
+      const skipBtn = document.getElementById('introSkip');
+      function removeSkip() {
+        window.removeEventListener('wheel', skip);
+        window.removeEventListener('touchstart', skip);
+        introEl.removeEventListener('click', skip);
+        if (skipBtn) skipBtn.removeEventListener('click', skip);
+        window.removeEventListener('keydown', onKey);
+      }
+      if (!isTouch) {
+        window.addEventListener('wheel', skip, { passive: true, once: true });
+        window.addEventListener('touchstart', skip, { passive: true, once: true });
+        introEl.addEventListener('click', skip);
+      } else if (skipBtn) {
+        skipBtn.addEventListener('click', skip);
+      }
+      window.addEventListener('keydown', onKey);
+
+    } catch (err) {
+      finishIntro();
+      startHeroDirect();
+    }
+  };
+
+  /* eslint-disable no-unused-vars */
+  const runIntroLegacy = () => {
     try {
       window.scrollTo(0, 0);
       if (lenis) lenis.stop();
@@ -632,7 +716,6 @@
         .fromTo(introCam,       { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 1.4, ease: 'power3.out' }, 0.3)
         .fromTo('.intro__char', { yPercent: 120, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.085, ease: 'power4.out' }, 0.65)
         .fromTo('.intro__sub',  { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.85 }, '-=0.45')
-        .fromTo('.intro__tag',  { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.85 }, '-=0.55')
         .fromTo('.intro__skip', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.45')
         .to({}, { duration: isMobile ? 1.7 : 2.2 }); // sostener
 
@@ -1003,11 +1086,12 @@
   /* ============ Hero Piscinas: malla de puntos que ondula como agua ============ */
   (function () {
     var canvas = document.getElementById('ppWave');
-    if (!canvas || prefersReduced) return;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!canvas || reduced) return;
 
     var ctx = canvas.getContext('2d');
     var w = 0, h = 0, t = 0, raf = null, running = false;
-    var ROWS = 24;
+    var ROWS = 34;
 
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -1020,22 +1104,25 @@
 
     function draw() {
       if (!running) return;
-      t += 0.011;
+      t += 0.016;
       ctx.clearRect(0, 0, w, h);
-      var horizon = h * 0.3;
+      var horizon = h * 0.42;
       for (var r = 0; r < ROWS; r++) {
         var z = r / (ROWS - 1);                                  // 0 = lejos, 1 = cerca
-        var y0 = horizon + Math.pow(z, 1.7) * (h - horizon);     // perspectiva
-        var spacing = 14 + z * 26;
-        var amp = 6 + z * 26;
-        var size = 1 + z * 2.1;
-        ctx.fillStyle = 'rgba(165, 243, 252, ' + (0.1 + z * 0.45).toFixed(3) + ')';
+        var y0 = horizon + Math.pow(z, 1.6) * (h - horizon);     // perspectiva
+        var spacing = 9 + z * 17;
+        var amp = 9 + z * 30;
+        var size = 0.8 + z * 1.7;
         for (var x = -spacing; x <= w + spacing; x += spacing) {
-          var y = y0
-            + Math.sin(x * 0.011 + t * 2 + r * 0.55) * amp * 0.6
-            + Math.cos(x * 0.019 - t * 1.4 + r * 0.3) * amp * 0.4;
+          var wave = Math.sin(x * 0.011 + t * 2 + r * 0.55) * 0.6
+                   + Math.cos(x * 0.019 - t * 1.4 + r * 0.3) * 0.4;
+          var y = y0 + wave * amp;
+          // Las crestas (wave < 0, más arriba) brillan más: da relieve de ola
+          var crest = 0.5 - wave * 0.5;
+          var alpha = (0.07 + z * 0.3) * (0.55 + crest * 0.9);
+          ctx.fillStyle = 'rgba(186, 246, 255, ' + alpha.toFixed(3) + ')';
           ctx.beginPath();
-          ctx.arc(x, y, size, 0, Math.PI * 2);
+          ctx.arc(x, y, size + crest * z, 0, Math.PI * 2);
           ctx.fill();
         }
       }
