@@ -113,7 +113,7 @@
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=44">
+  <link rel="stylesheet" href="assets/css/styles.css?v=45">
 </head>
 
 <body>
@@ -170,13 +170,29 @@
         <li><a href="/piscinas" class="nav__link">Piscinas</a></li>
         <li><a href="#galeria" class="nav__link">Galería</a></li>
         <li class="nav__item nav__item--drop">
-          <a href="/desarrollos-web" class="nav__link" aria-haspopup="true">Desarrollos Web <span class="nav__badge-new">NEW</span><i class="fa-solid fa-chevron-down nav__caret" aria-hidden="true"></i></a>
-          <ul class="nav__dropdown" role="list" aria-label="Secciones de Desarrollos Web">
-            <li><a href="/desarrollos-web#planes" class="nav__droplink"><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Planes</a></li>
-            <li><a href="/desarrollos-web#clientes" class="nav__droplink"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Clientes</a></li>
-            <li><a href="/desarrollos-web#ahorro" class="nav__droplink"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i> Ahorro</a></li>
-            <li><a href="/desarrollos-web#extras" class="nav__droplink"><i class="fa-solid fa-plus" aria-hidden="true"></i> Servicios extra</a></li>
-            <li><a href="/desarrollos-web#renovacion" class="nav__droplink"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Plan Tranquilidad</a></li>
+          <div class="nav__drop-row">
+            <a href="/desarrollos-web" class="nav__link" aria-haspopup="true">Desarrollos Web <span class="nav__badge-new">NEW</span></a>
+            <button type="button" class="nav__drop-toggle" id="navDropToggle" aria-expanded="false"
+              aria-controls="navDropdown" aria-label="Mostrar secciones de Desarrollos Web">
+              <i class="fa-solid fa-chevron-down nav__caret" aria-hidden="true"></i>
+            </button>
+          </div>
+          <ul class="nav__dropdown" id="navDropdown" role="list" aria-label="Secciones de Desarrollos Web">
+            <li><a href="/desarrollos-web#planes" class="nav__droplink">
+              <i class="fa-regular fa-rectangle-list" aria-hidden="true"></i>
+              <span class="nav__droplink-txt"><strong>Planes</strong><small>Sitios web a tu medida</small></span></a></li>
+            <li><a href="/desarrollos-web#clientes" class="nav__droplink">
+              <i class="fa-regular fa-handshake" aria-hidden="true"></i>
+              <span class="nav__droplink-txt"><strong>Clientes</strong><small>Proyectos ya entregados</small></span></a></li>
+            <li><a href="/desarrollos-web#ahorro" class="nav__droplink">
+              <i class="fa-regular fa-money-bill-1" aria-hidden="true"></i>
+              <span class="nav__droplink-txt"><strong>Ahorro</strong><small>Compara y ahorra</small></span></a></li>
+            <li><a href="/desarrollos-web#extras" class="nav__droplink">
+              <i class="fa-regular fa-square-plus" aria-hidden="true"></i>
+              <span class="nav__droplink-txt"><strong>Servicios extra</strong><small>Complementos para tu web</small></span></a></li>
+            <li><a href="/desarrollos-web#renovacion" class="nav__droplink">
+              <i class="fa-regular fa-life-ring" aria-hidden="true"></i>
+              <span class="nav__droplink-txt"><strong>Plan Tranquilidad</strong><small>Mantención y soporte</small></span></a></li>
           </ul>
         </li>
         <li><a href="https://wa.me/56974054542" target="_blank" rel="noopener noreferrer"
@@ -834,7 +850,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-  <script src="assets/js/main.js?v=43"></script>
+  <script src="assets/js/main.js?v=44"></script>
 
 </body>
 

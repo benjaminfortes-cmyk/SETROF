@@ -23,18 +23,34 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
+  const dropItem = document.querySelector('.nav__item--drop');
+  const dropToggle = document.getElementById('navDropToggle');
+  const closeDropdown = () => {
+    if (!dropItem) return;
+    dropItem.classList.remove('nav__item--open');
+    if (dropToggle) dropToggle.setAttribute('aria-expanded', 'false');
+  };
+
   navToggle.addEventListener('click', () => {
     const open = navMenu.classList.toggle('nav__menu--open');
     navToggle.setAttribute('aria-expanded', open);
     navToggle.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    if (!open) closeDropdown();
   });
-  navMenu.querySelectorAll('.nav__link').forEach(link => {
+  navMenu.querySelectorAll('.nav__link, .nav__droplink').forEach(link => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('nav__menu--open');
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.querySelector('i').className = 'fa-solid fa-bars';
+      closeDropdown();
     });
   });
+  if (dropToggle && dropItem) {
+    dropToggle.addEventListener('click', () => {
+      const open = dropItem.classList.toggle('nav__item--open');
+      dropToggle.setAttribute('aria-expanded', open);
+    });
+  }
 
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav__link:not(.nav__link--cta)');
@@ -982,6 +998,57 @@
     extras.forEach(function (t) { t.addEventListener('change', render); });
 
     render();
+  })();
+
+  /* ============ Hero Piscinas: malla de puntos que ondula como agua ============ */
+  (function () {
+    var canvas = document.getElementById('ppWave');
+    if (!canvas || prefersReduced) return;
+
+    var ctx = canvas.getContext('2d');
+    var w = 0, h = 0, t = 0, raf = null, running = false;
+    var ROWS = 24;
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    function draw() {
+      if (!running) return;
+      t += 0.011;
+      ctx.clearRect(0, 0, w, h);
+      var horizon = h * 0.3;
+      for (var r = 0; r < ROWS; r++) {
+        var z = r / (ROWS - 1);                                  // 0 = lejos, 1 = cerca
+        var y0 = horizon + Math.pow(z, 1.7) * (h - horizon);     // perspectiva
+        var spacing = 14 + z * 26;
+        var amp = 6 + z * 26;
+        var size = 1 + z * 2.1;
+        ctx.fillStyle = 'rgba(165, 243, 252, ' + (0.1 + z * 0.45).toFixed(3) + ')';
+        for (var x = -spacing; x <= w + spacing; x += spacing) {
+          var y = y0
+            + Math.sin(x * 0.011 + t * 2 + r * 0.55) * amp * 0.6
+            + Math.cos(x * 0.019 - t * 1.4 + r * 0.3) * amp * 0.4;
+          ctx.beginPath();
+          ctx.arc(x, y, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    }
+
+    // Solo anima mientras el hero está en pantalla
+    var io = new IntersectionObserver(function (entries) {
+      var visible = entries[0].isIntersecting;
+      if (visible && !running) { running = true; raf = requestAnimationFrame(draw); }
+      else if (!visible && running) { running = false; cancelAnimationFrame(raf); }
+    });
+    io.observe(canvas);
   })();
 
 })();

@@ -74,7 +74,7 @@
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=44">
+  <link rel="stylesheet" href="assets/css/styles.css?v=47">
 </head>
 
 <body class="page-pools">
@@ -113,11 +113,9 @@
   <main>
 
     <section class="pp-hero" id="inicio" aria-label="Construcción de piscinas">
-      <div class="pp-hero__bg" aria-hidden="true">
-        <img src="assets/img/piscina-4.webp" alt="" fetchpriority="high">
-      </div>
-      <div class="pp-hero__overlay" aria-hidden="true"></div>
+      <div class="pp-hero__water" aria-hidden="true"></div>
       <div class="pp-hero__caustics" aria-hidden="true"></div>
+      <canvas class="pp-hero__wave-canvas" id="ppWave" aria-hidden="true"></canvas>
 
       <div class="container pp-hero__inner">
         <h1 class="pp-hero__title">Construcción de <em>Piscinas</em></h1>
@@ -254,48 +252,31 @@
           <p class="section-subtitle">No entregamos solo un hoyo con agua: cada proyecto incluye estructura, equipamiento y respaldo.</p>
         </div>
 
-        <div class="pools__features">
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg></div>
-            <h3 class="pool-feat__title">Diseño personalizado</h3>
-            <p class="pool-feat__text">Cada proyecto se adapta a tu espacio, estilo y presupuesto. Asesoría integral
-              desde el plano hasta la entrega.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v6"/><path d="M16 15v6"/><path d="M16 3v6"/><path d="M3 15h18"/><path d="M3 9h18"/><path d="M8 15v6"/><path d="M8 3v6"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg></div>
-            <h3 class="pool-feat__title">Construcción en concreto armado</h3>
-            <p class="pool-feat__text">Estructuras de larga duración con encofrados profesionales y materiales de
-              primera calidad.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
-            <h3 class="pool-feat__title">Equipamiento completo</h3>
-            <p class="pool-feat__text">Sistemas de filtrado, motores, iluminación LED y automatización para mantener
-              tu piscina impecable.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></div>
-            <h3 class="pool-feat__title">Acabados premium</h3>
-            <p class="pool-feat__text">Revestimientos cerámicos, fibras de vidrio y bordes finos para un resultado
-              estético y duradero.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
-            <h3 class="pool-feat__title">Seguridad integrada</h3>
-            <p class="pool-feat__text">Alarmas de inmersión, cámaras y protección perimetral para piscinas
-              residenciales y comunitarias: somos expertos en seguridad.</p>
-          </article>
-
-          <article class="pool-feat fade-in">
-            <div class="pool-feat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-            <h3 class="pool-feat__title">Mantención post-obra</h3>
-            <p class="pool-feat__text">Servicio continuo de limpieza, control químico y revisión técnica para mantener
-              tu piscina en óptimas condiciones.</p>
-          </article>
+        <div class="pool-scale fade-in">
+          <details class="pool-scale__item">
+            <summary><span class="pool-scale__badge" aria-hidden="true">1</span> Diseño personalizado</summary>
+            <p>Cada proyecto se adapta a tu espacio, estilo y presupuesto. Asesoría integral desde el plano hasta la entrega.</p>
+          </details>
+          <details class="pool-scale__item">
+            <summary><span class="pool-scale__badge" aria-hidden="true">2</span> Construcción en concreto armado</summary>
+            <p>Estructuras de larga duración con encofrados profesionales y materiales de primera calidad.</p>
+          </details>
+          <details class="pool-scale__item">
+            <summary><span class="pool-scale__badge" aria-hidden="true">3</span> Equipamiento completo</summary>
+            <p>Sistemas de filtrado, motores, iluminación LED y automatización para mantener tu piscina impecable.</p>
+          </details>
+          <details class="pool-scale__item">
+            <summary><span class="pool-scale__badge" aria-hidden="true">4</span> Acabados premium</summary>
+            <p>Revestimientos cerámicos, fibras de vidrio y bordes finos para un resultado estético y duradero.</p>
+          </details>
+          <details class="pool-scale__item">
+            <summary><span class="pool-scale__badge" aria-hidden="true">5</span> Seguridad integrada</summary>
+            <p>Alarmas de inmersión, cámaras y protección perimetral para piscinas residenciales y comunitarias: somos expertos en seguridad.</p>
+          </details>
+          <details class="pool-scale__item">
+            <summary><span class="pool-scale__badge" aria-hidden="true">6</span> Mantención post-obra</summary>
+            <p>Servicio continuo de limpieza, control químico y revisión técnica para mantener tu piscina en óptimas condiciones.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -353,16 +334,6 @@
                   <input type="checkbox" data-item="Iluminación LED">
                   <span class="builder__switch-ui" aria-hidden="true"></span>
                   <span class="builder__switch-tx"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Iluminación LED</span>
-                </label>
-                <label class="builder__switch">
-                  <input type="checkbox" data-item="Temperado (bomba de calor)">
-                  <span class="builder__switch-ui" aria-hidden="true"></span>
-                  <span class="builder__switch-tx"><i class="fa-solid fa-temperature-arrow-up" aria-hidden="true"></i> Temperado</span>
-                </label>
-                <label class="builder__switch">
-                  <input type="checkbox" data-item="Hidromasaje / jets">
-                  <span class="builder__switch-ui" aria-hidden="true"></span>
-                  <span class="builder__switch-tx"><i class="fa-solid fa-hot-tub-person" aria-hidden="true"></i> Hidromasaje</span>
                 </label>
                 <label class="builder__switch">
                   <input type="checkbox" data-item="Automatización y limpieza">
@@ -493,7 +464,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 
-  <script src="assets/js/main.js?v=43"></script>
+  <script src="assets/js/main.js?v=44"></script>
 
 </body>
 
