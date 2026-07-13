@@ -73,16 +73,51 @@
     max-width: 1240px; margin: 0 auto; padding: 0 28px;
     height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
   }
-  .brand__logo { height: 56px; width: auto; display: block; }
+  .brand__logo { height: 66px; width: auto; display: block; }
   .topnav { display: flex; align-items: center; gap: 34px; }
   .topnav a {
     font-size: 1rem; font-weight: 600; color: #33465f;
     transition: color .15s ease;
   }
   .topnav a:hover { color: var(--brand); }
+  .topnav__wsp { display: none; }
+
+  /* Botón hamburguesa (solo pantallas chicas) */
+  .nav-toggle {
+    display: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; padding: 0; flex-shrink: 0;
+    background: #fff; border: 1px solid var(--line); border-radius: 10px; cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block; width: 20px; height: 2.4px; border-radius: 2px;
+    background: var(--navy);
+    transition: transform .25s ease, opacity .2s ease;
+  }
+  .topbar.is-open .nav-toggle span:nth-child(1) { transform: translateY(7.4px) rotate(45deg); }
+  .topbar.is-open .nav-toggle span:nth-child(2) { opacity: 0; }
+  .topbar.is-open .nav-toggle span:nth-child(3) { transform: translateY(-7.4px) rotate(-45deg); }
+
+  @media (max-width: 1024px) {
+    .nav-toggle { display: inline-flex; }
+    .topbar .btn-wsp { display: none; }
+    .topnav {
+      display: none;
+      position: absolute; left: 0; right: 0; top: 100%;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: #fff; border-bottom: 1px solid var(--line);
+      padding: 4px 0 10px;
+      box-shadow: 0 18px 30px -18px rgba(7,22,48,0.25);
+    }
+    .topbar.is-open .topnav { display: flex; }
+    .topnav a { padding: 13px 28px; border-top: 1px solid var(--line); font-size: 1.02rem; }
+    .topnav a:first-child { border-top: 0; }
+    .topnav__wsp { display: block; color: var(--wsp-deep); font-weight: 800; }
+  }
+
   @media (max-width: 768px) {
     .topbar__inner { height: 64px; }
-    .brand__logo { height: 44px; }
+    /* En celular se usa el isotipo: solo la S con la camarita */
+    .brand__logo { height: 54px; }
   }
 
   /* WhatsApp pill — soft mint fill, green outline */
@@ -859,21 +894,52 @@
     .tcard__logo { min-height: 78px; }
   }
 
+  /* ============ Cómo funciona: tu web en 3 simples pasos ============ */
+  .steps .head { margin: 0 auto 58px; max-width: 800px; }
+  .steps .head h1 { font-size: clamp(2rem, 4.4vw, 3rem); }
+  .steps__grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    max-width: 1160px; margin: 0 auto;
+  }
+  .step { text-align: center; padding: 12px 44px; }
+  .step + .step { border-left: 1px solid #cfdcee; }
+  .step__icon {
+    width: 82px; height: 82px; border-radius: 50%;
+    display: grid; place-items: center; margin: 0 auto 24px;
+    background: linear-gradient(135deg, #38bdf8, #0284c7); color: #fff;
+    box-shadow: 0 14px 28px -14px rgba(14,165,233,0.7);
+  }
+  .step__icon svg { width: 38px; height: 38px; }
+  .step h3 {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: clamp(1.15rem, 1.8vw, 1.32rem); color: var(--navy); margin-bottom: 12px;
+  }
+  .step h3 b { color: var(--brand); }
+  .step p { font-size: 1rem; color: #33445a; line-height: 1.65; }
+  .steps__cta { display: flex; justify-content: center; margin-top: 44px; }
+  .steps__cta .btn-wsp { font-size: 1.05rem; padding: 15px 32px; }
+  @media (max-width: 760px) {
+    .steps__grid { grid-template-columns: 1fr; max-width: 460px; }
+    .step { padding: 30px 10px; }
+    .step + .step { border-left: 0; border-top: 1px solid #cfdcee; }
+  }
+
   /* ============ Tu web escala contigo ============ */
   .scale { margin-top: 96px; }
   .scale .head { margin: 0 auto 42px; }
   .scale .head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
 
-  /* Barras de niveles en bloque, colores alternados; el que quiere abre */
+  /* Barras de niveles en bloque, tonos de azul de la web; el que quiere abre */
   .scale__list {
     max-width: 900px; margin: 0 auto;
     border-radius: 18px; overflow: hidden;
     box-shadow: 0 24px 54px -28px rgba(7,22,48,0.45);
   }
-  .scale__item { background: #0284c7; transition: filter .2s ease; }
-  .scale__item:nth-of-type(even) { background: #0e2c52; }
-  .scale__item.scale__item--top { background: linear-gradient(120deg, #1ba54e, #128a3e); }
-  .scale__item:hover { filter: brightness(1.06); }
+  .scale__item { background: linear-gradient(180deg, #38bdf8, #0ea5e9); transition: filter .2s ease; }
+  .scale__item:nth-of-type(2) { background: linear-gradient(180deg, #0ea5e9, #0284c7); }
+  .scale__item:nth-of-type(3) { background: linear-gradient(180deg, #0284c7, #075985); }
+  .scale__item.scale__item--top { background: linear-gradient(180deg, #075985, #0b3c66); }
+  .scale__item:hover { filter: brightness(1.08); }
   .scale__item summary {
     display: flex; align-items: center; gap: 16px;
     padding: 21px 26px; cursor: pointer; list-style: none;
@@ -1009,8 +1075,13 @@
     border-radius: 18px; overflow: hidden;
     box-shadow: 0 24px 54px -28px rgba(7,22,48,0.45);
   }
-  .faq__item { background: #0284c7; transition: filter .2s ease; }
-  .faq__item:nth-of-type(even) { background: #0e2c52; }
+  .faq__item { background: linear-gradient(180deg, #38bdf8, #20afef); transition: filter .2s ease; }
+  .faq__item:nth-of-type(2) { background: linear-gradient(180deg, #20afef, #0ca0e4); }
+  .faq__item:nth-of-type(3) { background: linear-gradient(180deg, #0ca0e4, #058dd1); }
+  .faq__item:nth-of-type(4) { background: linear-gradient(180deg, #058dd1, #0378b4); }
+  .faq__item:nth-of-type(5) { background: linear-gradient(180deg, #0378b4, #065f8e); }
+  .faq__item:nth-of-type(6) { background: linear-gradient(180deg, #065f8e, #094d78); }
+  .faq__item:nth-of-type(7) { background: linear-gradient(180deg, #094d78, #0b3c66); }
   .faq__item:hover { filter: brightness(1.06); }
   .faq__item summary {
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -1085,9 +1156,12 @@
   <header class="topbar">
     <div class="topbar__inner">
       <a href="/" class="brand" aria-label="Setrof Seguridad, inicio">
-        <img class="brand__logo" src="assets/img/logo.webp" alt="Setrof Seguridad" />
+        <picture>
+          <source media="(max-width: 768px)" srcset="assets/img/solo-la-s.png" />
+          <img class="brand__logo" src="assets/img/logo.webp" alt="Setrof Seguridad" />
+        </picture>
       </a>
-      <nav class="topnav" aria-label="Secciones">
+      <nav class="topnav" id="topnavMenu" aria-label="Secciones">
         <a href="#planes">Planes</a>
         <a href="#escala">Escalabilidad</a>
         <a href="#clientes">Clientes</a>
@@ -1095,7 +1169,11 @@
         <a href="#renovacion">Plan Tranquilidad</a>
         <a href="#faq">Preguntas</a>
         <a href="/">Volver al inicio</a>
+        <a class="topnav__wsp" data-wa="Hola! Quiero cotizar una página web." href="#" target="_blank" rel="noopener">Contáctanos por WhatsApp</a>
       </nav>
+      <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="topnavMenu">
+        <span></span><span></span><span></span>
+      </button>
       <a class="btn-wsp" data-wa="Hola! Quiero cotizar una página web." href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
         Contáctanos
@@ -1128,15 +1206,15 @@
       <div class="scale__list">
         <details class="scale__item">
           <summary><span class="scale__badge" aria-hidden="true">1</span> Lanza tu página web</summary>
-          <p>Tu negocio en línea con dominio propio, hosting, diseño móvil y pedidos por contacto directo.</p>
+          <p>Tu negocio en línea con dominio propio, hosting y diseño para celular. Tus clientes te contactan directo por WhatsApp.</p>
         </details>
         <details class="scale__item">
-          <summary><span class="scale__badge" aria-hidden="true">2</span> Muestra tus productos</summary>
-          <p>Tus productos con fotos y precios, listos para que tus clientes elijan y te escriban.</p>
+          <summary><span class="scale__badge" aria-hidden="true">2</span> Muestra tus productos y recibe pedidos</summary>
+          <p>Catálogo con fotos y precios: tus clientes arman su pedido en un carrito y te llega listo a tu WhatsApp.</p>
         </details>
         <details class="scale__item">
-          <summary><span class="scale__badge" aria-hidden="true">3</span> Vende y cobra en línea</summary>
-          <p>Carrito vía WhatsApp y pago con tarjeta dentro de tu página, con Webpay.</p>
+          <summary><span class="scale__badge" aria-hidden="true">3</span> Cobra con tarjeta en tu web</summary>
+          <p>Tus clientes pagan en línea sin salir de tu página, con Webpay o MercadoPago. Tú solo recibes el pedido pagado.</p>
         </details>
         <details class="scale__item scale__item--top">
           <summary><span class="scale__badge" aria-hidden="true">4</span> Automatiza tu negocio</summary>
@@ -1146,6 +1224,26 @@
       <div class="tech">
         <span class="tech__eyebrow">Tecnología</span>
         <p>Construimos con la misma tecnología web que usan las grandes marcas del comercio electrónico, como <b>Nike</b>, <b>Adidas</b> y <b>Apple</b>, para vender online.</p>
+      </div>
+    </section>
+
+    <section class="who band band--tint" id="quienes" aria-label="Quiénes somos">
+      <div class="head">
+        <h1>Ingeniería detrás de <em>cada página</em></h1>
+      </div>
+      <div class="who__card">
+        <p>Somos un equipo joven de la <strong>Universidad de La Serena</strong>, estudiantes de Ingeniería Civil Industrial con formación en programación, automatizaciones, economía, contabilidad, marketing y gestión de proyectos.</p>
+        <p>Esa mezcla hace la diferencia: no solo construimos tu página, también entendemos cómo se mueve tu rubro, tus números y tus procesos. Cada web que entregamos está pensada para vender, no solo para verse bien.</p>
+        <div class="who__chips">
+          <span>Programación</span>
+          <span>Automatizaciones</span>
+          <span>Economía</span>
+          <span>Contabilidad</span>
+          <span>Marketing</span>
+          <span>Inteligencia de negocios</span>
+          <span>Gestión de proyectos</span>
+        </div>
+        <p class="who__proof">Nuestro respaldo es simple: proyectos reales publicados y funcionando, como los que verás más abajo.</p>
       </div>
     </section>
 
@@ -1178,6 +1276,46 @@
 
       </div>
       <p class="trust__note">Cada proyecto con su <b>propio dominio</b>, publicado y funcionando hoy.</p>
+    </section>
+
+    <section class="steps band band--tint" id="proceso" aria-label="Cómo funciona">
+      <div class="head">
+        <h1>Tu sitio web en <em>3 simples pasos</em></h1>
+        <p>De la primera conversación al lanzamiento, te acompañamos en todo el proceso.</p>
+      </div>
+      <div class="steps__grid">
+
+        <article class="step">
+          <div class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <h3><b>1.</b> Consulta gratuita</h3>
+          <p>Te contactamos para conocer tu negocio y definir juntos los objetivos de tu página web. Sin costo ni compromiso.</p>
+        </article>
+
+        <article class="step">
+          <div class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8V5a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9"/><rect x="13" y="8" width="8" height="12" rx="1"/><path d="M16 9h2"/></svg>
+          </div>
+          <h3><b>2.</b> Propuesta personalizada</h3>
+          <p>Te enviamos una propuesta clara con la estructura, el diseño y las funciones pensadas específicamente para tu proyecto.</p>
+        </article>
+
+        <article class="step">
+          <div class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>
+          </div>
+          <h3><b>3.</b> Desarrollo y entrega</h3>
+          <p>Diseñamos tu página y te mostramos el resultado. Ajustamos lo que pidas y, con tu visto bueno, la publicamos en línea.</p>
+        </article>
+
+      </div>
+      <div class="steps__cta">
+        <a class="btn-wsp" data-wa="Hola! Quiero mi consulta gratuita para una página web." href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
+          Empieza con tu consulta gratuita
+        </a>
+      </div>
     </section>
 
     <div class="trydom" id="trydom">
@@ -1499,7 +1637,7 @@
             <span class="saving__col-per">una sola vez</span>
             <ul>
               <li><svg class="saving__ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Pago único: la página es tuya</li>
-              <li><svg class="saving__ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Desde el 2.º año solo $15.000 de renovación</li>
+              <li><svg class="saving__ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Garantía: 1 mes de cambios incluidos tras la entrega</li>
               <li><svg class="saving__ok" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2L12 21.05l3.4 1.45 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg> Dominio y hosting del 1.er año incluidos</li>
             </ul>
           </div>
@@ -1536,26 +1674,6 @@
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.2 1.25-1.97 1.41-.52.11-1.2.2-3.49-.75-2.93-1.21-4.81-4.18-4.96-4.37-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.24-.26.53-.32.71-.32.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.79 1.92.86 2.06.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.37-.42.49-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.6-.07.16-.19.69-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.32.07.12.07.68-.17 1.36Z"/></svg>
           Quiero una invitación
         </a>
-      </div>
-    </section>
-
-    <section class="who band band--tint" id="quienes" aria-label="Quiénes somos">
-      <div class="head">
-        <h1>Ingeniería detrás de <em>cada página</em></h1>
-      </div>
-      <div class="who__card">
-        <p>Somos un equipo joven de la <strong>Universidad de La Serena</strong>, estudiantes de Ingeniería Civil Industrial con formación en programación, automatizaciones, economía, contabilidad, marketing y gestión de proyectos.</p>
-        <p>Esa mezcla hace la diferencia: no solo construimos tu página, también entendemos cómo se mueve tu rubro, tus números y tus procesos. Cada web que entregamos está pensada para vender, no solo para verse bien.</p>
-        <div class="who__chips">
-          <span>Programación</span>
-          <span>Automatizaciones</span>
-          <span>Economía</span>
-          <span>Contabilidad</span>
-          <span>Marketing</span>
-          <span>Inteligencia de negocios</span>
-          <span>Gestión de proyectos</span>
-        </div>
-        <p class="who__proof">Nuestro respaldo es simple: proyectos reales publicados y funcionando, como los que viste más arriba.</p>
       </div>
     </section>
 
@@ -1622,7 +1740,7 @@
 
         <details class="faq__item">
           <summary>¿El dominio queda a mi nombre?</summary>
-          <p>Sí. El dominio se registra en NIC Chile (los .cl oficiales) y queda asociado a tu negocio. El primer año va incluido en tu plan y la renovación cuesta $15.000 al año.</p>
+          <p>Sí. El dominio se registra oficialmente y queda asociado a tu negocio: es tuyo. El primer año va incluido en tu plan y la renovación cuesta $15.000 al año, y de eso nos encargamos nosotros.</p>
         </details>
 
       </div>
@@ -1660,6 +1778,20 @@
       });
     }
     refreshWaLinks();
+
+    // Menú hamburguesa en pantallas chicas
+    const topbarEl = document.querySelector(".topbar");
+    const navToggle = document.querySelector(".nav-toggle");
+    navToggle.addEventListener("click", () => {
+      const open = topbarEl.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", open);
+      navToggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    });
+    document.querySelectorAll(".topnav a").forEach(a => a.addEventListener("click", () => {
+      topbarEl.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Abrir menú");
+    }));
 
     // Barra que escribe direcciones sola (hero y invitaciones comparten la lógica)
     function typewriterBar(typeId, checkId, words) {
