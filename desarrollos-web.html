@@ -191,12 +191,14 @@
     box-shadow: 0 12px 32px -18px rgba(7,22,48,.4);
     font-family: 'IBM Plex Mono', monospace; font-size: 1.02rem; color: var(--navy);
     white-space: nowrap;
+    max-width: 100%; /* nunca más ancha que la pantalla: los dominios largos no rompen el layout en móvil */
   }
   .domainbar__lock { width: 15px; height: 15px; color: var(--wsp); flex-shrink: 0; }
-  .domainbar__scheme { color: #9fb0c6; }
-  .domainbar__type { font-weight: 500; min-width: 2px; }
+  .domainbar__scheme { color: #9fb0c6; flex-shrink: 0; }
+  .domainbar__type { font-weight: 500; min-width: 2px; overflow: hidden; }
   .domainbar__caret {
     width: 2px; height: 1.25em; border-radius: 1px; background: var(--brand);
+    flex-shrink: 0;
     animation: caretBlink 1s steps(2, jump-none) infinite;
   }
   @keyframes caretBlink { 50% { opacity: 0; } }
@@ -210,8 +212,10 @@
   }
   .domainbar__check.is-on { opacity: 1; transform: scale(1); }
   .domainbar__check svg { width: 11px; height: 11px; }
+  .domainbar__check { flex-shrink: 0; }
   @media (max-width: 600px) {
-    .domainbar { font-size: .8rem; padding: 10px 16px; gap: 7px; }
+    .domainbar { font-size: .78rem; padding: 10px 14px; gap: 6px; }
+    .domainbar__scheme { display: none; } /* en móvil el candado ya indica https; ganamos espacio para dominios largos */
     .domainbar__check { font-size: .64rem; padding: 3px 9px; }
   }
   @media (prefers-reduced-motion: reduce) { .domainbar__caret { animation: none; } }
