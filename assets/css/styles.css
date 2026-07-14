@@ -330,11 +330,15 @@ html.intro-play .intro__skip { opacity: 0; }
 
 /* Intro con VIDEO del logo (la escena GSAP anterior quedó comentada en index.html).
    El video es logo negro sobre blanco: con mix-blend-mode multiply el blanco se
-   funde con el fondo y solo se ve el logo animado, sin bordes. */
-html.intro-play .intro--video {
+   funde con el fondo y solo se ve el logo animado, sin bordes.
+   El fondo vive en .intro__bgfx (capa aparte) para poder desvanecerlo mientras
+   el logo "vuela" hacia el logo de la top bar al terminar. */
+html.intro-play .intro--video { background: none; }
+.intro__bgfx {
+  position: absolute; inset: 0;
   background: radial-gradient(circle at 50% 45%, #ffffff 0%, #f2f7fd 48%, #dfeaf7 100%);
 }
-html.intro-play .intro--video::before {
+.intro__bgfx::before {
   /* cuadrícula sutil, como la intro original */
   content: ''; position: absolute; inset: 0;
   background-image:
@@ -344,7 +348,7 @@ html.intro-play .intro--video::before {
   -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 40%, transparent 100%);
 }
-html.intro-play .intro--video::after {
+.intro__bgfx::after {
   /* glow azul suave detrás del logo */
   content: ''; position: absolute;
   top: 45%; left: 50%;
@@ -361,6 +365,13 @@ html.intro-play .intro--video::after {
   mix-blend-mode: multiply;
   /* el video trae barras negras laterales en sus frames: se recortan */
   clip-path: inset(0 14%);
+}
+/* Logo real (mismo del navbar) que "vuela" a la top bar al terminar el video */
+.intro__flylogo {
+  position: fixed; left: 0; top: 0;
+  z-index: 3; display: none;
+  opacity: 0; pointer-events: none;
+  will-change: left, top, width;
 }
 html.intro-play .intro--video .intro__skip {
   opacity: 1;

@@ -630,11 +630,47 @@
         if (done) return; done = true;
         clearInterval(watchdog);
         removeSkip();
-        gsap.timeline({ onComplete: () => { finishIntro(); typeGeo(); } })
-          .to('.intro', { opacity: 0, duration: 0.65, ease: 'power2.inOut' }, 0)
-          .to(heroVisual, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.1)
-          .call(revealHUD, null, 0.1)
-          .call(() => heroTextTl.play(0), null, 0.15);
+        try { video.pause(); } catch (e) {}
+
+        const tlExit = gsap.timeline({ onComplete: () => { finishIntro(); typeGeo(); } });
+        // El fondo del intro se desvanece y la página aparece debajo
+        tlExit.to('.intro__bgfx', { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 0.15)
+          .to(heroVisual, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.25)
+          .call(revealHUD, null, 0.25)
+          .call(() => heroTextTl.play(0), null, 0.3);
+
+        // Crossfade del video al logo real (mismo archivo que el navbar) y
+        // vuelo de ese logo hasta la top bar: ilusión de que "se guarda" ahí.
+        const navLogo = document.querySelector('.nav__logo-img');
+        const flyImg = document.getElementById('introFlyLogo');
+        if (navLogo && flyImg && flyImg.naturalWidth) {
+          const vr = video.getBoundingClientRect();
+          const lr = navLogo.getBoundingClientRect();
+          const aspect = flyImg.naturalHeight / flyImg.naturalWidth;
+          // rect inicial: sobre el logo del video (~62% del ancho del cuadro, centrado)
+          const w0 = vr.width * 0.62;
+          const h0 = w0 * aspect;
+          // rect final: mismo alto que el logo del navbar, centrado sobre él
+          const hf = lr.height;
+          const wf = hf / aspect;
+          gsap.set(flyImg, {
+            display: 'block', width: w0,
+            left: (vr.left + vr.width / 2) - w0 / 2,
+            top: (vr.top + vr.height / 2) - h0 / 2,
+            opacity: 0
+          });
+          tlExit.to(flyImg, { opacity: 1, duration: 0.22, ease: 'power1.out' }, 0)
+            .to(video, { opacity: 0, duration: 0.22, ease: 'power1.out' }, 0.06)
+            .to(flyImg, {
+              left: (lr.left + lr.width / 2) - wf / 2,
+              top: (lr.top + lr.height / 2) - hf / 2,
+              width: wf,
+              duration: 1.0, ease: 'power3.inOut'
+            }, 0.22)
+            .to(flyImg, { opacity: 0, duration: 0.28, ease: 'power2.out' }, 1.18);
+        } else {
+          tlExit.to('.intro', { opacity: 0, duration: 0.65, ease: 'power2.inOut' }, 0);
+        }
       };
 
       video.addEventListener('ended', exitIntro);
