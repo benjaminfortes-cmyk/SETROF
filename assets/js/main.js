@@ -623,15 +623,35 @@
       const heroVisual = document.querySelector('.hero__visual');
       gsap.set(heroVisual, { scale: 1 });
 
+      // El video dura 10s pero solo se mueve en dos tramos: el resto son frames
+      // congelados. Se reproducen solo esos dos y se salta el hueco del medio; como
+      // los extremos del salto son el mismo frame, el corte no se ve. Del 6.8 al
+      // final el video ya no cambia, así que ahí termina. Intro: 10s -> 4.5s.
+      const CUTS = [[1.4, 3.9], [4.8, 6.8]];
+      let cut = 0;
+
       let done = false;
       const exitIntro = () => {
         if (done) return; done = true;
         clearInterval(watchdog);
+        video.removeEventListener('timeupdate', followCuts);
         removeSkip();
         try { video.pause(); } catch (e) {}
         // El video cierra con una fila extra de rayitas bajo la S que el logo real no
         // tiene. El frame 0 sí coincide con el logo, y en la misma posición y tamaño.
         rewindToFirstFrame(runExit);
+      };
+
+      // Va atado a timeupdate (no a requestAnimationFrame, que se congela si la
+      // pestaña no está visible). Dispara cada ~250ms: pasarse unas décimas no se ve,
+      // porque los dos cortes caen dentro de tramos donde el video está congelado.
+      const followCuts = () => {
+        if (done) return;
+        if (video.currentTime >= CUTS[cut][1]) {
+          cut++;
+          if (cut >= CUTS.length) { exitIntro(); return; }
+          try { video.currentTime = CUTS[cut][0]; } catch (e) {}
+        }
       };
 
       // Si el seek no responde, sigue igual: la salida nunca queda bloqueada.
@@ -704,6 +724,13 @@
           if (retry && retry.catch) retry.catch(() => {});
         }
       });
+      // Arranca en el primer tramo con movimiento, no en el segundo 0
+      const startAtFirstCut = () => {
+        try { video.currentTime = CUTS[0][0]; } catch (e) {}
+        video.addEventListener('timeupdate', followCuts);
+      };
+      if (video.readyState >= 1) startAtFirstCut();
+      else video.addEventListener('loadedmetadata', startAtFirstCut, { once: true });
       // El atributo autoplay ya inicia el video; este play() es solo refuerzo.
       // Si su promesa se rechaza NO salimos: el watchdog detecta si de verdad no avanza.
       const playPromise = video.play();
@@ -716,7 +743,7 @@
         if (video.currentTime === lastT) { stalledTicks++; } else { stalledTicks = 0; lastT = video.currentTime; }
         if (stalledTicks >= 3) exitIntro();
       }, 1000);
-      setTimeout(exitIntro, 14000); // red de seguridad absoluta (el video dura 10s)
+      setTimeout(exitIntro, 9000); // red de seguridad absoluta (la intro dura ~4.5s)
 
       const skip = () => exitIntro();
       const onKey = (e) => {
