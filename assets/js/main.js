@@ -613,9 +613,7 @@
     ScrollTrigger.refresh();
   };
 
-  /* Intro cinematográfica con VIDEO del logo (assets/video/intro-setrof.mp4).
-     La escena GSAP anterior sigue abajo como runIntroLegacy(): para volver a ella,
-     restaurar el HTML comentado del intro en index.html y llamar runIntroLegacy(). */
+  /* Intro cinematográfica: el video del logo termina volando hacia la top bar */
   const runIntro = () => {
     try {
       window.scrollTo(0, 0);
@@ -631,7 +629,29 @@
         clearInterval(watchdog);
         removeSkip();
         try { video.pause(); } catch (e) {}
+        // El video cierra con una fila extra de rayitas bajo la S que el logo real no
+        // tiene. El frame 0 sí coincide con el logo, y en la misma posición y tamaño.
+        rewindToFirstFrame(runExit);
+      };
 
+      // Si el seek no responde, sigue igual: la salida nunca queda bloqueada.
+      const rewindToFirstFrame = (next) => {
+        let called = false;
+        const go = () => {
+          if (called) return; called = true;
+          video.removeEventListener('seeked', go);
+          next();
+        };
+        try {
+          if (video.readyState >= 2 && video.currentTime > 0.05) {
+            video.addEventListener('seeked', go);
+            video.currentTime = 0;
+            setTimeout(go, 200);
+          } else { go(); }
+        } catch (e) { go(); }
+      };
+
+      const runExit = () => {
         const tlExit = gsap.timeline({ onComplete: () => { finishIntro(); typeGeo(); } });
         // El fondo del intro se desvanece y la página aparece debajo
         tlExit.to('.intro__bgfx', { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 0.15)
@@ -647,8 +667,10 @@
           const vr = video.getBoundingClientRect();
           const lr = navLogo.getBoundingClientRect();
           const aspect = flyImg.naturalHeight / flyImg.naturalWidth;
-          // rect inicial: sobre el logo del video (~62% del ancho del cuadro, centrado)
-          const w0 = vr.width * 0.62;
+          // rect inicial: sobre el logo del video. El logo ocupa ~83% del cuadro, y otro
+          // ~83% dentro de logo.webp (el resto es margen), así que a ancho completo del
+          // cuadro ambos calzan y el cruce no salta.
+          const w0 = vr.width;
           const h0 = w0 * aspect;
           // rect final: mismo alto que el logo del navbar, centrado sobre él
           const hf = lr.height;
@@ -694,107 +716,15 @@
         if (video.currentTime === lastT) { stalledTicks++; } else { stalledTicks = 0; lastT = video.currentTime; }
         if (stalledTicks >= 3) exitIntro();
       }, 1000);
-      setTimeout(exitIntro, 12000); // red de seguridad absoluta
+      setTimeout(exitIntro, 14000); // red de seguridad absoluta (el video dura 10s)
 
       const skip = () => exitIntro();
       const onKey = (e) => {
         if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
       };
-      const isTouch = window.matchMedia('(pointer: coarse)').matches;
-      const skipBtn = document.getElementById('introSkip');
-      function removeSkip() {
-        window.removeEventListener('wheel', skip);
-        window.removeEventListener('touchstart', skip);
-        introEl.removeEventListener('click', skip);
-        if (skipBtn) skipBtn.removeEventListener('click', skip);
-        window.removeEventListener('keydown', onKey);
-      }
-      if (!isTouch) {
-        window.addEventListener('wheel', skip, { passive: true, once: true });
-        window.addEventListener('touchstart', skip, { passive: true, once: true });
-        introEl.addEventListener('click', skip);
-      } else if (skipBtn) {
-        skipBtn.addEventListener('click', skip);
-      }
-      window.addEventListener('keydown', onKey);
-
-    } catch (err) {
-      finishIntro();
-      startHeroDirect();
-    }
-  };
-
-  /* eslint-disable no-unused-vars */
-  const runIntroLegacy = () => {
-    try {
-      window.scrollTo(0, 0);
-      if (lenis) lenis.stop();
-
-      const introCam = document.getElementById('introCamera');
-      const heroVisual = document.querySelector('.hero__visual');
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      gsap.set(heroVisual, { scale: 1 });
-
-      let done = false;
-      const endNow = () => {
-        if (done) return; done = true;
-        removeSkip();
-        finishIntro();
-        heroTextTl.play(0);
-        typeGeo();
-      };
-
-      const tl = gsap.timeline({ onComplete: endNow });
-
-      /* --- Entrada de la escena (compartida) --- */
-      tl.fromTo('.intro__ring', { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.5, stagger: 0.16, ease: 'power2.out' })
-        .fromTo('.intro__glow', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 1.5, ease: 'power2.out' }, 0.1)
-        .fromTo(introCam,       { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 1.4, ease: 'power3.out' }, 0.3)
-        .fromTo('.intro__char', { yPercent: 120, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.085, ease: 'power4.out' }, 0.65)
-        .fromTo('.intro__sub',  { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.85 }, '-=0.45')
-        .fromTo('.intro__skip', { opacity: 0 }, { opacity: 1, duration: 0.6 }, '-=0.45')
-        .to({}, { duration: isMobile ? 1.7 : 2.2 }); // sostener
-
-      tl.addLabel('exit');
-
-      if (isMobile) {
-        /* --- Salida MÓVIL: zoom cinematográfico de la cámara + fundido al hero
-               (sin morph, robusto en teléfonos) --- */
-        tl.to('.intro__skip',  { opacity: 0, duration: 0.3 }, 'exit')
-          .to('.intro__brand', { opacity: 0, y: -28, duration: 0.6, ease: 'power2.in' }, 'exit')
-          .to('.intro__rings', { scale: 1.9, opacity: 0, duration: 1.0, ease: 'power2.in' }, 'exit')
-          .to('.intro__glow',  { scale: 1.7, opacity: 0, duration: 1.0, ease: 'power2.in' }, 'exit')
-          .to(introCam,        { scale: 1.8, y: -6, duration: 1.05, ease: 'power2.in' }, 'exit')
-          .to(heroVisual,      { opacity: 1, duration: 0.6, ease: 'power2.out' }, 'exit+=0.6')
-          .call(revealHUD, null, 'exit+=0.6')
-          .to('.intro',        { opacity: 0, duration: 0.65, ease: 'power2.inOut' }, 'exit+=0.72');
-      } else {
-        /* --- Salida ESCRITORIO: morph de la cámara hacia el hero --- */
-        const heroCam = document.querySelector('.hero__camera');
-        const ir = introCam.getBoundingClientRect();
-        const hr = heroCam.getBoundingClientRect();
-        const scaleTarget = (ir.width ? hr.width / ir.width : 1) || 1;
-        const dx = (hr.left + hr.width / 2) - (ir.left + ir.width / 2);
-        const dy = (hr.top + hr.height / 2) - (ir.top + ir.height / 2);
-        tl.to('.intro__brand', { opacity: 0, y: -36, duration: 0.6, ease: 'power2.in' }, 'exit')
-          .to('.intro__rings', { opacity: 0, duration: 0.6 }, 'exit')
-          .to('.intro__glow',  { opacity: 0, duration: 0.6 }, 'exit')
-          .to('.intro__skip',  { opacity: 0, duration: 0.3 }, 'exit')
-          .to(introCam,        { x: dx, y: dy, scale: scaleTarget, duration: 1.3, ease: 'power3.inOut' }, 'exit+=0.15')
-          .to('.intro__bg',    { opacity: 0, duration: 0.8 }, 'exit+=0.5')
-          .to(heroVisual,      { opacity: 1, duration: 0.6, ease: 'power2.out' }, 'exit+=0.95')
-          .call(revealHUD, null, 'exit+=0.95')
-          .to(introCam,        { opacity: 0, duration: 0.45, ease: 'power2.out' }, 'exit+=1.1')
-          .to('.intro',        { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 'exit+=1.15');
-      }
-
-      const skip = () => { if (!done) tl.progress(1); };
-      const onKey = (e) => {
-        if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skip(); }
-      };
-      /* En pantallas táctiles cualquier roce disparaba touchstart y saltaba
-         el intro al instante (y quedaba marcado como visto en la sesión).
-         En táctil solo el botón "Saltar intro" lo omite. */
+      /* En pantallas táctiles cualquier roce disparaba touchstart y saltaba el intro
+         al instante (y quedaba marcado como visto en la sesión). En táctil solo el
+         botón "Saltar intro" lo omite. */
       const isTouch = window.matchMedia('(pointer: coarse)').matches;
       const skipBtn = document.getElementById('introSkip');
       function removeSkip() {

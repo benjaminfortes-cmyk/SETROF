@@ -231,73 +231,6 @@ html.intro-play .intro {
   background: radial-gradient(circle at 50% 42%, #0b1730 0%, #05070d 72%);
   overflow: hidden;
 }
-.intro__bg {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(34, 211, 238,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238,.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 40%, transparent 100%);
-  pointer-events: none;
-}
-.intro__glow {
-  position: absolute;
-  top: 38%; left: 50%;
-  width: min(70vw, 620px); height: min(70vw, 620px);
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--blue-glow) 0%, transparent 62%);
-  filter: blur(30px);
-  pointer-events: none;
-}
-.intro__rings { position: absolute; top: 38%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-.intro__ring {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 1px solid rgba(34, 211, 238, .22);
-}
-.intro__ring:nth-child(1) { width: 340px; height: 340px; }
-.intro__ring:nth-child(2) { width: 500px; height: 500px; border-style: dashed; }
-.intro__ring:nth-child(3) { width: 680px; height: 680px; border-color: rgba(34, 211, 238,.12); }
-.intro__camera {
-  position: relative; z-index: 3;
-  width: min(56vw, 380px);
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .65));
-  will-change: transform;
-}
-.intro__brand { position: relative; z-index: 4; text-align: center; }
-.intro__name {
-  font-family: var(--ff-display);
-  font-weight: 600;
-  font-size: clamp(3.4rem, 16vw, 11rem);
-  line-height: .92;
-  letter-spacing: .04em;
-  color: #ffffff;   /* intro permanece oscuro: texto blanco */
-  display: flex;
-  justify-content: center;
-  overflow: hidden;            /* máscara para el reveal letra por letra */
-  padding: 0 .08em;
-}
-.intro__char { display: inline-block; will-change: transform; }
-.intro__sub {
-  font-family: var(--ff-title);
-  font-weight: 700;
-  font-size: clamp(.9rem, 2.4vw, 1.4rem);
-  letter-spacing: .55em;
-  text-indent: .55em;
-  color: var(--blue-light);
-  margin-top: 14px;
-}
-.intro__tag {
-  font-family: var(--ff-body);
-  font-size: clamp(.78rem, 1.6vw, .98rem);
-  letter-spacing: .1em;
-  color: var(--text-dim);
-  margin-top: 12px;
-  text-transform: uppercase;
-}
 .intro__skip {
   position: absolute;
   bottom: 30px; right: 32px;
@@ -318,19 +251,11 @@ html.intro-play .intro {
 .intro__skip { color: rgba(255,255,255,.6); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.05); }
 .intro__skip:hover { color: #ffffff; border-color: rgba(255,255,255,.4); }
 
-/* Pre-ocultar los elementos animados del intro para evitar parpadeo
-   antes de que GSAP tome control (se revelan con fromTo en el JS). */
-html.intro-play .intro__ring,
-html.intro-play .intro__glow,
-html.intro-play .intro__camera,
-html.intro-play .intro__char,
-html.intro-play .intro__sub,
-html.intro-play .intro__tag,
+/* Pre-ocultar para evitar parpadeo antes de que GSAP tome el control */
 html.intro-play .intro__skip { opacity: 0; }
 
-/* Intro con VIDEO del logo (la escena GSAP anterior quedó comentada en index.html).
-   El video es logo negro sobre blanco: con mix-blend-mode multiply el blanco se
-   funde con el fondo y solo se ve el logo animado, sin bordes.
+/* Intro: video del logo, negro sobre blanco. Con mix-blend-mode multiply el blanco
+   se funde con el fondo y solo se ve el logo animado, sin bordes.
    El fondo vive en .intro__bgfx (capa aparte) para poder desvanecerlo mientras
    el logo "vuela" hacia el logo de la top bar al terminar. */
 html.intro-play .intro--video { background: none; }
@@ -339,7 +264,7 @@ html.intro-play .intro--video { background: none; }
   background: radial-gradient(circle at 50% 45%, #ffffff 0%, #f2f7fd 48%, #dfeaf7 100%);
 }
 .intro__bgfx::before {
-  /* cuadrícula sutil, como la intro original */
+  /* cuadrícula sutil */
   content: ''; position: absolute; inset: 0;
   background-image:
     linear-gradient(rgba(14, 165, 233, .05) 1px, transparent 1px),
@@ -363,8 +288,9 @@ html.intro-play .intro--video { background: none; }
   aspect-ratio: 16 / 9;
   object-fit: contain;
   mix-blend-mode: multiply;
-  /* el video trae barras negras laterales en sus frames: se recortan */
-  clip-path: inset(0 14%);
+  /* el fondo del video es casi blanco (~250), no blanco: sin este brillo el multiply
+     lo deja como un recuadro gris sobre el fondo de la página */
+  filter: brightness(1.05);
 }
 /* Logo real (mismo del navbar) que "vuela" a la top bar al terminar el video */
 .intro__flylogo {
@@ -1702,10 +1628,6 @@ html.intro-play .intro--video .intro__skip:hover { color: #0c1626; border-color:
   .wa-float { bottom: 20px; right: 20px; width: 56px; height: 56px; }
   .wa-float i { font-size: 1.7rem; }
 
-  .intro__camera { width: min(76vw, 340px); }
-  .intro__ring:nth-child(1) { width: 250px; height: 250px; }
-  .intro__ring:nth-child(2) { width: 360px; height: 360px; }
-  .intro__ring:nth-child(3) { width: 480px; height: 480px; }
   .intro__skip { bottom: 22px; right: 20px; }
 }
 
