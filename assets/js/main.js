@@ -14,7 +14,7 @@
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let lenis = null; // se asigna más abajo si procede
+  let lenis = null;
 
   const copyYear = document.getElementById('copyYear');
   if (copyYear) copyYear.textContent = new Date().getFullYear();
@@ -315,7 +315,7 @@
     opacity: 1, scale: 1, duration: quick ? 0.6 : 1.1, ease: 'power3.out'
   });
 
-  /* Usamos gsap.matchMedia para limitar efectos por viewport */
+  /* Cada efecto se monta solo en el viewport donde tiene sentido */
   const mm = gsap.matchMedia();
 
   /* Parallax de scroll en el fondo*/
@@ -953,7 +953,7 @@
     render();
   })();
 
-  /* 4.1 Cuenta regresiva al verano (21 de diciembre) */
+  /* Cuenta regresiva al verano (21 de diciembre) */
   (function () {
     var daysEl = document.getElementById('ppCountDays');
     var wrap = document.getElementById('ppCount');
@@ -965,7 +965,7 @@
     wrap.hidden = false;
   })();
 
-  /* 4.2 Timeline de semanas: se llena al entrar en pantalla */
+  /* Timeline de semanas: se llena al entrar en pantalla */
   (function () {
     var wk = document.getElementById('ppWeeks');
     if (!wk) return;
@@ -978,7 +978,7 @@
     io.observe(wk);
   })();
 
-  /* 4.3 Ondas de agua al hacer clic/tocar el hero */
+  /* Ondas de agua al hacer clic/tocar el hero */
   (function () {
     var hero = document.querySelector('.pp-hero');
     if (!hero) return;
@@ -994,7 +994,7 @@
     });
   })();
 
-  /* 4.4 "Arma tu piscina" — pre-cotizador sin precios */
+  /* "Arma tu piscina" — pre-cotizador sin precios */
   (function () {
     var list = document.getElementById('pbTicketList');
     if (!list) return;
