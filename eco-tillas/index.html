@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ECOTILLAS · Renueva tus pasos</title>
+<meta name="description" content="Lavado full, blanqueamiento de suela y restauración de zapatillas. Renueva tus pasos y alarga la vida útil de tus zapatillas. Retiro gratis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0D1310;
+  --ink-2:#18211B;
+  --paper:#F3F6EE;
+  --paper-2:#E9EFE2;
+  --eco:#2CC42C;
+  --eco-2:#16A34A;
+  --forest:#0A2E1E;
+  --forest-2:#0E3B27;
+  --lime:#C6F24E;
+  --mist:#DCE6D8;
+  --stone:#5B6B5E;
+  --card:#FFFFFF;
+  --r:18px;
+  --shadow:6px 7px 0 var(--ink);
+  --shadow-eco:6px 7px 0 var(--eco-2);
+  --maxw:1180px;
+  --font-d:"Archivo",system-ui,sans-serif;
+  --font-b:"Manrope",system-ui,sans-serif;
+  --font-m:"Space Mono",ui-monospace,monospace;
+  --font-s:"Permanent Marker",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-b);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--font-d);line-height:1.02;margin:0;letter-spacing:-.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-family:var(--font-s);color:var(--eco-2);font-size:19px;
+  letter-spacing:.02em;display:inline-flex;align-items:center;gap:9px;transform:rotate(-1.5deg);
+}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--eco);border-radius:2px}
+.btn{
+  font-family:var(--font-d);font-weight:800;font-size:16px;letter-spacing:.01em;
+  display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:14px;
+  border:2.5px solid var(--ink);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease;
+  background:var(--card);color:var(--ink);box-shadow:4px 5px 0 var(--ink);white-space:nowrap;
+}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 7px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn--wa{background:var(--eco);color:#062611}
+.btn--dark{background:var(--ink);color:var(--paper);box-shadow:4px 5px 0 var(--eco-2)}
+.btn--dark:hover{box-shadow:6px 7px 0 var(--eco-2)}
+.btn:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+
+/* ---------- top bar ---------- */
+.topbar{background:var(--forest);color:#dff5e6;font-size:13.5px;font-weight:600}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:9px 24px;flex-wrap:wrap}
+.topbar b{color:#fff}
+.topbar .tb-r{display:flex;gap:20px;align-items:center}
+.topbar a{display:inline-flex;align-items:center;gap:7px}
+.topbar a:hover{color:var(--lime)}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(243,246,238,.86);backdrop-filter:blur(10px);border-bottom:2px solid var(--ink)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-logo{height:70px;width:auto;display:block;transition:transform .2s ease}
+.brand:hover .brand-logo{transform:translateY(-1px) scale(1.02)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-family:var(--font-d);font-weight:700;font-size:15px;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;height:3px;width:0;background:var(--eco);border-radius:2px;transition:width .2s ease}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.burger{display:none;background:none;border:2px solid var(--ink);border-radius:10px;padding:8px;cursor:pointer}
+.burger span{display:block;width:20px;height:2.5px;background:var(--ink);border-radius:2px}
+.burger span+span{margin-top:4px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:66px 0 88px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(60% 55% at 85% 8%,rgba(44,196,44,.16),transparent 60%),
+    radial-gradient(50% 40% at 5% 90%,rgba(198,242,78,.22),transparent 60%);
+}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.hero h1{font-size:clamp(42px,6.4vw,76px);font-weight:900;margin:18px 0 8px}
+.hero h1 .mk{position:relative;color:var(--eco-2);white-space:nowrap}
+.hero h1 .mk::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.03em;height:.34em;background:var(--lime);z-index:-1;border-radius:3px;transform:rotate(-1deg)}
+.hero p.lead{font-size:19px;color:#2c3830;max-width:38ch;margin:14px 0 26px}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.hero .facts{display:flex;gap:22px;margin-top:30px;flex-wrap:wrap}
+.hero .facts .f{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14.5px;color:var(--forest)}
+.hero .facts .f i{width:22px;height:22px;display:grid;place-items:center;background:var(--eco);border-radius:50%;color:#052a12;font-style:normal;font-size:13px;flex:none}
+
+/* before/after card */
+.baw{position:relative;border:3px solid var(--ink);border-radius:22px;background:
+   linear-gradient(160deg,#eaf4ec,#d6ead9);box-shadow:10px 12px 0 var(--ink);
+   padding:16px;transform:rotate(1.4deg)}
+.ba-sticker{position:absolute;top:-18px;left:-14px;background:var(--eco);color:#062611;font-family:var(--font-s);
+   font-size:16px;padding:6px 14px;border:2.5px solid var(--ink);border-radius:12px;transform:rotate(-5deg);box-shadow:3px 3px 0 var(--ink);z-index:5}
+.ba-stage{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:radial-gradient(120% 100% at 50% 20%,#f6fbf4,#dfeade);cursor:ew-resize;touch-action:none}
+.ba-stage svg{position:absolute;inset:0;width:100%;height:100%}
+.ba-clean{clip-path:inset(0 calc(100% - var(--x,55%)) 0 0)}
+.ba-dirty{filter:sepia(.55) saturate(.55) brightness(.62) contrast(1.02)}
+.ba-grime{position:absolute;inset:0;clip-path:inset(0 0 0 var(--x,55%));pointer-events:none;
+  background:
+    radial-gradient(9px 6px at 30% 40%,rgba(60,40,20,.5),transparent 70%),
+    radial-gradient(7px 5px at 62% 66%,rgba(50,35,18,.45),transparent 70%),
+    radial-gradient(6px 5px at 46% 78%,rgba(70,50,25,.4),transparent 70%),
+    radial-gradient(5px 4px at 74% 46%,rgba(55,40,20,.4),transparent 70%);}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--x,55%);width:3px;background:var(--eco);transform:translateX(-50%);z-index:6}
+.ba-knob{position:absolute;top:50%;left:var(--x,55%);width:42px;height:42px;transform:translate(-50%,-50%);
+  background:var(--eco);border:3px solid var(--ink);border-radius:50%;display:grid;place-items:center;z-index:7;box-shadow:3px 3px 0 var(--ink);color:#062611;font-weight:900;font-family:var(--font-d)}
+.ba-tags{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:space-between;padding:0 12px;z-index:6;pointer-events:none}
+.ba-tags span{font-family:var(--font-d);font-weight:800;font-size:12px;letter-spacing:.08em;padding:4px 10px;border-radius:20px;border:2px solid var(--ink);text-transform:uppercase}
+.ba-tags .t-after{background:var(--eco);color:#062611}
+.ba-tags .t-before{background:#241c12;color:#e9ddc7}
+
+/* marquee */
+.marquee{background:var(--ink);color:var(--paper);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);overflow:hidden;padding:14px 0}
+.marquee .track{display:flex;gap:44px;width:max-content;animation:slide 26s linear infinite;font-family:var(--font-d);font-weight:800;font-size:18px;letter-spacing:.04em;text-transform:uppercase}
+.marquee .track span{display:inline-flex;align-items:center;gap:44px;color:var(--paper)}
+.marquee .track span::after{content:"●";color:var(--eco);font-size:12px}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- section shell ---------- */
+section{position:relative}
+.block{padding:88px 0}
+.sec-head{max-width:640px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(32px,4.6vw,52px);font-weight:900;margin:12px 0 0;letter-spacing:-.02em}
+.sec-head p{color:var(--stone);font-size:18px;margin:14px 0 0}
+
+/* servicios cards */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.svc{background:var(--card);border:2.5px solid var(--ink);border-radius:var(--r);padding:26px;box-shadow:var(--shadow);
+  transition:transform .16s ease,box-shadow .16s ease;position:relative;overflow:hidden}
+.svc:hover{transform:translate(-3px,-3px);box-shadow:9px 11px 0 var(--eco-2)}
+.svc .ic{width:52px;height:52px;border-radius:13px;background:var(--paper-2);border:2px solid var(--ink);display:grid;place-items:center;margin-bottom:16px}
+.svc .ic svg{width:28px;height:28px}
+.svc h3{font-size:22px;font-weight:800;margin-bottom:7px}
+.svc p{color:var(--stone);font-size:15.5px;margin:0}
+.svc.feat{background:var(--forest);color:var(--paper);box-shadow:6px 7px 0 var(--eco)}
+.svc.feat p{color:#bcd4c3}
+.svc.feat .ic{background:var(--forest-2);border-color:var(--lime)}
+.svc.feat:hover{box-shadow:9px 11px 0 var(--lime)}
+
+/* ---------- proceso / walking sneaker ---------- */
+.proceso{background:var(--ink);color:var(--paper);padding:96px 0 40px;overflow:hidden}
+.proceso .sec-head h2{color:var(--paper)}
+.proceso .sec-head p{color:#a9bbae}
+.proceso .eyebrow{color:var(--lime)}
+.proceso .eyebrow::before{background:var(--lime)}
+.trail{position:relative;max-width:900px;margin:20px auto 0}
+.trail-path{position:absolute;left:50%;top:0;bottom:0;width:0;border-left:4px dashed rgba(198,242,78,.32);transform:translateX(-50%);z-index:1}
+.walker{position:absolute;left:50%;top:0;width:120px;height:74px;transform:translate(-50%,0);z-index:5;will-change:transform;filter:drop-shadow(4px 8px 6px rgba(0,0,0,.5))}
+.walker svg{width:100%;height:100%}
+.steps{position:relative;z-index:3;display:flex;flex-direction:column;gap:64px;padding:20px 0 40px}
+.step{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.step.in{opacity:1;transform:none}
+.step .txt .n{font-family:var(--font-m);font-size:14px;color:var(--lime);font-weight:700;letter-spacing:.1em}
+.step .txt h3{font-size:27px;font-weight:800;margin:6px 0 8px;color:var(--paper)}
+.step .txt p{color:#a9bbae;margin:0;font-size:16px}
+.step:nth-child(even){direction:rtl}
+.step:nth-child(even) .txt,.step:nth-child(even) .card-mini{direction:ltr}
+.card-mini{background:var(--ink-2);border:2px solid rgba(198,242,78,.4);border-radius:16px;padding:22px;display:flex;align-items:center;gap:16px}
+.card-mini .foot{width:46px;height:60px;flex:none}
+.card-mini .foot svg{width:100%;height:100%}
+.card-mini b{display:block;font-family:var(--font-d);font-size:19px;color:var(--paper)}
+.card-mini span{color:#9fb2a5;font-size:14px}
+
+/* ---------- promos ---------- */
+.promos{background:linear-gradient(180deg,var(--paper),var(--paper-2))}
+.promo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.coupon{position:relative;background:var(--card);border:2.5px solid var(--ink);border-radius:20px;padding:30px 26px 26px;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .16s ease,box-shadow .16s ease}
+.coupon:hover{transform:translate(-3px,-4px);box-shadow:9px 12px 0 var(--eco-2)}
+.coupon::before,.coupon::after{content:"";position:absolute;width:26px;height:26px;background:var(--paper);
+  border:2.5px solid var(--ink);border-radius:50%;top:50%;transform:translateY(-50%)}
+.coupon::before{left:-14px}
+.coupon::after{right:-14px}
+.coupon .tag{font-family:var(--font-s);font-size:15px;color:var(--eco-2);transform:rotate(-2deg)}
+.coupon h3{font-size:25px;font-weight:900;margin:6px 0 10px;line-height:1.05}
+.coupon .desc{color:var(--stone);font-size:15px;flex:1;margin:0 0 18px}
+.coupon .perf{border-top:2px dashed var(--mist);margin:0 0 16px}
+.coupon .price{font-family:var(--font-m);font-weight:700;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.coupon .price .cur{font-size:16px;color:var(--stone)}
+.coupon .price .amt{font-size:38px;color:var(--ink);line-height:1;letter-spacing:-.02em}
+.coupon .price .per{font-size:14px;color:var(--stone)}
+.coupon .save{margin:8px 0 0;font-size:13.5px;font-weight:700;color:var(--eco-2);display:inline-flex;align-items:center;gap:7px}
+.coupon .ref{font-size:13px;color:#9aa89e;text-decoration:line-through;margin:4px 0 0}
+.coupon .free{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-d);font-weight:800;font-size:12px;
+  text-transform:uppercase;letter-spacing:.05em;background:var(--lime);color:#243a03;border:2px solid var(--ink);border-radius:20px;padding:4px 11px;margin-top:14px;align-self:flex-start}
+.coupon .c-btn{margin-top:18px}
+.coupon.hot{background:var(--forest);color:var(--paper);box-shadow:6px 7px 0 var(--eco)}
+.coupon.hot .desc{color:#bcd4c3}
+.coupon.hot .price .amt{color:#fff}
+.coupon.hot .price .cur,.coupon.hot .price .per{color:#9fb2a5}
+.coupon.hot::before,.coupon.hot::after{background:var(--forest)}
+.coupon.hot .perf{border-color:rgba(255,255,255,.18)}
+.coupon.hot .tag{color:var(--lime)}
+.ribbon{position:absolute;top:-15px;right:16px;background:var(--eco);color:#062611;font-family:var(--font-d);font-weight:800;
+  font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:5px 14px;border:2.5px solid var(--ink);border-radius:10px;transform:rotate(3deg);box-shadow:2px 2px 0 var(--ink)}
+
+/* ---------- eco ---------- */
+.eco{background:var(--forest);color:var(--paper);overflow:hidden}
+.eco .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.eco .eyebrow{color:var(--lime)}
+.eco .eyebrow::before{background:var(--lime)}
+.eco-badge{width:62px;height:62px;border-radius:50%;background:var(--forest-2);border:2.5px solid var(--lime);display:grid;place-items:center;font-size:31px;line-height:1;box-shadow:4px 4px 0 rgba(0,0,0,.25)}
+.eco h2{font-size:clamp(30px,4.4vw,50px);font-weight:900;color:var(--paper);margin:20px 0 14px}
+.eco h2 em{font-style:normal;color:var(--lime)}
+.eco p{color:#c3d6ca;font-size:18px;max-width:44ch}
+.eco-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.eco-stats .s{background:var(--forest-2);border:2px solid rgba(198,242,78,.35);border-radius:16px;padding:22px}
+.eco-stats .s .num{font-family:var(--font-d);font-weight:900;font-size:40px;color:var(--lime);line-height:1}
+.eco-stats .s .lbl{font-size:14px;color:#bcd4c3;margin-top:6px}
+
+/* ---------- final CTA ---------- */
+.final{padding:92px 0}
+.final .box{position:relative;background:var(--eco);border:3px solid var(--ink);border-radius:26px;padding:56px 40px;text-align:center;box-shadow:10px 12px 0 var(--ink);overflow:hidden}
+.final .box::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 120% at 50% -10%,rgba(255,255,255,.35),transparent 60%);pointer-events:none}
+.final h2{font-size:clamp(30px,4.6vw,52px);font-weight:900;color:#062611;position:relative}
+.final p{color:#0c3d1c;font-size:19px;margin:14px auto 26px;max-width:46ch;font-weight:600;position:relative}
+.final .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+
+/* ---------- footer ---------- */
+.footer{background:var(--ink);color:#b9c8bd;padding:56px 0 30px}
+.footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
+.footer .brand .bt{color:#fff}
+.footer .brand p{color:#93a598;font-size:14.5px;margin:14px 0 0;max-width:34ch}
+.footer h4{font-family:var(--font-d);color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 14px}
+.footer a{display:block;color:#b9c8bd;font-size:15px;padding:5px 0}
+.footer a:hover{color:var(--lime)}
+.footer .fbar{border-top:1px solid rgba(255,255,255,.12);margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;color:#7d9084}
+
+/* whatsapp float */
+.wafloat{position:fixed;right:22px;bottom:22px;z-index:80;width:60px;height:60px;border-radius:50%;background:var(--eco);
+  border:3px solid var(--ink);display:grid;place-items:center;box-shadow:4px 5px 0 var(--ink);transition:transform .14s ease}
+.wafloat:hover{transform:translate(-2px,-2px) scale(1.03)}
+.wafloat svg{width:30px;height:30px}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero .wrap,.eco .wrap,.footer .wrap{grid-template-columns:1fr;gap:34px}
+  .svc-grid,.promo-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .burger{display:block}
+  .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:2px solid var(--ink);padding:16px 24px;gap:16px}
+  .step{grid-template-columns:1fr;gap:16px}
+  .step:nth-child(even){direction:ltr}
+  .walker{display:none}
+  .trail-path{left:14px}
+  .eco-stats{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .block{padding:64px 0}
+  .topbar .tb-l{display:none}
+  .eco-stats{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal,.step{opacity:1!important;transform:none!important}
+  .walker{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- reusable sneaker + footprint (defs) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gUpper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#41DC4F"/><stop offset="1" stop-color="#159F29"/>
+    </linearGradient>
+    <linearGradient id="gHeel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E9A35"/><stop offset="1" stop-color="#0A5A21"/>
+    </linearGradient>
+    <linearGradient id="gTongue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#35CC41"/><stop offset="1" stop-color="#198E29"/>
+    </linearGradient>
+    <linearGradient id="gMid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D9E2D4"/>
+    </linearGradient>
+    <linearGradient id="gToe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E1E9DF"/>
+    </linearGradient>
+    <linearGradient id="gSole" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#173321"/><stop offset="1" stop-color="#0A1A10"/>
+    </linearGradient>
+    <linearGradient id="gLime" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#DBFF67"/><stop offset="1" stop-color="#A6E02B"/>
+    </linearGradient>
+  </defs>
+  <symbol id="sneaker" viewBox="0 0 320 190">
+    <!-- outsole -->
+    <path d="M40 150 C29 150 25 159 31 166 C35 171 44 171 54 170 L278 168 C295 168 299 160 294 152 C291 148 285 147 277 148 L54 149 C46 149 43 149 40 150 Z" fill="url(#gSole)"/>
+    <g stroke="#2C4B37" stroke-width="3" stroke-linecap="round" opacity=".7">
+      <line x1="70" y1="152" x2="66" y2="166"/><line x1="104" y1="152" x2="100" y2="167"/>
+      <line x1="138" y1="153" x2="134" y2="167"/><line x1="172" y1="153" x2="168" y2="167"/>
+      <line x1="206" y1="153" x2="203" y2="167"/><line x1="240" y1="153" x2="237" y2="166"/>
+    </g>
+    <!-- midsole -->
+    <path d="M34 141 C24 136 29 123 45 121 C120 112 205 114 285 127 C299 131 299 147 286 149 C210 139 120 139 50 149 C38 150 30 147 34 141 Z" fill="url(#gMid)"/>
+    <path d="M40 133 C120 125 210 127 282 137" fill="none" stroke="#C7D2C2" stroke-width="2" opacity=".8"/>
+    <!-- upper -->
+    <path d="M54 125 C54 103 55 87 63 79 C71 71 90 71 102 79 C110 84 118 74 128 66 C137 59 148 61 152 73 C160 98 182 105 216 111 C250 117 271 118 286 125 C230 119 130 119 66 125 C60 125 57 125 54 125 Z" fill="url(#gUpper)"/>
+    <!-- heel counter -->
+    <path d="M54 125 C54 103 55 87 63 79 C71 71 82 72 89 78 C76 88 71 106 75 125 Z" fill="url(#gHeel)"/>
+    <!-- eyestay panel -->
+    <path d="M120 80 C133 71 152 76 158 92 C162 106 151 115 138 114 C126 112 117 98 120 80 Z" fill="url(#gHeel)" opacity=".92"/>
+    <!-- toe cap -->
+    <path d="M246 113 C266 116 277 118 286 125 C240 119 214 117 206 116 C219 112 233 112 246 113 Z" fill="url(#gToe)"/>
+    <!-- tongue -->
+    <path d="M100 82 C103 72 112 63 123 65 C128 74 124 88 113 94 C106 94 101 90 100 82 Z" fill="url(#gTongue)"/>
+    <rect x="108" y="63" width="15" height="9" rx="3.5" fill="url(#gLime)"/>
+    <!-- laces -->
+    <g stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round">
+      <line x1="120" y1="88" x2="141" y2="99"/>
+      <line x1="124" y1="80" x2="147" y2="92"/>
+      <line x1="130" y1="73" x2="152" y2="85"/>
+    </g>
+    <g fill="#0E3B27">
+      <circle cx="119" cy="89" r="2.4"/><circle cx="123" cy="80.5" r="2.4"/><circle cx="129" cy="73.5" r="2.4"/>
+      <circle cx="142" cy="99.5" r="2.4"/><circle cx="148" cy="92" r="2.4"/><circle cx="153" cy="85" r="2.4"/>
+    </g>
+    <!-- side swoosh -->
+    <path d="M80 120 C122 98 182 106 238 120" fill="none" stroke="url(#gLime)" stroke-width="9" stroke-linecap="round"/>
+    <!-- collar padding + pull tab -->
+    <path d="M60 82 C66 73 82 72 92 79" fill="none" stroke="#0E3B27" stroke-width="6" stroke-linecap="round"/>
+    <path d="M55 84 C48 82 45 75 50 71 C54 68 59 70 60 75" fill="none" stroke="url(#gLime)" stroke-width="5" stroke-linecap="round"/>
+    <!-- highlight -->
+    <path d="M70 96 C90 84 120 84 150 92" fill="none" stroke="#FFFFFF" stroke-width="2.4" opacity=".28" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="print" viewBox="0 0 62 100">
+    <path d="M31 5 C44 5 53 14 52 28 C51 41 43 48 31 48 C19 48 11 41 10 28 C9 14 18 5 31 5 Z" fill="currentColor"/>
+    <path d="M31 60 C40 60 47 67 46 77 C45 89 39 94 31 94 C23 94 17 89 16 77 C15 67 22 60 31 60 Z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-l"><b>Renueva tus pasos</b> · Lavado · Blanqueamiento · Restauración</div>
+    <div class="tb-r">
+      <a href="https://www.instagram.com/ecotillaschile/" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @ecotillaschile
+      </a>
+      <a href="https://wa.me/56900000000" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.2c-.2.6-1.2 1.2-1.7 1.2-.4 0-1 .1-3.3-.9-2.8-1.2-4.5-4-4.6-4.2-.1-.2-1.1-1.4-1.1-2.7s.7-1.9 .9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.3.1.9-.1 1.6Z"/></svg>
+        +56 9 XXXX XXXX
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="ECOTILLAS, inicio">
+      <img class="brand-logo" src="logo-t.png" alt="ECOTILLAS, renueva tus pasos">
+    </a>
+    <div class="nav-links" id="navlinks">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#promos">Promos</a>
+      <a href="#eco">Eco</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn--wa" href="https://wa.me/56900000000" target="_blank" rel="noopener">Reservar</a>
+      <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1>Tus zapas,<br>como el <span class="mk">primer día</span></h1>
+      <p class="lead">Lavado full, blanqueamiento de suela y restauración de color o gamuza. Les devolvemos la vida a tus zapatillas y alargamos su vida útil. Bueno para tu bolsillo y para el planeta.</p>
+      <div class="cta-row">
+        <a class="btn btn--wa" href="https://wa.me/56900000000" target="_blank" rel="noopener">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.2c-.2.6-1.2 1.2-1.7 1.2-.4 0-1 .1-3.3-.9-2.8-1.2-4.5-4-4.6-4.2-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.3.1.9-.1 1.6Z"/></svg>
+          Escríbenos por WhatsApp
+        </a>
+        <a class="btn" href="#promos">Ver promos ↓</a>
+      </div>
+      <div class="facts">
+        <div class="f"><i>✓</i> Retiro gratis*</div>
+        <div class="f"><i>✓</i> Blanqueamos suelas</div>
+        <div class="f"><i>✓</i> Restauramos color y gamuza</div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="baw">
+        <span class="ba-sticker">Arrastra →</span>
+        <div class="ba-stage" id="baStage" role="slider" aria-label="Comparar antes y después" aria-valuemin="0" aria-valuemax="100" aria-valuenow="55" tabindex="0">
+          <svg class="ba-dirty" aria-hidden="true"><use href="#sneaker"/></svg>
+          <div class="ba-grime" id="baGrime"></div>
+          <svg class="ba-clean" id="baClean" aria-hidden="true"><use href="#sneaker"/></svg>
+          <div class="ba-line" id="baLine"></div>
+          <div class="ba-knob" id="baKnob">⇄</div>
+          <div class="ba-tags"><span class="t-after">Después</span><span class="t-before">Antes</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- marquee -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Lavado Full</span><span>Blanqueamiento de suela</span><span>Restauración de color</span><span>Gamuza como nueva</span><span>Retiro gratis</span><span>Renueva tus pasos</span>
+    <span>Lavado Full</span><span>Blanqueamiento de suela</span><span>Restauración de color</span><span>Gamuza como nueva</span><span>Retiro gratis</span><span>Renueva tus pasos</span>
+  </div>
+</div>
+
+<!-- ============ SERVICIOS ============ -->
+<section class="block" id="servicios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Servicios que renuevan tus zapatillas</h2>
+      <p>Del lavado profundo a la restauración completa. Elige lo que tus zapas necesitan y las dejamos listas para volver a la calle.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0D1310" stroke-width="2" stroke-linecap="round"><path d="M4 12s2-6 8-6 8 6 8 6"/><path d="M4 12v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-3"/><path d="M8 12v2M12 12v2M16 12v2"/></svg></div>
+        <h3>Lavado Full</h3>
+        <p>Limpieza profunda de todo el par: upper, cordones, plantilla y entresuela. Adiós manchas y mal olor.</p>
+      </article>
+      <article class="svc reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0D1310" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.8-.5z"/></svg></div>
+        <h3>Blanqueamiento de suela</h3>
+        <p>Devolvemos el blanco original a suelas amarillentas para que luzcan como el primer día.</p>
+      </article>
+      <article class="svc feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#C6F24E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l5 5-9 9-5 1 1-5z"/><path d="M13 6l5 5"/></svg></div>
+        <h3>Restauración de color</h3>
+        <p>Repintamos y recuperamos el color de tus zapas, incluyendo gamuza y nobuk. Como recién salidas de la caja.</p>
+      </article>
+      <article class="svc reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0D1310" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10M12 16v4"/></svg></div>
+        <h3>Gamuza y nobuk</h3>
+        <p>Tratamiento especial para materiales delicados: cepillado, limpieza y realce de la textura.</p>
+      </article>
+      <article class="svc reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0D1310" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="15" height="11" rx="2"/><path d="M16 10h4l3 3v4h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></div>
+        <h3>Retiro y entrega</h3>
+        <p>Coordinamos por WhatsApp y pasamos por tus zapas. En promos seleccionadas, el retiro es gratis.</p>
+      </article>
+      <article class="svc reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0D1310" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Cuidado que dura</h3>
+        <p>Usamos productos que cuidan los materiales y prolongan la vida útil de cada par. Menos recambio, más pasos.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESO (walking sneaker) ============ -->
+<section class="proceso" id="proceso">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>4 pasos y a caminar de nuevo</h2>
+      <p>Sigue las huellas: así viajan tus zapatillas desde tu casa hasta quedar como nuevas.</p>
+    </div>
+    <div class="trail" id="trail">
+      <div class="trail-path"></div>
+      <div class="walker" id="walker"><svg aria-hidden="true"><use href="#sneaker"/></svg></div>
+      <div class="steps">
+        <div class="step">
+          <div class="txt">
+            <span class="n">PASO 01</span>
+            <h3>Coordinamos el retiro</h3>
+            <p>Escríbenos por WhatsApp, cuéntanos qué necesitan tus zapas y pactamos día y hora. Nosotros las retiramos.</p>
+          </div>
+          <div class="card-mini"><span class="foot" style="color:var(--eco)"><svg><use href="#print"/></svg></span><div><b>Retiramos</b><span>Coordinado por WhatsApp</span></div></div>
+        </div>
+        <div class="step">
+          <div class="txt">
+            <span class="n">PASO 02</span>
+            <h3>Lavado full a fondo</h3>
+            <p>Limpieza profunda del par completo: upper, cordones, plantilla y entresuela. Removemos manchas y olores.</p>
+          </div>
+          <div class="card-mini"><span class="foot" style="color:var(--lime)"><svg><use href="#print"/></svg></span><div><b>Lavamos</b><span>Limpieza profunda</span></div></div>
+        </div>
+        <div class="step">
+          <div class="txt">
+            <span class="n">PASO 03</span>
+            <h3>Blanqueamos y restauramos</h3>
+            <p>Devolvemos el blanco a la suela y restauramos color o gamuza donde haga falta. El detalle que marca la diferencia.</p>
+          </div>
+          <div class="card-mini"><span class="foot" style="color:var(--eco)"><svg><use href="#print"/></svg></span><div><b>Restauramos</b><span>Suela + color + gamuza</span></div></div>
+        </div>
+        <div class="step">
+          <div class="txt">
+            <span class="n">PASO 04</span>
+            <h3>Te las entregamos como nuevas</h3>
+            <p>Tus zapatillas vuelven a ti listas para la calle, con una vida útil renovada. A caminar de nuevo.</p>
+          </div>
+          <div class="card-mini"><span class="foot" style="color:var(--lime)"><svg><use href="#print"/></svg></span><div><b>Entregamos</b><span>Como el primer día</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMOS ============ -->
+<section class="block promos" id="promos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Promos para renovar tus pasos</h2>
+      <p>Precios claros, sin letra chica. Elige la promo que va con tus zapas y escríbenos para reservar.</p>
+    </div>
+    <div class="promo-grid">
+
+      <article class="coupon reveal">
+        <span class="tag">Promo 1 · No teníai tele 📺</span>
+        <h3>Pack familia numerosa</h3>
+        <p class="desc">Si en tu casa son varios, ésta es la promo: 5 pares con Lavado Full para dejarlos a todos impecables.</p>
+        <div class="perf"></div>
+        <div class="price"><span class="cur">$</span><span class="amt">49.990</span><span class="per">/ 5 pares</span></div>
+        <p class="save">💚 Te ahorras $14.960</p>
+        <span class="free">🚚 Retiro gratis</span>
+        <a class="btn btn--dark c-btn" href="https://wa.me/56900000000?text=Hola%20ECOTILLAS,%20quiero%20la%20Promo%201%20(Pack%20familia)" target="_blank" rel="noopener">Quiero esta promo</a>
+      </article>
+
+      <article class="coupon hot reveal">
+        <span class="ribbon">Más pedida</span>
+        <span class="tag">Promo 3 · Déjalas como nuevas</span>
+        <h3>Renovación total</h3>
+        <p class="desc">El nivel máximo: Lavado Full + Restauración de 1 color o gamuza + Blanqueamiento de suela. Como recién compradas.</p>
+        <div class="perf"></div>
+        <div class="price"><span class="cur">$</span><span class="amt">24.990</span><span class="per">/ par</span></div>
+        <p class="save" style="color:var(--lime)">💚 Te ahorras 12 lucas</p>
+        <span class="free">🚚 Retiro gratis</span>
+        <a class="btn btn--wa c-btn" href="https://wa.me/56900000000?text=Hola%20ECOTILLAS,%20quiero%20la%20Promo%203%20(Renovaci%C3%B3n%20total)" target="_blank" rel="noopener">Quiero esta promo</a>
+      </article>
+
+      <article class="coupon reveal">
+        <span class="tag">Promo 2 · Prueba de la blancura</span>
+        <h3>Suelas como el día 1</h3>
+        <p class="desc">Para los que aman ver las suelas blancas como el primer día: Blanqueamiento de suela + Lavado Full.</p>
+        <div class="perf"></div>
+        <div class="price"><span class="cur">$</span><span class="amt">14.990</span><span class="per">/ par</span></div>
+        <p class="ref">Valor ref. $16.990</p>
+        <a class="btn btn--dark c-btn" href="https://wa.me/56900000000?text=Hola%20ECOTILLAS,%20quiero%20la%20Promo%202%20(Blanqueamiento%20+%20Lavado)" target="_blank" rel="noopener">Quiero esta promo</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ ECO ============ -->
+<section class="block eco" id="eco">
+  <div class="wrap">
+    <div class="eco-copy reveal">
+      <span class="eco-badge" aria-hidden="true">♻</span>
+      <h2>Cada par que renuevas es basura que <em>no se genera</em>.</h2>
+      <p>Restaurar en vez de reemplazar alarga la vida útil de tus zapatillas y reduce el impacto de fabricar unas nuevas. Renovar tus pasos también es cuidar el planeta.</p>
+    </div>
+    <div class="eco-stats reveal">
+      <div class="s"><div class="num">+1 año</div><div class="lbl">de vida útil extra por par renovado</div></div>
+      <div class="s"><div class="num">3 en 1</div><div class="lbl">lavado, blanqueado y restauración</div></div>
+      <div class="s"><div class="num">100%</div><div class="lbl">enfoque en cuidar los materiales</div></div>
+      <div class="s"><div class="num">0</div><div class="lbl">necesidad de botar tus favoritas</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final" id="contacto">
+  <div class="wrap">
+    <div class="box reveal">
+      <h2>¿Listo para renovar tus pasos?</h2>
+      <p>Escríbenos por WhatsApp con una foto de tus zapatillas y te decimos qué promo les queda mejor. Coordinamos el retiro y las dejamos como nuevas.</p>
+      <div class="cta-row">
+        <a class="btn btn--dark" href="https://wa.me/56900000000" target="_blank" rel="noopener">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.2c-.2.6-1.2 1.2-1.7 1.2-.4 0-1 .1-3.3-.9-2.8-1.2-4.5-4-4.6-4.2-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.3.1.9-.1 1.6Z"/></svg>
+          Escríbenos por WhatsApp
+        </a>
+        <a class="btn" href="https://www.instagram.com/ecotillaschile/" target="_blank" rel="noopener">Síguenos en Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="brand">
+      <span class="bt" style="font-family:var(--font-d);font-weight:900;font-size:24px;letter-spacing:.02em">ECOTILLAS</span>
+      <p>Lavado, blanqueamiento y restauración de zapatillas. Renueva tus pasos y alarga la vida útil de tus zapas favoritas.</p>
+    </div>
+    <div>
+      <h4>Servicios</h4>
+      <a href="#servicios">Lavado Full</a>
+      <a href="#servicios">Blanqueamiento de suela</a>
+      <a href="#servicios">Restauración de color</a>
+      <a href="#servicios">Gamuza y nobuk</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <a href="https://wa.me/56900000000" target="_blank" rel="noopener">WhatsApp: +56 9 XXXX XXXX</a>
+      <a href="https://www.instagram.com/ecotillaschile/" target="_blank" rel="noopener">Instagram: @ecotillaschile</a>
+      <a href="#promos">Ver promos</a>
+    </div>
+  </div>
+  <div class="wrap fbar">
+    <span>© <span id="yr"></span> ECOTILLAS · Renueva tus pasos</span>
+    <span>Retiro gratis en promos seleccionadas · Chile</span>
+  </div>
+</footer>
+
+<a class="wafloat" href="https://wa.me/56900000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#062611"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.2c-.2.6-1.2 1.2-1.7 1.2-.4 0-1 .1-3.3-.9-2.8-1.2-4.5-4-4.6-4.2-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.3.1.9-.1 1.6Z"/></svg>
+</a>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* mobile menu */
+  var burger=document.getElementById('burger'),links=document.getElementById('navlinks');
+  burger&&burger.addEventListener('click',function(){links.classList.toggle('open')});
+  links&&links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open')})});
+
+  /* reveal on scroll */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.reveal,.step').forEach(function(el){io.observe(el)});
+
+  /* before/after slider */
+  var stage=document.getElementById('baStage');
+  if(stage){
+    var line=document.getElementById('baLine'),knob=document.getElementById('baKnob'),
+        clean=document.getElementById('baClean'),grime=document.getElementById('baGrime');
+    function setX(px){
+      var r=stage.getBoundingClientRect();
+      var p=Math.max(4,Math.min(96,(px-r.left)/r.width*100));
+      stage.style.setProperty('--x',p+'%');
+      line.style.left=p+'%';knob.style.left=p+'%';
+      clean.style.clipPath='inset(0 '+(100-p)+'% 0 0)';
+      grime.style.clipPath='inset(0 0 0 '+p+'%)';
+      stage.setAttribute('aria-valuenow',Math.round(p));
+    }
+    stage.style.setProperty('--x','55%');
+    var drag=false;
+    function down(e){drag=true;move(e)}
+    function up(){drag=false}
+    function move(e){if(!drag)return;var x=(e.touches?e.touches[0].clientX:e.clientX);setX(x)}
+    stage.addEventListener('mousedown',down);window.addEventListener('mouseup',up);window.addEventListener('mousemove',move);
+    stage.addEventListener('touchstart',down,{passive:true});window.addEventListener('touchend',up);stage.addEventListener('touchmove',move,{passive:true});
+    stage.addEventListener('keydown',function(e){
+      var cur=parseFloat(stage.style.getPropertyValue('--x'))||55;var r=stage.getBoundingClientRect();
+      if(e.key==='ArrowLeft'){setX(r.left+r.width*(cur-4)/100)}
+      if(e.key==='ArrowRight'){setX(r.left+r.width*(cur+4)/100)}
+    });
+  }
+
+  /* walking sneaker along the trail */
+  var trail=document.getElementById('trail'),walker=document.getElementById('walker');
+  if(trail&&walker&&!reduce){
+    var ticking=false;
+    function walk(){
+      ticking=false;
+      var r=trail.getBoundingClientRect();
+      var vh=window.innerHeight;
+      // progress: 0 when trail top hits 70% of viewport, 1 when trail bottom passes 30%
+      var start=vh*0.72, end=vh*0.30;
+      var total=r.height + (start-end);
+      var passed=start - r.top;
+      var p=Math.max(0,Math.min(1,passed/ total));
+      var y=p*(r.height-70);
+      var bob=Math.sin(p*Math.PI*8)*7;        // vertical walking bounce
+      var tilt=Math.sin(p*Math.PI*8)*7;         // walking rock
+      walker.style.transform='translate(-50%,'+(y+bob)+'px) rotate('+tilt+'deg)';
+    }
+    function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(walk)}}
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll);
+    walk();
+  }
+
+  /* subtle hero sneaker parallax */
+  var baw=document.querySelector('.baw');
+  if(baw&&!reduce){
+    window.addEventListener('scroll',function(){
+      var y=window.scrollY;
+      if(y<900) baw.style.transform='rotate(1.4deg) translateY('+(y*-0.03)+'px)';
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>
